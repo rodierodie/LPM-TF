@@ -1,0 +1,113 @@
+{
+  "projects": [
+    {
+      "id": "project-1",
+      "name": "Series of posters for Pravda parties",
+      "description": "by Sasha Rezaya",
+      "images": [
+        "projects/pravda-posters-1.jpg",
+        "projects/pravda-posters-2.jpg"
+      ],
+      "usedFonts": ["lanze"],
+      "category": "poster",
+      "year": "2025",
+      "link": "https://behance.net/pravda-posters",
+      "featured": true
+    },
+    {
+      "id": "project-2", 
+      "name": "Tech Startup Branding",
+      "description": "by Creative Studio X",
+      "images": [
+        "projects/tech-startup-1.jpg",
+        "projects/tech-startup-2.jpg"
+      ],
+      "usedFonts": ["retry-sans"],
+      "category": "branding",
+      "year": "2024",
+      "link": "https://dribbble.com/tech-startup",
+      "featured": true
+    },
+    {
+      "id": "project-3",
+      "name": "Editorial Design Magazine",
+      "description": "by Design Bureau",
+      "images": [
+        "projects/editorial-1.jpg",
+        "projects/editorial-2.jpg"
+      ],
+      "usedFonts": ["lanze", "nytra-mono"],
+      "category": "editorial",
+      "year": "2024",
+      "link": "#",
+      "featured": false
+    },
+    {
+      "id": "project-4",
+      "name": "Mobile App Interface",
+      "description": "by UX Team",
+      "images": [
+        "projects/mobile-app-1.jpg"
+      ],
+      "usedFonts": ["retry-sans"],
+      "category": "digital",
+      "year": "2024",
+      "link": "#",
+      "featured": false
+    },
+    {
+      "id": "project-5",
+      "name": "Cafe Pacific Identity",
+      "description": "by Local Design Co.",
+      "images": [
+        "projects/cafe-pacific-1.jpg",
+        "projects/cafe-pacific-2.jpg"
+      ],
+      "usedFonts": ["pacific"],
+      "category": "branding",
+      "year": "2023",
+      "link": "#",
+      "featured": true
+    },
+    {
+      "id": "project-6",
+      "name": "Code Documentation",
+      "description": "by Dev Team",
+      "images": [
+        "projects/documentation-1.jpg"
+      ],
+      "usedFonts": ["nytra-mono"],
+      "category": "digital",
+      "year": "2024",
+      "link": "#",
+      "featured": false
+    }
+  ],
+  "categories": [
+    {
+      "id": "all",
+      "name": "All",
+      "count": 6
+    },
+    {
+      "id": "branding",
+      "name": "Branding",
+      "count": 2
+    },
+    {
+      "id": "poster",
+      "name": "Poster", 
+      "count": 1
+    },
+    {
+      "id": "editorial",
+      "name": "Editorial",
+      "count": 1
+    },
+    {
+      "id": "digital",
+      "name": "Digital",
+      "count": 2
+    }
+  ]
+}

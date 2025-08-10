@@ -1,0 +1,107 @@
+{
+  "letterings": [
+    {
+      "id": "lettering-1",
+      "title": "Coffee House Logo",
+      "type": "logotype",
+      "image": "lettering/coffee-house-logo.jpg",
+      "description": "Custom handwritten logotype for local coffee shop",
+      "link": "https://dribbble.com/coffee-house-logo",
+      "year": "2024",
+      "category": "logotype",
+      "featured": true
+    },
+    {
+      "id": "lettering-2", 
+      "title": "Festival Poster Typography",
+      "type": "poster",
+      "image": "lettering/festival-poster.jpg",
+      "description": "Hand-lettered typography for music festival poster",
+      "link": "https://behance.net/festival-poster",
+      "year": "2024",
+      "category": "poster",
+      "featured": true
+    },
+    {
+      "id": "lettering-3",
+      "title": "Mural Lettering Project",
+      "type": "mural", 
+      "image": "lettering/mural-project.jpg",
+      "description": "Large scale lettering for street art project",
+      "link": "#",
+      "year": "2023",
+      "category": "mural",
+      "featured": false
+    },
+    {
+      "id": "lettering-4",
+      "title": "Packaging Design Letters",
+      "type": "packaging",
+      "image": "lettering/packaging-letters.jpg", 
+      "description": "Custom lettering for premium product packaging",
+      "link": "#",
+      "year": "2024",
+      "category": "packaging",
+      "featured": true
+    },
+    {
+      "id": "lettering-5",
+      "title": "Magazine Editorial Title",
+      "type": "editorial",
+      "image": "lettering/editorial-title.jpg",
+      "description": "Hand-crafted title lettering for magazine cover",
+      "link": "#",
+      "year": "2023",
+      "category": "editorial", 
+      "featured": false
+    },
+    {
+      "id": "lettering-6",
+      "title": "Animation Lettering",
+      "type": "animation",
+      "image": "lettering/animation-lettering.gif",
+      "description": "Frame-by-frame animated lettering sequence",
+      "link": "https://vimeo.com/animation-lettering",
+      "year": "2024",
+      "category": "animation",
+      "featured": true
+    }
+  ],
+  "types": [
+    {
+      "id": "all",
+      "name": "All",
+      "count": 6
+    },
+    {
+      "id": "logotype",
+      "name": "Logotype", 
+      "count": 1
+    },
+    {
+      "id": "poster",
+      "name": "Poster",
+      "count": 1
+    },
+    {
+      "id": "mural",
+      "name": "Mural",
+      "count": 1
+    },
+    {
+      "id": "packaging",
+      "name": "Packaging",
+      "count": 1
+    },
+    {
+      "id": "editorial", 
+      "name": "Editorial",
+      "count": 1
+    },
+    {
+      "id": "animation",
+      "name": "Animation",
+      "count": 1
+    }
+  ]
+}

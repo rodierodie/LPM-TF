@@ -1,0 +1,136 @@
+/* CSS Variables - Global Design System */
+:root {
+  /* Fonts */
+  --font-primary: 'Retry Sans Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  --font-secondary: system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'LANZE', var(--font-secondary);
+  
+  /* Colors */
+  --color-bg: #ffffff;
+  --color-text: #000000;
+  --color-text-secondary: #666666;
+  --color-text-light: #999999;
+  --color-accent: #FF5733;
+  --color-border: #e0e0e0;
+  --color-border-light: #f0f0f0;
+  --color-surface: #f8f8f8;
+  --color-surface-dark: #f0f0f0;
+  
+  /* Theme Colors for Fonts */
+  --color-retiler: #000000;
+  --color-nytra: #2C3E50;
+  --color-puff: #E74C3C;
+  --color-lanze: #6C5CE7;
+  --color-retry: #FF5733;
+  --color-pacific: #00B7EB;
+  
+  /* Typography Scale */
+  --size-xs: 12px;
+  --size-small: 14px;
+  --size-base: 16px;
+  --size-large: 24px;
+  --size-xl: 32px;
+  --size-xxl: 48px;
+  --size-xxxl: 64px;
+  --size-display: 96px;
+  
+  /* Line Heights */
+  --line-tight: 1.1;
+  --line-normal: 1.5;
+  --line-relaxed: 1.6;
+  --line-loose: 2.0;
+  
+  /* Letter Spacing */
+  --tracking-tight: -0.05em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.05em;
+  --tracking-wider: 0.1em;
+  
+  /* Spacing System */
+  --spacing-unit: 8px;
+  --spacing-xs: calc(var(--spacing-unit) * 1);    /* 8px */
+  --spacing-s: calc(var(--spacing-unit) * 2);     /* 16px */
+  --spacing-m: calc(var(--spacing-unit) * 3);     /* 24px */
+  --spacing-l: calc(var(--spacing-unit) * 4);     /* 32px */
+  --spacing-xl: calc(var(--spacing-unit) * 6);    /* 48px */
+  --spacing-xxl: calc(var(--spacing-unit) * 8);   /* 64px */
+  --spacing-xxxl: calc(var(--spacing-unit) * 12); /* 96px */
+  
+  /* Layout */
+  --container-mobile: 100%;
+  --container-tablet: 768px;
+  --container-desktop: 1440px;
+  --container-large: 1920px;
+  
+  /* Breakpoints */
+  --bp-mobile: 768px;
+  --bp-tablet: 1024px;
+  --bp-desktop: 1440px;
+  --bp-large: 1920px;
+  
+  /* Z-Index Scale */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal: 500;
+  --z-header: 1000;
+  --z-tooltip: 2000;
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.2s ease;
+  --transition-slow: 0.3s ease;
+  --transition-bounce: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+  
+  /* Border Radius */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 16px;
+  --radius-full: 50%;
+  
+  /* Opacity Scale */
+  --opacity-disabled: 0.5;
+  --opacity-secondary: 0.7;
+  --opacity-hover: 0.8;
+  
+  /* Font Weights */
+  --weight-thin: 100;
+  --weight-light: 200;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-black: 900;
+}
+
+/* Dark Mode Variables (Optional for future) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #1a1a1a;
+    --color-text: #ffffff;
+    --color-text-secondary: #cccccc;
+    --color-text-light: #999999;
+    --color-border: #333333;
+    --color-border-light: #2a2a2a;
+    --color-surface: #222222;
+    --color-surface-dark: #1a1a1a;
+  }
+}
+
+/* Print Variables */
+@media print {
+  :root {
+    --color-bg: #ffffff;
+    --color-text: #000000;
+    --color-text-secondary: #333333;
+    --color-accent: #000000;
+    --color-border: #cccccc;
+  }
+}

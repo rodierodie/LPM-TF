@@ -1,0 +1,111 @@
+{
+  "site": {
+    "title": "The Loveprinting Machine Type Foundry",
+    "titleShort": "TLMTF",
+    "author": "The Loveprinting Machine",
+    "description": "Contemporary typeface design and custom lettering studio specializing in functional fonts and expressive lettering projects",
+    "url": "https://loveprinting.com",
+    "email": "hello@loveprinting.com",
+    "logo": "🖨",
+    "mainVideo": "assets/video/intro.mp4",
+    "animations": {
+      "hero": "assets/animations/hero-animation.gif",
+      "variability": "assets/animations/variable-fonts.gif", 
+      "lettering": "assets/animations/lettering-process.gif"
+    },
+    "socialLinks": {
+      "telegram": "https://t.me/loveprinting",
+      "instagram": "https://instagram.com/loveprinting", 
+      "behance": "https://behance.net/loveprinting",
+      "dribbble": "https://dribbble.com/loveprinting"
+    }
+  },
+  "about": {
+    "title": "About The Loveprinting Machine",
+    "text": "I've been creating lettering and calligraphy since 2017 — hoping that this is me chosen this field but also experimenting with animated lettering frame by frame. But I'm also experimenting with animated lettering printed of created by other.\n\nThe creation of the unity platform has previously focused another angle of myself and decided to pursue qualified online learning. Since his software expertise is designing to pursue qualified online learning.",
+    "image": "assets/images/about-photo.jpg",
+    "skills": [
+      "Type Design",
+      "Custom Lettering", 
+      "Calligraphy",
+      "Animation",
+      "Brand Typography"
+    ]
+  },
+  "usp": {
+    "title": "We produce strong functional fonts to use for designers & rich typefaces, every one of the glyphs is shaped with great care and attention to details for your favourite designs.",
+    "description": "Каждый шрифт — это инструмент для решения конкретных задач",
+    "linkText": "Смотреть все шрифты",
+    "linkUrl": "#fonts"
+  },
+  "navigation": {
+    "main": [
+      {
+        "name": "All fonts",
+        "url": "index.html#fonts",
+        "section": "fonts"
+      },
+      {
+        "name": "Fonts in use", 
+        "url": "pages/fonts-in-use.html",
+        "section": "projects"
+      },
+      {
+        "name": "Custom lettering",
+        "url": "pages/lettering.html", 
+        "section": "lettering"
+      },
+      {
+        "name": "About",
+        "url": "pages/about.html",
+        "section": "about"
+      }
+    ],
+    "footer": [
+      {
+        "name": "All fonts",
+        "url": "index.html#fonts"
+      },
+      {
+        "name": "Fonts in use",
+        "url": "pages/fonts-in-use.html"
+      },
+      {
+        "name": "Custom lettering", 
+        "url": "pages/lettering.html"
+      },
+      {
+        "name": "About",
+        "url": "pages/about.html"
+      }
+    ]
+  },
+  "seo": {
+    "defaultTitle": "The Loveprinting Machine Type Foundry",
+    "titleTemplate": "%s | The Loveprinting Machine",
+    "defaultDescription": "Contemporary typeface design and custom lettering. Functional fonts with character, designed with care and attention to detail.",
+    "keywords": [
+      "type design",
+      "typography",
+      "fonts",
+      "typefaces", 
+      "custom lettering",
+      "calligraphy",
+      "variable fonts",
+      "font foundry"
+    ],
+    "ogImage": "assets/images/og-image.jpg"
+  },
+  "settings": {
+    "fontsPerPage": 12,
+    "projectsPerPage": 8,
+    "letteringPerPage": 6,
+    "enableAnimations": true,
+    "enableTypetester": true,
+    "defaultTypeSize": 48,
+    "typeTestMinSize": 12,
+    "typeTestMaxSize": 120,
+    "cookiesEnabled": false,
+    "analyticsEnabled": false
+  }
+}

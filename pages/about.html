@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | The Loveprinting Machine Type Foundry</title>
+    <meta name="description" content="About The Loveprinting Machine Type Foundry. Type design studio specializing in functional fonts and custom lettering.">
+    
+    <style>
+        :root {
+            --font-primary: 'Retry Sans Mono', monospace, system-ui;
+            --font-secondary: system-ui, -apple-system, sans-serif;
+            
+            --color-bg: #ffffff;
+            --color-text: #000000;
+            --color-text-secondary: #666666;
+            --color-accent: #FF5733;
+            --color-border: #e0e0e0;
+            
+            --size-base: 16px;
+            --size-small: 14px;
+            --size-large: 24px;
+            --size-xl: 32px;
+            --size-xxl: 48px;
+            
+            --container-desktop: 1440px;
+            --spacing-unit: 8px;
+            --spacing-s: calc(var(--spacing-unit) * 2);
+            --spacing-m: calc(var(--spacing-unit) * 3);
+            --spacing-l: calc(var(--spacing-unit) * 4);
+            --spacing-xl: calc(var(--spacing-unit) * 6);
+            --spacing-xxl: calc(var(--spacing-unit) * 8);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-secondary);
+            font-size: var(--size-base);
+            line-height: 1.5;
+            color: var(--color-text);
+            background: var(--color-bg);
+        }
+        
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        .container {
+            max-width: var(--container-desktop);
+            margin: 0 auto;
+            padding: 0 var(--spacing-l);
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+        
+        .logo {
+            font-size: var(--size-large);
+            font-weight: bold;
+        }
+        
+        .nav {
+            display: flex;
+            gap: var(--spacing-l);
+        }
+        
+        .nav a {
+            font-size: var(--size-small);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color 0.2s;
+        }
+        
+        .nav a:hover, .nav a.active {
+            color: var(--color-accent);
+        }
+        
+        /* Main */
+        .main {
+            margin-top: 60px;
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: var(--spacing-xxl) 0;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xxl);
+            align-items: start;
+        }
+        
+        .about-text {
+            max-width: 600px;
+        }
+        
+        .about-title {
+            font-size: var(--size-xxl);
+            margin-bottom: var(--spacing-xl);
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        
+        .about-paragraph {
+            font-size: var(--size-large);
+            line-height: 1.6;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-l);
+        }
+        
+        .about-paragraph:last-child {
+            margin-bottom: 0;
+        }
+        
+        .about-skills {
+            margin-top: var(--spacing-xl);
+        }
+        
+        .skills-title {
+            font-size: var(--size-large);
+            margin-bottom: var(--spacing-l);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .skills-list {
+            list-style: none;
+        }
+        
+        .skills-list li {
+            font-size: var(--size-base);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-s);
+            padding-left: var(--spacing-m);
+            position: relative;
+        }
+        
+        .skills-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--color-text);
+        }
+        
+        .about-image {
+            height: 500px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-secondary);
+            font-size: var(--size-large);
+            border: 1px solid var(--color-border);
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            padding: var(--spacing-xxl) 0;
+            background: #f8f8f8;
+            text-align: center;
+        }
+        
+        .contact-title {
+            font-size: var(--size-xl);
+            margin-bottom: var(--spacing-l);
+            font-weight: 300;
+        }
+        
+        .contact-text {
+            font-size: var(--size-large);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .contact-links {
+            display: flex;
+            gap: var(--spacing-l);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .contact-link {
+            padding: var(--spacing-m) var(--spacing-l);
+            background: white;
+            border: 1px solid var(--color-border);
+            color: var(--color-text);
+            text-transform: uppercase;
+            font-size: var(--size-small);
+            letter-spacing: 0.05em;
+            transition: all 0.2s;
+        }
+        
+        .contact-link:hover {
+            background: var(--color-text);
+            color: white;
+            border-color: var(--color-text);
+        }
+        
+        /* Process Section */
+        .process-section {
+            padding: var(--spacing-xxl) 0;
+        }
+        
+        .process-title {
+            font-size: var(--size-xl);
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            font-weight: 300;
+        }
+        
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+        }
+        
+        .process-step {
+            text-align: center;
+            padding: var(--spacing-l);
+        }
+        
+        .process-number {
+            font-size: var(--size-xxl);
+            font-weight: bold;
+            color: var(--color-accent);
+            margin-bottom: var(--spacing-l);
+        }
+        
+        .process-step-title {
+            font-size: var(--size-large);
+            margin-bottom: var(--spacing-m);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .process-description {
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            padding: var(--spacing-xxl) 0;
+            background: var(--color-text);
+            color: white;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-xl);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: var(--size-xxl);
+            font-weight: bold;
+            margin-bottom: var(--spacing-s);
+        }
+        
+        .stat-label {
+            font-size: var(--size-small);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.8;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--color-text);
+            color: var(--color-bg);
+            padding: var(--spacing-xxl) 0 var(--spacing-xl);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: var(--spacing-xxl);
+        }
+        
+        .footer-section h3 {
+            font-size: var(--size-large);
+            margin-bottom: var(--spacing-l);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: var(--spacing-s);
+        }
+        
+        .footer-links a {
+            color: #cccccc;
+            text-transform: uppercase;
+            font-size: var(--size-small);
+            letter-spacing: 0.05em;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--color-bg);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: var(--spacing-l);
+            right: var(--spacing-l);
+            width: 48px;
+            height: 48px;
+            background: var(--color-text);
+            color: var(--color-bg);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            opacity: 0;
+            pointer-events: none;
+            font-size: var(--size-large);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-m);
+            }
+            
+            .header-content {
+                height: 50px;
+            }
+            
+            .main {
+                margin-top: 50px;
+            }
+            
+            .nav {
+                gap: var(--spacing-m);
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-l);
+            }
+            
+            .about-title {
+                font-size: var(--size-xl);
+            }
+            
+            .about-paragraph {
+                font-size: var(--size-base);
+            }
+            
+            .about-image {
+                height: 300px;
+            }
+            
+            .contact-links {
+                gap: var(--spacing-m);
+            }
+            
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-l);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="../index.html">🖨</a>
+                </div>
+                <nav class="nav">
+                    <a href="../index.html#fonts">All fonts</a>
+                    <a href="fonts-in-use.html">Fonts in use</a>
+                    <a href="lettering.html">Custom lettering</a>
+                    <a href="about.html" class="active">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- About Section -->
+        <section class="about-section">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-text">
+                        <h1 class="about-title">About The Loveprinting Machine</h1>
+                        
+                        <p class="about-paragraph">I've been creating lettering and calligraphy since 2017 — hoping that this is me chosen this field but also experimenting with animated lettering frame by frame. But I'm also experimenting with animated lettering printed of created by other.</p>
+                        
+                        <p class="about-paragraph">The creation of the unity platform has previously focused another angle of myself and decided to pursue qualified online learning. Since his software expertise is designing to pursue qualified online learning.</p>
+                        
+                        <p class="about-paragraph">Hence, a blue smart font with elegantly edged icons about themselves and eventually settled another angle of myself and decided to pursue qualified online after were searching. A shared solution with script handwriting fonts, I support if it's design solution.</p>
+                        
+                        <div class="about-skills">
+                            <h2 class="skills-title">Specializations</h2>
+                            <ul class="skills-list">
+                                <li>Type Design & Font Development</li>
+                                <li>Custom Lettering & Calligraphy</li>
+                                <li>Variable Font Technology</li>
+                                <li>Brand Typography Systems</li>
+                                <li>Animated Typography</li>
+                                <li>Digital & Print Typography</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="about-image">
+                        [About Photo]
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section class="process-section">
+            <div class="container">
+                <h2 class="process-title">Design Process</h2>
+                <div class="process-grid">
+                    <div class="process-step">
+                        <div class="process-number">01</div>
+                        <h3 class="process-step-title">Research & Concept</h3>
+                        <p class="process-description">Understanding the project goals, target audience, and technical requirements to develop a strong conceptual foundation.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-number">02</div>
+                        <h3 class="process-step-title">Sketching & Development</h3>
+                        <p class="process-description">Hand-drawn explorations and digital refinement to establish the character and personality of the typeface.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-number">03</div>
+                        <h3 class="process-step-title">Technical Production</h3>
+                        <p class="process-description">Professional font production including spacing, kerning, language support, and format optimization.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-number">04</div>
+                        <h3 class="process-step-title">Testing & Refinement</h3>
+                        <p class="process-description">Rigorous testing across different contexts and applications to ensure optimal performance and readability.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">6+</div>
+                        <div class="stat-label">Typefaces Released</div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Lettering Projects</div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Languages Supported</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <div class="container">
+                <h2 class="contact-title">Let's Work Together</h2>
+                <p class="contact-text">Interested in custom typeface design, lettering projects, or have questions about existing fonts? Get in touch to discuss your project.</p>
+                
+                <div class="contact-links">
+                    <a href="mailto:hello@loveprinting.com" class="contact-link">E-mail</a>
+                    <a href="https://t.me/loveprinting" class="contact-link" target="_blank">Telegram</a>
+                    <a href="https://instagram.com/loveprinting" class="contact-link" target="_blank">Instagram</a>
+                    <a href="https://behance.net/loveprinting" class="contact-link" target="_blank">Behance</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Loveprinting Machine<br>Type Foundry</h3>
+                </div>
+                <div class="footer-section">
+                    <h3>Fonts</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Retiler</a></li>
+                        <li><a href="#">Retry Sans</a></li>
+                        <li><a href="#">Lanze</a></li>
+                        <li><a href="#">Puff</a></li>
+                        <li><a href="#">Nytra Mono</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Telegram</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Behance</a></li>
+                        <li><a href="#">E-mail</a></li>
+                    </ul>
+                </div>
+            </div>
+            <button class="back-to-top" id="backToTop">↑</button>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            initBackToTop();
+            initAnimations();
+        });
+
+        function initBackToTop() {
+            const backToTop = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+            
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        function initAnimations() {
+            // Animate stats when they come into view
+            const observerOptions = {
+                threshold: 0.5,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateStats(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const statsSection = document.querySelector('.stats-section');
+            if (statsSection) {
+                observer.observe(statsSection);
+            }
+        }
+
+        function animateStats(section) {
+            const statNumbers = section.querySelectorAll('.stat-number');
+            
+            statNumbers.forEach(stat => {
+                const finalValue = stat.textContent;
+                const numericValue = parseInt(finalValue.replace(/\D/g, ''));
+                const suffix = finalValue.replace(/\d/g, '');
+                
+                let current = 0;
+                const increment = numericValue / 60; // Animate over ~1 second at 60fps
+                
+                const animation = setInterval(() => {
+                    current += increment;
+                    if (current >= numericValue) {
+                        stat.textContent = finalValue;
+                        clearInterval(animation);
+                    } else {
+                        stat.textContent = Math.floor(current) + suffix;
+                    }
+                }, 16);
+            });
+        }
+    </script>
+</body>
+</html>

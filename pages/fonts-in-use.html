@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fonts in Use | The Loveprinting Machine Type Foundry</title>
+    <meta name="description" content="Beautiful projects using our fonts. See how designers use The Loveprinting Machine typefaces in real projects.">
+    
+    <style>
+        :root {
+            --font-primary: 'Retry Sans Mono', monospace, system-ui;
+            --font-secondary: system-ui, -apple-system, sans-serif;
+            
+            --color-bg: #ffffff;
+            --color-text: #000000;
+            --color-text-secondary: #666666;
+            --color-accent: #FF5733;
+            --color-border: #e0e0e0;
+            
+            --size-base: 16px;
+            --size-small: 14px;
+            --size-large: 24px;
+            --size-xl: 32px;
+            --size-xxl: 48px;
+            
+            --container-desktop: 1440px;
+            --spacing-unit: 8px;
+            --spacing-s: calc(var(--spacing-unit) * 2);
+            --spacing-m: calc(var(--spacing-unit) * 3);
+            --spacing-l: calc(var(--spacing-unit) * 4);
+            --spacing-xl: calc(var(--spacing-unit) * 6);
+            --spacing-xxl: calc(var(--spacing-unit) * 8);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-secondary);
+            font-size: var(--size-base);
+            line-height: 1.5;
+            color: var(--color-text);
+            background: var(--color-bg);
+        }
+        
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        .container {
+            max-width: var(--container-desktop);
+            margin: 0 auto;
+            padding: 0 var(--spacing-l);
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+        
+        .logo {
+            font-size: var(--size-large);
+            font-weight: bold;
+        }
+        
+        .nav {
+            display: flex;
+            gap: var(--spacing-l);
+        }
+        
+        .nav a {
+            font-size: var(--size-small);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color 0.2s;
+        }
+        
+        .nav a:hover, .nav a.active {
+            color: var(--color-accent);
+        }
+        
+        /* Main */
+        .main {
+            margin-top: 60px;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            padding: var(--spacing-xxl) 0;
+            text-align: center;
+            background: #f8f8f8;
+        }
+        
+        .hero-title {
+            font-size: var(--size-xxl);
+            font-weight: 300;
+            margin-bottom: var(--spacing-l);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-cta {
+            margin-top: var(--spacing-xl);
+        }
+        
+        .cta-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-s);
+            font-size: var(--size-base);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--color-text);
+            padding-bottom: 2px;
+            transition: all 0.2s;
+        }
+        
+        .cta-link:hover {
+            border-bottom-color: var(--color-accent);
+            color: var(--color-accent);
+        }
+        
+        /* Filters Section */
+        .filters-section {
+            padding: var(--spacing-xl) 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .filters-title {
+            font-size: var(--size-large);
+            margin-bottom: var(--spacing-l);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .filters-grid {
+            display: flex;
+            gap: var(--spacing-s);
+            flex-wrap: wrap;
+        }
+        
+        .filter-button {
+            padding: var(--spacing-s) var(--spacing-m);
+            background: transparent;
+            border: 1px solid var(--color-border);
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            font-size: var(--size-small);
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        
+        .filter-button:hover, .filter-button.active {
+            background: var(--color-text);
+            color: white;
+            border-color: var(--color-text);
+        }
+        
+        /* Projects Section */
+        .projects-section {
+            padding: var(--spacing-xxl) 0;
+        }
+        
+        .project-year {
+            font-size: var(--size-xl);
+            margin-bottom: var(--spacing-xl);
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .projects-grid {
+            display: grid;
+            gap: var(--spacing-xxl);
+            margin-bottom: var(--spacing-xxl);
+        }
+        
+        .project-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            align-items: center;
+        }
+        
+        .project-card:nth-child(even) {
+            direction: rtl;
+        }
+        
+        .project-card:nth-child(even) > * {
+            direction: ltr;
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 400px;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-secondary);
+            font-size: var(--size-large);
+        }
+        
+        .project-info {
+            padding: var(--spacing-l);
+        }
+        
+        .project-title {
+            font-size: var(--size-xl);
+            margin-bottom: var(--spacing-s);
+            font-weight: 300;
+        }
+        
+        .project-author {
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-l);
+            font-size: var(--size-large);
+        }
+        
+        .project-font {
+            font-size: var(--size-small);
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--spacing-s);
+        }
+        
+        .project-font-name {
+            color: var(--color-text);
+            font-weight: 500;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-s);
+            font-size: var(--size-small);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text-secondary);
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s;
+            margin-top: var(--spacing-m);
+        }
+        
+        .project-link:hover {
+            color: var(--color-text);
+            border-bottom-color: var(--color-text);
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-xxl) 0;
+            color: var(--color-text-secondary);
+        }
+        
+        .empty-state h3 {
+            font-size: var(--size-large);
+            margin-bottom: var(--spacing-s);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--color-text);
+            color: var(--color-bg);
+            padding: var(--spacing-xxl) 0 var(--spacing-xl);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: var(--spacing-xxl);
+        }
+        
+        .footer-section h3 {
+            font-size: var(--size-large);
+            margin-bottom: var(--spacing-l);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: var(--spacing-s);
+        }
+        
+        .footer-links a {
+            color: #cccccc;
+            text-transform: uppercase;
+            font-size: var(--size-small);
+            letter-spacing: 0.05em;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--color-bg);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: var(--spacing-l);
+            right: var(--spacing-l);
+            width: 48px;
+            height: 48px;
+            background: var(--color-text);
+            color: var(--color-bg);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            opacity: 0;
+            pointer-events: none;
+            font-size: var(--size-large);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-m);
+            }
+            
+            .header-content {
+                height: 50px;
+            }
+            
+            .main {
+                margin-top: 50px;
+            }
+            
+            .nav {
+                gap: var(--spacing-m);
+            }
+            
+            .hero-title {
+                font-size: var(--size-xl);
+            }
+            
+            .filters-grid {
+                gap: var(--spacing-s);
+            }
+            
+            .project-card {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-l);
+            }
+            
+            .project-card:nth-child(even) {
+                direction: ltr;
+            }
+            
+            .project-image {
+                height: 250px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-l);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="../index.html">🖨</a>
+                </div>
+                <nav class="nav">
+                    <a href="../index.html#fonts">All fonts</a>
+                    <a href="fonts-in-use.html" class="active">Fonts in use</a>
+                    <a href="lettering.html">Custom lettering</a>
+                    <a href="about.html">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Here are some beautiful projects using our fonts. You can go check out our font in use section and don't forget to send us your projects using our fonts to get featured.</h1>
+                <div class="hero-cta">
+                    <a href="#contact" class="cta-link">
+                        Send your in use →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filters Section -->
+        <section class="filters-section">
+            <div class="container">
+                <h2 class="filters-title">Filters</h2>
+                <div class="filters-grid" id="filtersGrid">
+                    <button class="filter-button active" data-filter="all">All</button>
+                    <button class="filter-button" data-filter="lanze">Lanze</button>
+                    <button class="filter-button" data-filter="puff">Puff</button>
+                    <button class="filter-button" data-filter="retry">Retry</button>
+                    <button class="filter-button" data-filter="nytra">Nytra</button>
+                    <button class="filter-button" data-filter="pacific">Pacific</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects-section">
+            <div class="container">
+                <div id="projectsContainer">
+                    <!-- Projects will be loaded here -->
+                </div>
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <h3>No projects found</h3>
+                    <p>Try selecting a different filter or view all projects.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Loveprinting Machine<br>Type Foundry</h3>
+                </div>
+                <div class="footer-section">
+                    <h3>Fonts</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Retiler</a></li>
+                        <li><a href="#">Retry Sans</a></li>
+                        <li><a href="#">Lanze</a></li>
+                        <li><a href="#">Puff</a></li>
+                        <li><a href="#">Nytra Mono</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Telegram</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Behance</a></li>
+                        <li><a href="#">E-mail</a></li>
+                    </ul>
+                </div>
+            </div>
+            <button class="back-to-top" id="backToTop">↑</button>
+        </div>
+    </footer>
+
+    <script>
+        // Sample projects data (would be loaded from JSON)
+        const projectsData = [
+            {
+                id: "project-1",
+                name: "Series of posters for Pravda parties",
+                author: "by Sasha Rezaya",
+                year: "2025",
+                usedFonts: ["lanze"],
+                category: "poster",
+                link: "https://behance.net/pravda-posters"
+            },
+            {
+                id: "project-2",
+                name: "Series of posters for Pravda parties",
+                author: "by Sasha Rezaya", 
+                year: "2025",
+                usedFonts: ["lanze"],
+                category: "poster",
+                link: "https://behance.net/pravda-posters-2"
+            },
+            {
+                id: "project-3",
+                name: "Series of posters for Pravda parties",
+                author: "by Sasha Rezaya",
+                year: "2025", 
+                usedFonts: ["lanze"],
+                category: "poster",
+                link: "https://behance.net/pravda-posters-3"
+            },
+            {
+                id: "project-4",
+                name: "Tech Startup Branding",
+                author: "by Creative Studio X",
+                year: "2024",
+                usedFonts: ["retry"],
+                category: "branding",
+                link: "https://dribbble.com/tech-startup"
+            },
+            {
+                id: "project-5",
+                name: "Mobile App Interface",
+                author: "by UX Team",
+                year: "2024",
+                usedFonts: ["retry"],
+                category: "digital",
+                link: "#"
+            },
+            {
+                id: "project-6",
+                name: "Editorial Design Magazine",
+                author: "by Design Bureau",
+                year: "2024",
+                usedFonts: ["nytra"],
+                category: "editorial",
+                link: "#"
+            },
+            {
+                id: "project-7",
+                name: "Cafe Pacific Identity",
+                author: "by Local Design Co.",
+                year: "2023",
+                usedFonts: ["pacific"],
+                category: "branding",
+                link: "#"
+            },
+            {
+                id: "project-8",
+                name: "Festival Poster Design",
+                author: "by Creative Collective",
+                year: "2023",
+                usedFonts: ["puff"],
+                category: "poster",
+                link: "#"
+            }
+        ];
+
+        let currentFilter = 'all';
+        let filteredProjects = projectsData;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            initFilters();
+            loadProjects();
+            initBackToTop();
+        });
+
+        function initFilters() {
+            const filterButtons = document.querySelectorAll('.filter-button');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Update current filter
+                    currentFilter = this.dataset.filter;
+                    
+                    // Filter and reload projects
+                    filterProjects();
+                    loadProjects();
+                });
+            });
+        }
+
+        function filterProjects() {
+            if (currentFilter === 'all') {
+                filteredProjects = projectsData;
+            } else {
+                filteredProjects = projectsData.filter(project => 
+                    project.usedFonts.some(font => 
+                        font.toLowerCase().includes(currentFilter.toLowerCase())
+                    )
+                );
+            }
+        }
+
+        function loadProjects() {
+            const projectsContainer = document.getElementById('projectsContainer');
+            const emptyState = document.getElementById('emptyState');
+            
+            projectsContainer.innerHTML = '';
+            
+            if (filteredProjects.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            } else {
+                emptyState.style.display = 'none';
+            }
+            
+            // Group projects by year
+            const projectsByYear = filteredProjects.reduce((acc, project) => {
+                if (!acc[project.year]) {
+                    acc[project.year] = [];
+                }
+                acc[project.year].push(project);
+                return acc;
+            }, {});
+            
+            // Sort years in descending order
+            const sortedYears = Object.keys(projectsByYear).sort((a, b) => b - a);
+            
+            sortedYears.forEach(year => {
+                // Create year section
+                const yearSection = document.createElement('div');
+                yearSection.innerHTML = `<h2 class="project-year">${year}</h2>`;
+                
+                const projectsGrid = document.createElement('div');
+                projectsGrid.className = 'projects-grid';
+                
+                projectsByYear[year].forEach(project => {
+                    const projectCard = document.createElement('div');
+                    projectCard.className = 'project-card';
+                    projectCard.innerHTML = `
+                        <div class="project-image">
+                            [Project Image]
+                        </div>
+                        <div class="project-info">
+                            <h3 class="project-title">${project.name}</h3>
+                            <p class="project-author">${project.author}</p>
+                            <div class="project-font">
+                                Font in use:<br>
+                                <span class="project-font-name">${project.usedFonts.join(', ')}</span>
+                            </div>
+                            <a href="${project.link}" class="project-link" target="_blank">
+                                Link →
+                            </a>
+                        </div>
+                    `;
+                    
+                    projectsGrid.appendChild(projectCard);
+                });
+                
+                yearSection.appendChild(projectsGrid);
+                projectsContainer.appendChild(yearSection);
+            });
+        }
+
+        function initBackToTop() {
+            const backToTop = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+            
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+    </script>
+</body>
+</html>

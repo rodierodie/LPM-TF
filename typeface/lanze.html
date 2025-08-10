@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LANZE | The Loveprinting Machine Type Foundry</title>
+    <meta name="description" content="LANZE - Contemporary sans serif with variable axes. 4 styles available.">
+    
+    <style>
+        :root {
+            --font-primary: 'LANZE', system-ui, sans-serif;
+            --font-secondary: system-ui, -apple-system, sans-serif;
+            
+            --color-bg: #ffffff;
+            --color-text: #000000;
+            --color-text-secondary: #666666;
+            --color-accent: #6C5CE7;
+            --color-border: #e0e0e0;
+            --color-purple: #6C5CE7;
+            
+            --size-base: 16px;
+            --size-small: 14px;
+            --size-large: 24px;
+            --size-xl: 32px;
+            --size-xxl: 48px;
+            
+            --container-desktop: 1440px;
+            --spacing-unit: 8px;
+            --spacing-s: calc(var(--spacing-unit) * 2);
+            --spacing-m: calc(var(--spacing-unit) * 3);
+            --spacing-l: calc(var(--spacing-unit) * 4);
+            --spacing-xl: calc(var(--spacing-unit) * 6);
+            --spacing-xxl: calc(var(--spacing-unit) * 8);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-secondary);
+            font-size: var(--size-base);
+            line-height: 1.5;
+            color: var(--color-text);
+            background: var(--color-bg);
+        }
+        
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        .container {
+            max-width: var(--container-desktop);
+            margin: 0 auto;
+            padding: 0 var(--spacing-l);
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+        
+        .logo {
+            font-size: var(--size-large);
+            font-weight: bold;
+        }
+        
+        .nav {
+            display: flex;
+            gap: var(--spacing-l);
+        }
+        
+        .nav a {
+            font-size: var(--size-small);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color 0.2s;
+        }
+        
+        .nav a:hover, .nav a.active {
+            color: var(--color-accent);
+        }
+        
+        /* Main */
+        .main {
+            margin-top: 60px;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: var(--color-purple);
+            color: white;
+            padding: var(--spacing-xxl) 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%236C5CE7" width="1200" height="600"/><path fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2" d="M0,300 Q300,100 600,300 T1200,300"/></svg>') no-repeat center;
+            background-size: cover;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-family: var(--font-primary);
+            font-size: 120px;
+            font-weight: bold;
+            line-height: 0.9;
+            margin-bottom: var(--spacing-m);
+            letter-spacing: 0.02em;
+        }
+        
+        .hero-subtitle {
+            font-size: var(--size-large);
+            opacity: 0.9;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .hero-links {
+            display: flex;
+            gap: var(--spacing-l);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .hero-link {
+            padding: var(--spacing-m) var(--spacing-l);
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            text-transform: uppercase;
+            font-size: var(--size-small);
+            letter-spacing: 0.05em;
+            transition: all 0.2s;
+        }
+        
+        .hero-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: var(--spacing-xxl) 0;
+            background: #f8f8f8;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xxl);
+            align-items: center;
+        }
+        
+        .about-text h2 {
+            font-size: var(--size-xl);
+            margin-bottom: var(--spacing-l);
+            font-weight: 300;
+        }
+        
+        .about-text p {
+            font-size: var(--size-large);
+            line-height: 1.6;
+            color: var(--color-text-secondary);
+        }
+        
+        .about-image {
+            height: 400px;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-secondary);
+        }
+        
+        /* Typetester Section */
+        .typetester-section {
+            padding: var(--spacing-xxl) 0;
+        }
+        
+        .typetester-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .typetester-title {
+            font-size: var(--size-xl);
+            margin-bottom: var(--spacing-m);
+        }
+        
+        .typetester-subtitle {
+            color: var(--color-text-secondary);
+            font-size: var(--size-large);
+        }
+        
+        .typetester {
+            background: #f8f8f8;
+            padding: var(--spacing-xl);
+            border-radius: 8px;
+        }
+        
+        .typetester-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-l);
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-l);
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-s);
+        }
+        
+        .control-label {
+            font-size: var(--size-small);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+        }
+        
+        .control-input {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-s);
+        }
+        
+        .range-input {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 4px;
+            background: #ddd;
+            border-radius: 2px;
+            outline: none;
+        }
+        
+        .range-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: var(--color-purple);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .range-input::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: var(--color-purple);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .range-value {
+            font-size: var(--size-small);
+            font-weight: 500;
+            min-width: 40px;
+            text-align: right;
+        }
+        
+        .select-input {
+            padding: var(--spacing-s);
+            border: 1px solid var(--color-border);
+            background: white;
+            font-family: inherit;
+            font-size: var(--size-small);
+        }
+        
+        .text-input {
+            padding: var(--spacing-s);
+            border: 1px solid var(--color-border);
+            background: white;
+            font-family: inherit;
+            font-size: var(--size-small);
+            grid-column: 1 / -1;
+        }
+        
+        .typetester-display {
+            background: white;
+            padding: var(--spacing-xl);
+            border-radius: 4px;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .typetester-text {
+            font-family: var(--font-primary);
+            font-size: 48px;
+            line-height: 1.2;
+            text-align: center;
+            color: var(--color-text);
+            word-break: break-word;
+            transition: all 0.2s ease;
+        }
+        
+        /* Specs Section */
+        .specs-section {
+            padding: var(--spacing-xxl) 0;
+            background: #f8f8f8;
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+        }
+        
+        .spec-card {
+            background: white;
+            padding: var(--spacing-l);
+            text-align: center;
+        }
+        
+        .spec-title {
+            font-size: var(--size-large);
+            margin-bottom: var(--spacing-s);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .spec-score {
+            font-size: var(--size-xxl);
+            font-weight: bold;
+            color: var(--color-purple);
+            margin-bottom: var(--spacing-s);
+        }
+        
+        .spec-score::after {
+            content: "/10";
+            font-size: var(--size-base);
+            color: var(--color-text-secondary);
+        }
+        
+        .spec-description {
+            color: var(--color-text-secondary);
+        }
+        
+        /* Character Set */
+        .charset-section {
+            padding: var(--spacing-xxl) 0;
+        }
+        
+        .charset-title {
+            font-size: var(--size-xl);
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .charset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: var(--spacing-s);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .charset-cell {
+            aspect-ratio: 1;
+            border: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-primary);
+            font-size: var(--size-xl);
+            background: white;
+            transition: background-color 0.2s;
+        }
+        
+        .charset-cell:hover {
+            background: #f0f0f0;
+        }
+        
+        /* Links Section */
+        .links-section {
+            padding: var(--spacing-xxl) 0;
+            background: var(--color-text);
+            color: white;
+            text-align: center;
+        }
+        
+        .links-title {
+            font-size: var(--size-xl);
+            margin-bottom: var(--spacing-l);
+        }
+        
+        .links-grid {
+            display: flex;
+            gap: var(--spacing-l);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .link-card {
+            padding: var(--spacing-l) var(--spacing-xl);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            text-transform: uppercase;
+            font-size: var(--size-small);
+            letter-spacing: 0.05em;
+            transition: all 0.2s;
+        }
+        
+        .link-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--color-text);
+            color: var(--color-bg);
+            padding: var(--spacing-xxl) 0 var(--spacing-xl);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: var(--spacing-xxl);
+        }
+        
+        .footer-section h3 {
+            font-size: var(--size-large);
+            margin-bottom: var(--spacing-l);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: var(--spacing-s);
+        }
+        
+        .footer-links a {
+            color: #cccccc;
+            text-transform: uppercase;
+            font-size: var(--size-small);
+            letter-spacing: 0.05em;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--color-bg);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: var(--spacing-l);
+            right: var(--spacing-l);
+            width: 48px;
+            height: 48px;
+            background: var(--color-text);
+            color: var(--color-bg);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            opacity: 0;
+            pointer-events: none;
+            font-size: var(--size-large);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-m);
+            }
+            
+            .header-content {
+                height: 50px;
+            }
+            
+            .main {
+                margin-top: 50px;
+            }
+            
+            .nav {
+                gap: var(--spacing-m);
+            }
+            
+            .hero-title {
+                font-size: 72px;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-l);
+            }
+            
+            .typetester-controls {
+                grid-template-columns: 1fr;
+            }
+            
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .charset-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-l);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="../index.html">🖨</a>
+                </div>
+                <nav class="nav">
+                    <a href="../index.html#fonts" class="active">All fonts</a>
+                    <a href="../pages/fonts-in-use.html">Fonts in use</a>
+                    <a href="../pages/lettering.html">Custom lettering</a>
+                    <a href="../pages/about.html">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-background"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">LANZE</h1>
+                    <p class="hero-subtitle">4 styles • Variable</p>
+                    <div class="hero-links">
+                        <a href="#" class="hero-link">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-text">
+                        <h2>About</h2>
+                        <p>The creation of the unity platform has previously focused another angle of myself and decided to pursue qualified online learning. Since his software expertise is designing to pursue qualified online learning and decided to pursue qualified online learning.</p>
+                        <br>
+                        <p>Hence, a blue smart font with elegantly edged icons about themselves and eventually settled another angle of myself and decided to pursue qualified online after were searching. A shared solution with script handwriting fonts, I support if it's design solution. Actually both solution and technical handwriting.</p>
+                    </div>
+                    <div class="about-image">
+                        [Font Preview Image]
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typetester Section -->
+        <section class="typetester-section">
+            <div class="container">
+                <div class="typetester-header">
+                    <h2 class="typetester-title">Typetester</h2>
+                    <p class="typetester-subtitle">Test LANZE in your own words</p>
+                </div>
+                
+                <div class="typetester">
+                    <div class="typetester-controls">
+                        <div class="control-group">
+                            <label class="control-label">Style</label>
+                            <select class="select-input" id="fontStyle">
+                                <option value="regular">Regular</option>
+                                <option value="medium">Medium</option>
+                                <option value="bold">Bold</option>
+                                <option value="black">Black</option>
+                            </select>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label class="control-label">Size</label>
+                            <div class="control-input">
+                                <input type="range" class="range-input" id="fontSize" min="12" max="120" value="48">
+                                <span class="range-value" id="fontSizeValue">48px</span>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label class="control-label">Weight</label>
+                            <div class="control-input">
+                                <input type="range" class="range-input" id="fontWeight" min="200" max="800" value="400">
+                                <span class="range-value" id="fontWeightValue">400</span>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label class="control-label">Tracking</label>
+                            <div class="control-input">
+                                <input type="range" class="range-input" id="letterSpacing" min="-0.1" max="0.3" step="0.01" value="0">
+                                <span class="range-value" id="letterSpacingValue">0em</span>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label class="control-label">Line Height</label>
+                            <div class="control-input">
+                                <input type="range" class="range-input" id="lineHeight" min="0.8" max="2.0" step="0.1" value="1.2">
+                                <span class="range-value" id="lineHeightValue">1.2</span>
+                            </div>
+                        </div>
+                        
+                        <input type="text" class="text-input" id="customText" placeholder="Start typing" value="Start typing">
+                    </div>
+                    
+                    <div class="typetester-display">
+                        <div class="typetester-text" id="displayText">Start typing</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Specs Section -->
+        <section class="specs-section">
+            <div class="container">
+                <div class="specs-grid">
+                    <div class="spec-card">
+                        <h3 class="spec-title">Family Styles</h3>
+                        <div class="spec-description">
+                            ★<br>
+                            The number of the unity platform has previously focused another angle of myself and decided to pursue qualified online learning.
+                        </div>
+                    </div>
+                    
+                    <div class="spec-card">
+                        <h3 class="spec-title">Character Set</h3>
+                        <div class="spec-description">
+                            ★<br>
+                            The number of the unity platform has previously focused another angle of myself and decided to pursue qualified online learning.
+                        </div>
+                    </div>
+                    
+                    <div class="spec-card">
+                        <h3 class="spec-title">Drawing Quality</h3>
+                        <div class="spec-description">
+                            ★<br>
+                            The number of the unity platform has previously focused another angle of myself and decided to pursue qualified online learning.
+                        </div>
+                    </div>
+                    
+                    <div class="spec-card">
+                        <h3 class="spec-title">Spacing</h3>
+                        <div class="spec-description">
+                            ★<br>
+                            The number of the unity platform has previously focused another angle of myself and decided to pursue qualified online learning.
+                        </div>
+                    </div>
+                    
+                    <div class="spec-card">
+                        <h3 class="spec-title">Kerning</h3>
+                        <div class="spec-description">
+                            ★<br>
+                            The number of the unity platform has previously focused another angle of myself and decided to pursue qualified online learning.
+                        </div>
+                    </div>
+                    
+                    <div class="spec-card">
+                        <h3 class="spec-title">Language Support</h3>
+                        <div class="spec-description">
+                            ★<br>
+                            The number of the unity platform has previously focused another angle of myself and decided to pursue qualified online learning.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Character Set -->
+        <section class="charset-section">
+            <div class="container">
+                <h2 class="charset-title">Glyph Table</h2>
+                <div class="charset-grid" id="charsetGrid">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+                <div style="text-align: center; margin-top: var(--spacing-l);">
+                    <a href="#" style="color: var(--color-purple); text-transform: uppercase; font-size: var(--size-small); letter-spacing: 0.05em;">
+                        Show All Glyphs →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Links Section -->
+        <section class="links-section">
+            <div class="container">
+                <h2 class="links-title">Links</h2>
+                <div class="links-grid">
+                    <a href="#" class="link-card">Font License (1980)</a>
+                    <a href="#" class="link-card">Font License (1980)</a>
+                    <a href="#" class="link-card">Font License (1980)</a>
+                    <a href="#" class="link-card">Font License (1980)</a>
+                    <a href="#" class="link-card">Font License (1980)</a>
+                    <a href="#" class="link-card">Font License (1980)</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Loveprinting Machine<br>Type Foundry</h3>
+                </div>
+                <div class="footer-section">
+                    <h3>Fonts</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Retiler</a></li>
+                        <li><a href="#">Retry Sans</a></li>
+                        <li><a href="#">Lanze</a></li>
+                        <li><a href="#">Puff</a></li>
+                        <li><a href="#">Nytra Mono</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Telegram</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Behance</a></li>
+                        <li><a href="#">E-mail</a></li>
+                    </ul>
+                </div>
+            </div>
+            <button class="back-to-top" id="backToTop">↑</button>
+        </div>
+    </footer>
+
+    <script>
+        // Character set data
+        const characters = [
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+        ];
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            initCharacterSet();
+            initTypetester();
+            initBackToTop();
+        });
+
+        function initCharacterSet() {
+            const charsetGrid = document.getElementById('charsetGrid');
+            
+            characters.forEach(char => {
+                const cell = document.createElement('div');
+                cell.className = 'charset-cell';
+                cell.textContent = char;
+                charsetGrid.appendChild(cell);
+            });
+        }
+
+        function initTypetester() {
+            const displayText = document.getElementById('displayText');
+            const customText = document.getElementById('customText');
+            const fontSize = document.getElementById('fontSize');
+            const fontWeight = document.getElementById('fontWeight');
+            const letterSpacing = document.getElementById('letterSpacing');
+            const lineHeight = document.getElementById('lineHeight');
+            const fontStyle = document.getElementById('fontStyle');
+            
+            // Value displays
+            const fontSizeValue = document.getElementById('fontSizeValue');
+            const fontWeightValue = document.getElementById('fontWeightValue');
+            const letterSpacingValue = document.getElementById('letterSpacingValue');
+            const lineHeightValue = document.getElementById('lineHeightValue');
+
+            function updateDisplay() {
+                const text = customText.value || 'Start typing';
+                displayText.textContent = text;
+                
+                displayText.style.fontSize = fontSize.value + 'px';
+                displayText.style.fontWeight = fontWeight.value;
+                displayText.style.letterSpacing = letterSpacing.value + 'em';
+                displayText.style.lineHeight = lineHeight.value;
+                
+                // Update value displays
+                fontSizeValue.textContent = fontSize.value + 'px';
+                fontWeightValue.textContent = fontWeight.value;
+                letterSpacingValue.textContent = letterSpacing.value + 'em';
+                lineHeightValue.textContent = lineHeight.value;
+            }
+
+            // Event listeners
+            customText.addEventListener('input', updateDisplay);
+            fontSize.addEventListener('input', updateDisplay);
+            fontWeight.addEventListener('input', updateDisplay);
+            letterSpacing.addEventListener('input', updateDisplay);
+            lineHeight.addEventListener('input', updateDisplay);
+            fontStyle.addEventListener('change', updateDisplay);
+
+            // Initial update
+            updateDisplay();
+        }
+
+        function initBackToTop() {
+            const backToTop = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+            
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+    </script>
+</body>
+</html>

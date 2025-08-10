@@ -1,0 +1,98 @@
+# Font Protection for The Loveprinting Machine Type Foundry
+# This file protects font files from direct access and hotlinking
+
+# Enable rewrite engine
+RewriteEngine On
+
+# Prevent direct access to font files except from your domain
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?yourdomain\.com [NC]
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?localhost [NC]
+RewriteCond %{HTTP_REFERER} !^https?://127\.0\.0\.1 [NC]
+RewriteRule \.(woff2?|ttf|otf|eot)$ - [F,L]
+
+# Block direct access to font files (no referer)
+RewriteCond %{HTTP_REFERER} ^$
+RewriteRule \.(woff2?|ttf|otf|eot)$ - [F,L]
+
+# Allow access only from specific user agents (browsers)
+RewriteCond %{HTTP_USER_AGENT} !Mozilla [NC]
+RewriteCond %{HTTP_USER_AGENT} !Chrome [NC]
+RewriteCond %{HTTP_USER_AGENT} !Safari [NC]
+RewriteCond %{HTTP_USER_AGENT} !Firefox [NC]
+RewriteCond %{HTTP_USER_AGENT} !Edge [NC]
+RewriteRule \.(woff2?|ttf|otf|eot)$ - [F,L]
+
+# Set proper MIME types for font files
+<IfModule mod_mime.c>
+    AddType font/woff2 .woff2
+    AddType font/woff .woff
+    AddType font/ttf .ttf
+    AddType font/otf .otf
+    AddType application/vnd.ms-fontobject .eot
+</IfModule>
+
+# Set cache headers for font files (short cache for demo fonts)
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType font/woff2 "access plus 1 day"
+    ExpiresByType font/woff "access plus 1 day"
+    ExpiresByType font/ttf "access plus 1 day"
+    ExpiresByType font/otf "access plus 1 day"
+    ExpiresByType application/vnd.ms-fontobject "access plus 1 day"
+</IfModule>
+
+# Prevent access to source files and backups
+<FilesMatch "\.(bak|backup|orig|src|psd|ai|sketch|fig)$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# Prevent directory browsing
+Options -Indexes
+
+# Block access to this .htaccess file
+<Files .htaccess>
+    Order deny,allow
+    Deny from all
+</Files>
+
+# Additional security headers
+<IfModule mod_headers.c>
+    # Prevent embedding in frames from other domains
+    Header always append X-Frame-Options DENY
+    
+    # Prevent MIME type sniffing
+    Header always set X-Content-Type-Options nosniff
+    
+    # Enable XSS protection
+    Header always set X-XSS-Protection "1; mode=block"
+    
+    # Referrer policy for font requests
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Rate limiting for font requests (if mod_evasive is available)
+<IfModule mod_evasive24.c>
+    DOSHashTableSize 4096
+    DOSPageCount 3
+    DOSSiteCount 50
+    DOSPageInterval 1
+    DOSSiteInterval 1
+    DOSBlockingPeriod 600
+</IfModule>
+
+# Custom error pages for blocked requests
+ErrorDocument 403 "Access to this font file is restricted."
+ErrorDocument 404 "Font file not found."
+
+# Log font access attempts
+<IfModule mod_log_config.c>
+    LogFormat "%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" font_access
+    CustomLog logs/font_access.log font_access env=font_request
+</IfModule>
+
+# Mark font requests for logging
+<FilesMatch "\.(woff2?|ttf|otf|eot)$">
+    SetEnv font_request 1
+</FilesMatch>
