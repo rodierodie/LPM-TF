@@ -9,7 +9,7 @@
     <!-- Preload critical resources -->
     <link rel="preload" href="../assets/fonts/retry-sans-mono-regular.woff2" as="font" type="font/woff2" crossorigin>
     
-    <!-- CSS Modules -->
+    <!-- CSS Modules (components.css includes filter styles) -->
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/typography.css">
@@ -18,43 +18,7 @@
     <link rel="stylesheet" href="../css/responsive.css">
     
     <style>
-        /* Simple button filters (адаптировано под fonts in use) */
-        .simple-filters {
-            padding: var(--spacing-3xl) 0;
-            background: var(--color-white);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .simple-filters__buttons {
-            display: flex;
-            justify-content: center;
-            gap: var(--spacing-md);
-            flex-wrap: wrap;
-        }
-
-        .simple-filter-btn {
-            padding: var(--spacing-sm) var(--spacing-lg);
-            background: transparent;
-            border: 1px solid var(--color-gray-300);
-            color: var(--color-gray-600);
-            text-transform: uppercase;
-            font-size: var(--size-sm);
-            letter-spacing: 0.1em;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            font-family: inherit;
-            border-radius: 0;
-            white-space: nowrap;
-        }
-
-        .simple-filter-btn:hover,
-        .simple-filter-btn.active {
-            background: var(--color-black);
-            color: var(--color-white);
-            border-color: var(--color-black);
-        }
-
-        /* Projects grid styling */
+        /* Page-specific styles for projects grid */
         .projects-grid-section {
             padding: var(--spacing-4xl) 0;
             background: var(--color-white);
@@ -162,15 +126,6 @@
             .project-card--featured {
                 grid-column: span 1;
             }
-
-            .simple-filters__buttons {
-                gap: var(--spacing-sm);
-            }
-
-            .simple-filter-btn {
-                padding: var(--spacing-xs) var(--spacing-md);
-                font-size: var(--size-xs);
-            }
         }
     </style>
 </head>
@@ -217,26 +172,19 @@
             </div>
         </section>
 
-        <!-- Simple Filters Section -->
+        <!-- Simple Filters Section (styles from components.css) -->
         <section class="simple-filters">
             <div class="container">
-                <div class="simple-filters__buttons" id="projectFilters">
-                    <button class="simple-filter-btn active" data-filter="all">All</button>
-                    <button class="simple-filter-btn" data-filter="branding">Branding</button>
-                    <button class="simple-filter-btn" data-filter="editorial">Editorial</button>
-                    <button class="simple-filter-btn" data-filter="web">Web</button>
-                    <button class="simple-filter-btn" data-filter="animation">Animation</button>
-                    <button class="simple-filter-btn" data-filter="system">Design System</button>
-                </div>
+                <!-- Filters will be rendered here by the SimpleFiltersComponent -->
+                <div id="projectFilters"></div>
             </div>
         </section>
 
         <!-- Projects Grid Section -->
         <section class="projects-grid-section">
             <div class="container">
-                <div class="projects-grid" id="projectsGrid">
-                    <!-- Projects will be loaded here by JavaScript -->
-                </div>
+                <!-- Projects will be rendered here by the SimpleFiltersComponent -->
+                <div class="projects-grid" id="projectsGrid"></div>
             </div>
         </section>
     </main>
@@ -286,180 +234,30 @@
         </div>
     </footer>
 
-    <!-- JavaScript for simple filtering (аналогично lettering.html) -->
+    <!-- JavaScript Modules -->
     <script src="../js/data-loader.js"></script>
+    <!-- Simple Filters Component (not old filters.js) -->
+    <script src="../js/simple-filters.js"></script>
+    
     <script>
-        class SimpleProjectsFilter {
-            constructor() {
-                this.data = [];
-                this.currentFilter = 'all';
-                this.init();
-            }
-
-            async init() {
-                await this.loadData();
-                this.bindEvents();
-                this.render();
-            }
-
-            async loadData() {
+        // Initialize projects filter using the modular component
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Define custom data loader for projects
+            async function loadProjectsData() {
                 try {
-                    // Load projects data
                     if (window.dataLoader && window.dataLoader.getProjects) {
                         const projectsData = await window.dataLoader.getProjects();
-                        this.data = projectsData.projects || [];
-                    } else {
-                        // Fallback static data
-                        this.data = [
-                            {
-                                id: "tech-startup-branding",
-                                name: "TechFlow Startup Identity",
-                                description: "Complete brand identity for a technology startup focusing on workflow automation. Clean, modern approach with emphasis on clarity and innovation.",
-                                category: "branding",
-                                year: "2024",
-                                usedFonts: ["retiler", "retry-sans"],
-                                featured: true,
-                                link: "https://behance.net/gallery/techflow-identity"
-                            },
-                            {
-                                id: "minimal-poster-series",
-                                name: "Minimal Architecture Poster Series",
-                                description: "A series of architectural posters celebrating modernist buildings. Each poster uses typography as the primary design element.",
-                                category: "editorial",
-                                year: "2024",
-                                usedFonts: ["retiler", "lanze"],
-                                featured: true,
-                                link: "https://dribbble.com/shots/minimal-architecture"
-                            },
-                            {
-                                id: "dev-portfolio",
-                                name: "Developer Portfolio Website",
-                                description: "Personal portfolio website for a full-stack developer. Emphasis on code readability and technical precision.",
-                                category: "web",
-                                year: "2023",
-                                usedFonts: ["nytra-mono", "retry-sans"],
-                                featured: false,
-                                link: "https://alexrodriguez.dev"
-                            },
-                            {
-                                id: "animated-logo",
-                                name: "Puff Animation Logo",
-                                description: "Dynamic logo animation using the Puff variable font. The logo inflates and deflates to create engaging motion graphics.",
-                                category: "animation",
-                                year: "2024",
-                                usedFonts: ["puff"],
-                                featured: true,
-                                link: "https://codepen.io/loveprinting/puff-animation"
-                            },
-                            {
-                                id: "sports-branding",
-                                name: "Thunder Basketball Team Identity",
-                                description: "Complete rebrand for a professional basketball team. Bold, energetic typography that captures the team's aggressive playing style.",
-                                category: "branding",
-                                year: "2023",
-                                usedFonts: ["lanze"],
-                                featured: true,
-                                link: "https://behance.net/gallery/thunder-basketball"
-                            },
-                            {
-                                id: "design-system",
-                                name: "Enterprise Design System",
-                                description: "Comprehensive design system for a Fortune 500 company. Includes typography scales, component library, and implementation guidelines.",
-                                category: "system",
-                                year: "2022",
-                                usedFonts: ["retry-sans"],
-                                featured: false,
-                                link: "https://design.globaltech.com"
-                            },
-                            {
-                                id: "surf-brand",
-                                name: "Pacific Waves Surf Shop",
-                                description: "Branding for a California surf shop that embodies the laid-back beach culture. Hand-lettered style logo and signage.",
-                                category: "branding",
-                                year: "2023",
-                                usedFonts: ["pacific"],
-                                featured: false,
-                                link: "https://behance.net/gallery/pacific-waves"
-                            },
-                            {
-                                id: "festival-poster",
-                                name: "Underground Festival Poster",
-                                description: "Bold typography treatment that reflects the energy and edge of the music scene.",
-                                category: "editorial",
-                                year: "2023",
-                                usedFonts: ["lanze"],
-                                featured: false,
-                                link: "https://dribbble.com/shots/underground-festival"
-                            }
-                        ];
+                        return projectsData.projects || [];
                     }
+                    return [];
                 } catch (error) {
-                    console.error('Error loading projects data:', error);
+                    console.error('Error loading projects:', error);
+                    return [];
                 }
             }
 
-            bindEvents() {
-                const filtersContainer = document.getElementById('projectFilters');
-                if (filtersContainer) {
-                    filtersContainer.addEventListener('click', (e) => {
-                        if (e.target.classList.contains('simple-filter-btn')) {
-                            this.handleFilterClick(e.target);
-                        }
-                    });
-                }
-            }
-
-            handleFilterClick(button) {
-                // Remove active class from all buttons
-                document.querySelectorAll('.simple-filter-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                
-                // Add active class to clicked button
-                button.classList.add('active');
-                
-                // Update current filter
-                this.currentFilter = button.dataset.filter;
-                
-                // Re-render
-                this.render();
-            }
-
-            getFilteredData() {
-                if (this.currentFilter === 'all') {
-                    return this.data;
-                }
-                
-                return this.data.filter(item => item.category === this.currentFilter);
-            }
-
-            render() {
-                console.log('Rendering projects, current filter:', this.currentFilter);
-                console.log('Available data:', this.data);
-                
-                const container = document.getElementById('projectsGrid');
-                if (!container) {
-                    console.error('Projects grid container not found');
-                    return;
-                }
-                
-                const filteredData = this.getFilteredData();
-                console.log('Filtered data:', filteredData);
-                
-                container.innerHTML = '';
-                
-                if (filteredData.length === 0) {
-                    container.innerHTML = '<div class="no-results">No projects found for this category.</div>';
-                    return;
-                }
-                
-                filteredData.forEach(project => {
-                    const projectCard = this.createProjectCard(project);
-                    container.appendChild(projectCard);
-                });
-            }
-
-            createProjectCard(project) {
+            // Define custom card renderer for projects
+            function renderProjectCard(project) {
                 const card = document.createElement('article');
                 card.className = `project-card ${project.featured ? 'project-card--featured' : ''}`;
                 
@@ -493,11 +291,76 @@
                 
                 return card;
             }
-        }
 
-        // Initialize when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            new SimpleProjectsFilter();
+            // Fallback data for projects
+            const fallbackProjects = [
+                {
+                    id: "tech-startup-branding",
+                    name: "TechFlow Startup Identity",
+                    description: "Complete brand identity for a technology startup focusing on workflow automation. Clean, modern approach with emphasis on clarity and innovation.",
+                    category: "branding",
+                    year: "2024",
+                    usedFonts: ["retiler", "retry-sans"],
+                    featured: true,
+                    link: "https://behance.net/gallery/techflow-identity"
+                },
+                {
+                    id: "minimal-poster-series",
+                    name: "Minimal Architecture Poster Series",
+                    description: "A series of architectural posters celebrating modernist buildings. Each poster uses typography as the primary design element.",
+                    category: "editorial",
+                    year: "2024",
+                    usedFonts: ["retiler", "lanze"],
+                    featured: true,
+                    link: "https://dribbble.com/shots/minimal-architecture"
+                },
+                {
+                    id: "dev-portfolio",
+                    name: "Developer Portfolio Website",
+                    description: "Personal portfolio website for a full-stack developer. Emphasis on code readability and technical precision.",
+                    category: "web",
+                    year: "2023",
+                    usedFonts: ["nytra-mono", "retry-sans"],
+                    featured: false,
+                    link: "https://alexrodriguez.dev"
+                },
+                {
+                    id: "animated-logo",
+                    name: "Puff Animation Logo",
+                    description: "Dynamic logo animation using the Puff variable font. The logo inflates and deflates to create engaging motion graphics.",
+                    category: "animation",
+                    year: "2024",
+                    usedFonts: ["puff"],
+                    featured: true,
+                    link: "https://codepen.io/loveprinting/puff-animation"
+                },
+                {
+                    id: "design-system",
+                    name: "Enterprise Design System",
+                    description: "Comprehensive design system for a Fortune 500 company. Includes typography scales, component library, and implementation guidelines.",
+                    category: "system",
+                    year: "2022",
+                    usedFonts: ["retry-sans"],
+                    featured: false,
+                    link: "https://design.globaltech.com"
+                }
+            ];
+
+            // Initialize using the factory function from simple-filters.js
+            const projectsFilter = createProjectsFilter({
+                dataLoader: loadProjectsData,
+                fallbackData: fallbackProjects,
+                cardRenderer: renderProjectCard,
+                onFilterChange: (filter, data) => {
+                    console.log(`Filter changed to: ${filter}, showing ${data.length} projects`);
+                },
+                onDataLoad: (data) => {
+                    console.log(`Loaded ${data.length} projects`);
+                }
+            });
+
+            // Store instance globally if needed for debugging
+            window.projectsFilterInstance = projectsFilter;
         });
     </script>
 </body>

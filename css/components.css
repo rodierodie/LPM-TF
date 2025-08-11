@@ -1,6 +1,12 @@
-/* Component Styles */
+/* 
+ * Components CSS - All UI components in one file
+ * Includes filters component styles
+ */
 
-/* Header Components */
+/* ==========================================================================
+   HEADER COMPONENTS
+   ========================================================================== */
+
 .header__logo img {
   width: 40px;
   height: 40px;
@@ -31,7 +37,10 @@
   color: var(--color-gray-600);
 }
 
-/* Hero Section */
+/* ==========================================================================
+   HERO COMPONENTS
+   ========================================================================== */
+
 .hero {
   position: relative;
   height: var(--hero-height);
@@ -66,7 +75,10 @@
   z-index: 1;
 }
 
-/* Variable Animation Section */
+/* ==========================================================================
+   ANIMATION SECTIONS
+   ========================================================================== */
+
 .variable-animation {
   padding: var(--spacing-5xl) 0;
   background: var(--color-white);
@@ -83,7 +95,6 @@
   height: auto;
 }
 
-/* Illustration Section */
 .illustration {
   padding: var(--spacing-4xl) 0;
   background: var(--color-white);
@@ -106,7 +117,10 @@
   border-radius: var(--border-radius-lg);
 }
 
-/* USP Section */
+/* ==========================================================================
+   USP SECTION
+   ========================================================================== */
+
 .usp {
   padding: var(--spacing-5xl) 0;
   background: var(--color-white);
@@ -139,7 +153,10 @@
   color: var(--color-black);
 }
 
-/* Font Showcase Components */
+/* ==========================================================================
+   FONT SHOWCASE COMPONENTS
+   ========================================================================== */
+
 .fonts {
   background: var(--color-white);
 }
@@ -210,7 +227,10 @@
   color: var(--color-white);
 }
 
-/* Fonts in Use Section */
+/* ==========================================================================
+   FONTS IN USE SECTION
+   ========================================================================== */
+
 .fonts-in-use {
   padding: var(--spacing-5xl) 0;
   background: var(--color-black);
@@ -252,7 +272,10 @@
   margin: 0 auto;
 }
 
-/* Project Cards */
+/* ==========================================================================
+   PROJECT CARDS
+   ========================================================================== */
+
 .project-card {
   background: var(--color-gray-200);
   border-radius: var(--border-radius-lg);
@@ -281,11 +304,14 @@
   background: var(--color-gray-200);
 }
 
-/* Lettering Section */
+/* ==========================================================================
+   LETTERING SECTION
+   ========================================================================== */
+
 .lettering {
   padding: var(--spacing-5xl) 0;
-  background: var(--color-white); /* Белый фон вместо чёрного */
-  color: var(--color-black); /* Чёрный текст вместо белого */
+  background: var(--color-white);
+  color: var(--color-black);
 }
 
 .lettering__animation {
@@ -306,7 +332,7 @@
 
 .lettering__title {
   font-size: var(--size-4xl);
-  color: var(--color-black); /* Чёрный цвет для заголовка */
+  color: var(--color-black);
   margin-bottom: var(--spacing-2xl);
   font-weight: 400;
 }
@@ -314,23 +340,345 @@
 .lettering__text {
   font-size: var(--size-base);
   line-height: var(--leading-relaxed);
-  color: var(--color-black); /* Чёрный цвет для основного текста */
+  color: var(--color-black);
 }
 
 .lettering__link {
   display: inline-block;
   margin-top: var(--spacing-xl);
   font-size: var(--size-base);
-  color: var(--color-gray-600); /* Серый для ссылки (был --color-gray-400) */
+  color: var(--color-gray-600);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 .lettering__link:hover {
-  color: var(--color-black); /* Чёрный при наведении */
+  color: var(--color-black);
 }
 
-/* Footer Components */
+/* ==========================================================================
+   FILTERS COMPONENT
+   ========================================================================== */
+
+/* Simple Button Filters */
+.simple-filters {
+  padding: var(--spacing-3xl) 0;
+  background: var(--color-white);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.simple-filters__buttons {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.simple-filter-btn {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: transparent;
+  border: 1px solid var(--color-gray-300);
+  color: var(--color-gray-600);
+  text-transform: uppercase;
+  font-size: var(--size-sm);
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: inherit;
+  border-radius: 0;
+  white-space: nowrap;
+}
+
+.simple-filter-btn:hover,
+.simple-filter-btn.active {
+  background: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-black);
+}
+
+.simple-filter-btn:focus {
+  outline: 2px solid var(--color-black);
+  outline-offset: 2px;
+}
+
+/* Complex Filter System (for future use) */
+.filters-wrapper {
+  background: var(--color-gray-50);
+  padding: var(--spacing-2xl) 0;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.filters-and-sort {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-2xl);
+  margin-bottom: var(--spacing-lg);
+}
+
+.filters-container {
+  flex: 1;
+  max-width: 70%;
+}
+
+.filters {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: 4px;
+  padding: var(--spacing-lg);
+}
+
+.filters__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-gray-100);
+}
+
+.filters__title {
+  font-size: var(--size-lg);
+  font-weight: 500;
+  margin: 0;
+}
+
+.filters__clear {
+  background: transparent;
+  border: 1px solid var(--color-gray-300);
+  color: var(--color-gray-600);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.filters__clear:hover {
+  border-color: var(--color-black);
+  color: var(--color-black);
+}
+
+/* Filter Groups */
+.filter-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.filter-group:last-child {
+  margin-bottom: 0;
+}
+
+.filter-group__title {
+  font-size: var(--size-sm);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-gray-700);
+  margin-bottom: var(--spacing-sm);
+}
+
+.filter-group__options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+/* Filter Options */
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  border-radius: 2px;
+  transition: background-color var(--transition-fast);
+}
+
+.filter-option:hover {
+  background: var(--color-gray-50);
+}
+
+.filter-option__input {
+  margin: 0;
+  cursor: pointer;
+}
+
+.filter-option__label {
+  flex: 1;
+  font-size: var(--size-sm);
+  color: var(--color-gray-700);
+  cursor: pointer;
+}
+
+.filter-option__count {
+  font-size: var(--size-xs);
+  color: var(--color-gray-400);
+  background: var(--color-gray-100);
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* Search Controls */
+.search-container {
+  margin-bottom: var(--spacing-lg);
+}
+
+.search-controls {
+  position: relative;
+  max-width: 400px;
+}
+
+.search-controls__input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-gray-300);
+  font-size: var(--size-sm);
+  font-family: inherit;
+  transition: border-color var(--transition-fast);
+}
+
+.search-controls__input:focus {
+  outline: none;
+  border-color: var(--color-black);
+}
+
+.search-controls__input::placeholder {
+  color: var(--color-gray-400);
+}
+
+.search-controls__clear {
+  position: absolute;
+  right: var(--spacing-sm);
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--color-gray-400);
+  color: var(--color-white);
+  border: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: var(--size-xs);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-fast);
+}
+
+.search-controls__clear:hover {
+  background: var(--color-gray-600);
+}
+
+/* Sort Controls */
+.sort-container {
+  flex-shrink: 0;
+  min-width: 200px;
+}
+
+.sort-controls {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: 4px;
+  padding: var(--spacing-md);
+}
+
+.sort-controls__title {
+  font-size: var(--size-sm);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-gray-700);
+  margin-bottom: var(--spacing-sm);
+}
+
+.sort-controls__group {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.sort-controls__select {
+  flex: 1;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--color-gray-300);
+  font-size: var(--size-sm);
+  font-family: inherit;
+  background: var(--color-white);
+}
+
+.sort-controls__direction {
+  background: transparent;
+  border: 1px solid var(--color-gray-300);
+  padding: var(--spacing-xs);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.sort-controls__direction:hover {
+  border-color: var(--color-black);
+  background: var(--color-gray-50);
+}
+
+.sort-controls__arrow {
+  font-size: var(--size-sm);
+  line-height: 1;
+}
+
+/* Results Info */
+.results-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--spacing-lg);
+}
+
+.results-count {
+  font-size: var(--size-sm);
+  color: var(--color-gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* No Results State */
+.no-results {
+  text-align: center;
+  padding: var(--spacing-4xl) var(--spacing-lg);
+  color: var(--color-gray-500);
+}
+
+.no-results__message {
+  font-size: var(--size-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.no-results__clear {
+  background: var(--color-black);
+  color: var(--color-white);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  text-transform: uppercase;
+  font-size: var(--size-sm);
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.no-results__clear:hover {
+  background: var(--color-gray-800);
+}
+
+/* ==========================================================================
+   FOOTER COMPONENTS
+   ========================================================================== */
+
 .footer__content {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -393,37 +741,10 @@
   color: var(--color-white);
 }
 
-/* Back to Top Button */
-.back-to-top {
-  position: fixed;
-  bottom: var(--spacing-xl);
-  right: var(--spacing-xl);
-  width: var(--back-to-top-size);
-  height: var(--back-to-top-size);
-  background: var(--back-to-top-bg);
-  color: var(--back-to-top-color);
-  border: none;
-  border-radius: var(--border-radius-full);
-  font-size: var(--size-lg);
-  cursor: pointer;
-  opacity: 0;
-  transform: translateY(100px);
-  transition: all var(--transition-normal);
-  z-index: var(--z-fixed);
-  box-shadow: var(--back-to-top-shadow);
-}
+/* ==========================================================================
+   BUTTON COMPONENTS
+   ========================================================================== */
 
-.back-to-top.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.back-to-top:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-xl);
-}
-
-/* Button Components */
 .button {
   display: inline-flex;
   align-items: center;
@@ -456,7 +777,10 @@
   color: var(--color-white);
 }
 
-/* Form Components */
+/* ==========================================================================
+   FORM COMPONENTS
+   ========================================================================== */
+
 .form-group {
   margin-bottom: var(--spacing-lg);
 }
@@ -487,6 +811,40 @@
   min-height: 120px;
 }
 
+/* ==========================================================================
+   UTILITY COMPONENTS
+   ========================================================================== */
+
+/* Back to Top Button */
+.back-to-top {
+  position: fixed;
+  bottom: var(--spacing-xl);
+  right: var(--spacing-xl);
+  width: var(--back-to-top-size);
+  height: var(--back-to-top-size);
+  background: var(--back-to-top-bg);
+  color: var(--back-to-top-color);
+  border: none;
+  border-radius: var(--border-radius-full);
+  font-size: var(--size-lg);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all var(--transition-normal);
+  z-index: var(--z-fixed);
+  box-shadow: var(--back-to-top-shadow);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
 /* Loading States */
 .loading {
   opacity: 0.7;
@@ -507,7 +865,7 @@
   100% { transform: rotate(360deg); }
 }
 
-/* Utility Components */
+/* Dividers */
 .divider {
   height: 1px;
   background: var(--color-gray-200);
@@ -522,6 +880,7 @@
   background: var(--color-accent);
 }
 
+/* Badges */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -535,7 +894,10 @@
   letter-spacing: 0.05em;
 }
 
-/* Animation Classes */
+/* ==========================================================================
+   ANIMATION CLASSES
+   ========================================================================== */
+
 .fade-in {
   animation: fadeIn 0.6s ease-in-out;
 }
@@ -573,4 +935,106 @@
     opacity: 1;
     transform: scale(1);
   }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN FOR FILTERS
+   ========================================================================== */
+
+/* Mobile adjustments for simple filters */
+@media (max-width: 768px) {
+  .simple-filters__buttons {
+    gap: var(--spacing-sm);
+  }
+
+  .simple-filter-btn {
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: var(--size-xs);
+  }
+}
+
+/* Complex filters responsive design */
+@media (max-width: 1024px) {
+  .filters-and-sort {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+  
+  .filters-container {
+    max-width: 100%;
+  }
+  
+  .sort-container {
+    min-width: auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .filters-wrapper {
+    padding: var(--spacing-lg) 0;
+  }
+  
+  .filters {
+    padding: var(--spacing-md);
+  }
+  
+  .filters__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+  
+  .filter-group__options {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .sort-controls__group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .sort-controls__direction {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* ==========================================================================
+   FILTER MODE VARIANTS
+   ========================================================================== */
+
+/* Compact mode for pages with less space */
+.filters--compact .simple-filters {
+  padding: var(--spacing-lg) 0;
+}
+
+.filters--compact .simple-filter-btn {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--size-xs);
+}
+
+/* Centered mode for standalone filter sections */
+.filters--centered .simple-filters__buttons {
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Dark theme variant */
+.filters--dark .simple-filters {
+  background: var(--color-black);
+}
+
+.filters--dark .simple-filter-btn {
+  border-color: var(--color-gray-600);
+  color: var(--color-gray-300);
+}
+
+.filters--dark .simple-filter-btn:hover,
+.filters--dark .simple-filter-btn.active {
+  background: var(--color-white);
+  color: var(--color-black);
+  border-color: var(--color-white);
 }
