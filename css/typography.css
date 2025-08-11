@@ -1,0 +1,384 @@
+/* Typography System */
+
+/* Font Loading and Fallbacks */
+@font-face {
+  font-family: 'Retry Sans Mono';
+  src: url('../fonts/retry-sans-mono-subset.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Base Typography */
+body {
+  font-family: var(--font-secondary);
+  font-size: var(--size-base);
+  line-height: var(--line-normal);
+  color: var(--color-text);
+  font-weight: var(--weight-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-secondary);
+  font-weight: var(--weight-normal);
+  line-height: var(--line-tight);
+  color: var(--color-text);
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--size-xxxl);
+  font-weight: var(--weight-light);
+  letter-spacing: var(--tracking-tight);
+}
+
+h2 {
+  font-size: var(--size-xxl);
+  font-weight: var(--weight-light);
+  letter-spacing: var(--tracking-tight);
+}
+
+h3 {
+  font-size: var(--size-xl);
+  font-weight: var(--weight-normal);
+}
+
+h4 {
+  font-size: var(--size-large);
+  font-weight: var(--weight-normal);
+}
+
+h5 {
+  font-size: var(--size-base);
+  font-weight: var(--weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+h6 {
+  font-size: var(--size-small);
+  font-weight: var(--weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+}
+
+/* Display Typography */
+.display-1 {
+  font-size: var(--size-display);
+  font-weight: var(--weight-light);
+  line-height: 0.9;
+  letter-spacing: var(--tracking-tight);
+}
+
+.display-2 {
+  font-size: var(--size-xxxl);
+  font-weight: var(--weight-light);
+  line-height: 0.95;
+  letter-spacing: var(--tracking-tight);
+}
+
+.display-3 {
+  font-size: var(--size-xxl);
+  font-weight: var(--weight-normal);
+  line-height: 1.0;
+}
+
+/* Body Text */
+p {
+  font-size: var(--size-base);
+  line-height: var(--line-relaxed);
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-m) 0;
+  max-width: 65ch;
+}
+
+.lead {
+  font-size: var(--size-large);
+  line-height: var(--line-relaxed);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-l);
+}
+
+.small {
+  font-size: var(--size-small);
+  line-height: var(--line-normal);
+}
+
+.large {
+  font-size: var(--size-large);
+  line-height: var(--line-relaxed);
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition-normal);
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+.link-underline {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+}
+
+.link-underline:hover {
+  border-bottom-color: var(--color-accent);
+}
+
+/* Lists */
+ul, ol {
+  margin: 0 0 var(--spacing-m) 0;
+  padding-left: var(--spacing-l);
+}
+
+li {
+  margin-bottom: var(--spacing-s);
+}
+
+.list-unstyled {
+  list-style: none;
+  padding-left: 0;
+}
+
+.list-inline {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-m);
+}
+
+/* Code and Monospace */
+code, pre, .mono {
+  font-family: var(--font-primary);
+  font-size: 0.9em;
+}
+
+code {
+  background: var(--color-surface);
+  padding: 2px 4px;
+  border-radius: var(--radius-sm);
+}
+
+pre {
+  background: var(--color-surface);
+  padding: var(--spacing-m);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  line-height: var(--line-relaxed);
+}
+
+/* Text Utilities */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+
+.text-uppercase { text-transform: uppercase; }
+.text-lowercase { text-transform: lowercase; }
+.text-capitalize { text-transform: capitalize; }
+
+.text-primary { color: var(--color-text); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-light { color: var(--color-text-light); }
+.text-accent { color: var(--color-accent); }
+
+.text-thin { font-weight: var(--weight-thin); }
+.text-light-weight { font-weight: var(--weight-light); }
+.text-normal { font-weight: var(--weight-normal); }
+.text-medium { font-weight: var(--weight-medium); }
+.text-semibold { font-weight: var(--weight-semibold); }
+.text-bold { font-weight: var(--weight-bold); }
+.text-black { font-weight: var(--weight-black); }
+
+.text-tight { line-height: var(--line-tight); }
+.text-normal-height { line-height: var(--line-normal); }
+.text-relaxed { line-height: var(--line-relaxed); }
+.text-loose { line-height: var(--line-loose); }
+
+.tracking-tight { letter-spacing: var(--tracking-tight); }
+.tracking-normal { letter-spacing: var(--tracking-normal); }
+.tracking-wide { letter-spacing: var(--tracking-wide); }
+.tracking-wider { letter-spacing: var(--tracking-wider); }
+
+/* Font Family Utilities */
+.font-primary { font-family: var(--font-primary); }
+.font-secondary { font-family: var(--font-secondary); }
+.font-display { font-family: var(--font-display); }
+
+/* Typography for Specific Fonts */
+.font-retiler {
+  font-family: 'Retiler', var(--font-secondary);
+  color: var(--color-retiler);
+}
+
+.font-nytra {
+  font-family: 'Nytra Mono', var(--font-primary);
+  color: var(--color-nytra);
+}
+
+.font-puff {
+  font-family: 'PUFF Variable', var(--font-secondary);
+  color: var(--color-puff);
+  font-weight: var(--weight-bold);
+}
+
+.font-lanze {
+  font-family: 'LANZE', var(--font-secondary);
+  color: var(--color-lanze);
+}
+
+.font-retry {
+  font-family: 'Retry Sans', var(--font-secondary);
+  color: var(--color-retry);
+}
+
+.font-pacific {
+  font-family: 'Pacific', var(--font-secondary);
+  color: var(--color-pacific);
+}
+
+/* Variable Font Controls */
+.font-variable {
+  font-variation-settings: normal;
+}
+
+.font-variable-weight {
+  font-variation-settings: "wght" var(--variable-weight, 400);
+}
+
+.font-variable-width {
+  font-variation-settings: "wdth" var(--variable-width, 100);
+}
+
+.font-variable-full {
+  font-variation-settings: 
+    "wght" var(--variable-weight, 400),
+    "wdth" var(--variable-width, 100);
+}
+
+/* Reading Experience */
+.reading-width {
+  max-width: 65ch;
+}
+
+.reading-width-narrow {
+  max-width: 45ch;
+}
+
+.reading-width-wide {
+  max-width: 85ch;
+}
+
+/* Typography Responsive */
+@media (max-width: 768px) {
+  h1 {
+    font-size: var(--size-xxl);
+  }
+  
+  h2 {
+    font-size: var(--size-xl);
+  }
+  
+  h3 {
+    font-size: var(--size-large);
+  }
+  
+  .display-1 {
+    font-size: var(--size-xxxl);
+  }
+  
+  .display-2 {
+    font-size: var(--size-xxl);
+  }
+  
+  .display-3 {
+    font-size: var(--size-xl);
+  }
+  
+  .lead {
+    font-size: var(--size-base);
+  }
+}
+
+/* Print Typography */
+@media print {
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+  
+  h1 { font-size: 24pt; }
+  h2 { font-size: 20pt; }
+  h3 { font-size: 16pt; }
+  h4 { font-size: 14pt; }
+  h5 { font-size: 12pt; }
+  h6 { font-size: 11pt; }
+  
+  .display-1, .display-2, .display-3 {
+    font-size: 28pt;
+  }
+  
+  p {
+    margin-bottom: 12pt;
+  }
+  
+  a {
+    text-decoration: underline;
+  }
+  
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 10pt;
+    color: #666;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  body {
+    color: #000000;
+    background: #ffffff;
+  }
+  
+  .text-secondary,
+  .text-light {
+    color: #000000;
+  }
+}
+
+/* Font size preferences */
+@media (prefers-reduced-data: reduce) {
+  /* Use system fonts when data usage is a concern */
+  body {
+    font-family: var(--font-secondary);
+  }
+}
+
+/* Selection styles */
+::selection {
+  background: var(--color-accent);
+  color: white;
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background: var(--color-accent);
+  color: white;
+  text-shadow: none;
+}
