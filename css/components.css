@@ -17,7 +17,7 @@
 .nav__link {
   font-size: var(--nav-font-size);
   font-weight: var(--nav-font-weight);
-  color: var(--color-black);
+  color: var(--color-white);
   text-decoration: none;
   transition: color var(--transition-fast);
   padding: var(--spacing-sm) 0;
@@ -213,7 +213,7 @@
 /* Fonts in Use Section */
 .fonts-in-use {
   padding: var(--spacing-5xl) 0;
-  background: var(--color-white);
+  background: var(--color-black);
   color: var(--color-black);
 }
 
@@ -284,8 +284,8 @@
 /* Lettering Section */
 .lettering {
   padding: var(--spacing-5xl) 0;
-  background: var(--color-black);
-  color: var(--color-white);
+  background: var(--color-white); /* Белый фон вместо чёрного */
+  color: var(--color-black); /* Чёрный текст вместо белого */
 }
 
 .lettering__animation {
@@ -306,7 +306,7 @@
 
 .lettering__title {
   font-size: var(--size-4xl);
-  color: var(--color-white);
+  color: var(--color-black); /* Чёрный цвет для заголовка */
   margin-bottom: var(--spacing-2xl);
   font-weight: 400;
 }
@@ -314,20 +314,20 @@
 .lettering__text {
   font-size: var(--size-base);
   line-height: var(--leading-relaxed);
-  color: var(--color-white);
+  color: var(--color-black); /* Чёрный цвет для основного текста */
 }
 
 .lettering__link {
   display: inline-block;
   margin-top: var(--spacing-xl);
   font-size: var(--size-base);
-  color: var(--color-gray-400);
+  color: var(--color-gray-600); /* Серый для ссылки (был --color-gray-400) */
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 .lettering__link:hover {
-  color: var(--color-white);
+  color: var(--color-black); /* Чёрный при наведении */
 }
 
 /* Footer Components */
