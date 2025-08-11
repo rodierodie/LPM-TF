@@ -6,372 +6,187 @@
     <title>Custom Lettering | The Loveprinting Machine Type Foundry</title>
     <meta name="description" content="Custom lettering and calligraphy projects. Hand-crafted typography for unique design solutions.">
     
+    <!-- Preload critical resources -->
+    <link rel="preload" href="../assets/fonts/retry-sans-mono-regular.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- CSS Modules -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/typography.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    
+    <!-- Additional styles for lettering page -->
     <style>
-        :root {
-            --font-primary: 'Retry Sans Mono', monospace, system-ui;
-            --font-secondary: system-ui, -apple-system, sans-serif;
-            
-            --color-bg: #ffffff;
-            --color-text: #000000;
-            --color-text-secondary: #666666;
-            --color-accent: #FF5733;
-            --color-border: #e0e0e0;
-            --color-red: #FF5733;
-            
-            --size-base: 16px;
-            --size-small: 14px;
-            --size-large: 24px;
-            --size-xl: 32px;
-            --size-xxl: 48px;
-            
-            --container-desktop: 1440px;
-            --spacing-unit: 8px;
-            --spacing-s: calc(var(--spacing-unit) * 2);
-            --spacing-m: calc(var(--spacing-unit) * 3);
-            --spacing-l: calc(var(--spacing-unit) * 4);
-            --spacing-xl: calc(var(--spacing-unit) * 6);
-            --spacing-xxl: calc(var(--spacing-unit) * 8);
+        /* Simple button filters (адаптация под существующий FiltersManager) */
+        .simple-filters {
+            padding: var(--spacing-3xl) 0;
+            background: var(--color-white);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: var(--font-secondary);
-            font-size: var(--size-base);
-            line-height: 1.5;
-            color: var(--color-text);
-            background: var(--color-bg);
-        }
-        
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-        
-        .container {
-            max-width: var(--container-desktop);
-            margin: 0 auto;
-            padding: 0 var(--spacing-l);
-        }
-        
-        /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--color-border);
-            z-index: 1000;
-        }
-        
-        .header-content {
+
+        .simple-filters__buttons {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 60px;
-        }
-        
-        .logo {
-            font-size: var(--size-large);
-            font-weight: bold;
-        }
-        
-        .nav {
-            display: flex;
-            gap: var(--spacing-l);
-        }
-        
-        .nav a {
-            font-size: var(--size-small);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: color 0.2s;
-        }
-        
-        .nav a:hover, .nav a.active {
-            color: var(--color-accent);
-        }
-        
-        /* Main */
-        .main {
-            margin-top: 60px;
-        }
-        
-        /* Hero Section */
-        .hero-section {
-            padding: var(--spacing-xxl) 0;
-            text-align: center;
-            background: white;
-        }
-        
-        .hero-lettering {
-            width: 100%;
-            max-width: 800px;
-            height: 300px;
-            margin: 0 auto var(--spacing-xl);
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300"><rect fill="white" width="800" height="300"/><path fill="none" stroke="%23FF5733" stroke-width="3" d="M50,150 Q150,50 250,150 T450,150 M500,50 L500,250 M550,150 L650,50 L650,250 M700,50 Q750,100 700,150 Q750,200 700,250"/></svg>') no-repeat center;
-            background-size: contain;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            color: var(--color-text-secondary);
-            font-size: var(--size-large);
-            border: 1px solid var(--color-border);
-        }
-        
-        .hero-text {
-            max-width: 600px;
-            margin: 0 auto;
-            color: var(--color-text-secondary);
-            font-size: var(--size-large);
-            line-height: 1.6;
-        }
-        
-        .hero-cta {
-            margin-top: var(--spacing-xl);
-        }
-        
-        .cta-link {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--spacing-s);
-            font-size: var(--size-base);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-bottom: 1px solid var(--color-text);
-            padding-bottom: 2px;
-            transition: all 0.2s;
-        }
-        
-        .cta-link:hover {
-            border-bottom-color: var(--color-accent);
-            color: var(--color-accent);
-        }
-        
-        /* Filters Section */
-        .filters-section {
-            padding: var(--spacing-xl) 0;
-            border-bottom: 1px solid var(--color-border);
-            background: white;
-        }
-        
-        .filters-grid {
-            display: flex;
-            gap: var(--spacing-s);
+            gap: var(--spacing-md);
             flex-wrap: wrap;
-            justify-content: center;
         }
-        
-        .filter-button {
-            padding: var(--spacing-s) var(--spacing-m);
+
+        .simple-filter-btn {
+            padding: var(--spacing-sm) var(--spacing-lg);
             background: transparent;
-            border: 1px solid var(--color-border);
-            color: var(--color-text-secondary);
+            border: 1px solid var(--color-gray-300);
+            color: var(--color-gray-600);
             text-transform: uppercase;
-            font-size: var(--size-small);
-            letter-spacing: 0.05em;
+            font-size: var(--size-sm);
+            letter-spacing: 0.1em;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all var(--transition-fast);
             font-family: inherit;
+            border-radius: 0;
+            white-space: nowrap;
         }
-        
-        .filter-button:hover, .filter-button.active {
-            background: var(--color-text);
-            color: white;
-            border-color: var(--color-text);
+
+        .simple-filter-btn:hover,
+        .simple-filter-btn.active {
+            background: var(--color-black);
+            color: var(--color-white);
+            border-color: var(--color-black);
         }
-        
-        /* Lettering Grid Section */
-        .lettering-section {
-            padding: var(--spacing-xxl) 0;
+
+        /* Lettering grid */
+        .lettering-grid-section {
+            padding: var(--spacing-5xl) 0;
+            background: var(--color-white);
         }
-        
+
         .lettering-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: var(--spacing-xl);
+            gap: var(--spacing-2xl);
         }
-        
+
         .lettering-card {
-            background: white;
-            transition: transform 0.2s;
+            background: var(--color-white);
+            transition: transform var(--transition-fast);
             cursor: pointer;
         }
-        
+
         .lettering-card:hover {
             transform: translateY(-4px);
         }
-        
-        .lettering-image {
+
+        .lettering-card__image {
             width: 100%;
             height: 300px;
-            background: #f0f0f0;
+            background: var(--color-gray-200);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--color-text-secondary);
-            font-size: var(--size-large);
-            margin-bottom: var(--spacing-l);
-            border: 1px solid var(--color-border);
+            color: var(--color-gray-500);
+            font-size: var(--size-base);
+            margin-bottom: var(--spacing-lg);
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
-        
-        .lettering-info {
-            padding: 0 var(--spacing-m) var(--spacing-l);
+
+        .lettering-card__info {
+            padding: 0 var(--spacing-sm);
         }
-        
-        .lettering-type {
-            font-size: var(--size-small);
+
+        .lettering-card__type {
+            font-size: var(--size-sm);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--color-text-secondary);
-            margin-bottom: var(--spacing-s);
+            letter-spacing: 0.1em;
+            color: var(--color-gray-600);
+            margin-bottom: var(--spacing-sm);
         }
-        
-        .lettering-title {
-            font-size: var(--size-large);
-            margin-bottom: var(--spacing-s);
-            font-weight: 300;
+
+        .lettering-card__title {
+            font-size: var(--size-lg);
+            margin-bottom: var(--spacing-sm);
+            font-weight: 400;
+            color: var(--color-black);
         }
-        
-        .lettering-link {
+
+        .lettering-card__link {
             display: inline-flex;
             align-items: center;
-            gap: var(--spacing-s);
-            font-size: var(--size-small);
+            gap: var(--spacing-xs);
+            font-size: var(--size-sm);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--color-text-secondary);
+            letter-spacing: 0.1em;
+            color: var(--color-gray-600);
+            text-decoration: none;
             border-bottom: 1px solid transparent;
-            transition: all 0.2s;
+            transition: all var(--transition-fast);
         }
-        
-        .lettering-link:hover {
-            color: var(--color-text);
-            border-bottom-color: var(--color-text);
+
+        .lettering-card__link:hover {
+            color: var(--color-black);
+            border-bottom-color: var(--color-black);
         }
-        
-        /* Empty State */
-        .empty-state {
+
+        /* Results container */
+        .lettering-results {
+            min-height: 400px;
+        }
+
+        /* No results state */
+        .no-results {
             text-align: center;
-            padding: var(--spacing-xxl) 0;
-            color: var(--color-text-secondary);
+            padding: var(--spacing-5xl) 0;
+            color: var(--color-gray-600);
         }
-        
-        .empty-state h3 {
-            font-size: var(--size-large);
-            margin-bottom: var(--spacing-s);
+
+        .no-results__message {
+            font-size: var(--size-lg);
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-black);
         }
-        
-        /* Footer */
-        .footer {
-            background: var(--color-text);
-            color: var(--color-bg);
-            padding: var(--spacing-xxl) 0 var(--spacing-xl);
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: var(--spacing-xxl);
-        }
-        
-        .footer-section h3 {
-            font-size: var(--size-large);
-            margin-bottom: var(--spacing-l);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: var(--spacing-s);
-        }
-        
-        .footer-links a {
-            color: #cccccc;
-            text-transform: uppercase;
-            font-size: var(--size-small);
-            letter-spacing: 0.05em;
-            transition: color 0.2s;
-        }
-        
-        .footer-links a:hover {
-            color: var(--color-bg);
-        }
-        
-        .back-to-top {
-            position: fixed;
-            bottom: var(--spacing-l);
-            right: var(--spacing-l);
-            width: 48px;
-            height: 48px;
-            background: var(--color-text);
-            color: var(--color-bg);
+
+        .no-results__clear {
+            background: var(--color-black);
+            color: var(--color-white);
             border: none;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            text-transform: uppercase;
+            font-size: var(--size-sm);
+            letter-spacing: 0.1em;
             cursor: pointer;
-            transition: opacity 0.2s;
-            opacity: 0;
-            pointer-events: none;
-            font-size: var(--size-large);
+            transition: all var(--transition-fast);
         }
-        
-        .back-to-top.visible {
-            opacity: 1;
-            pointer-events: auto;
+
+        .no-results__clear:hover {
+            background: var(--color-gray-800);
         }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 var(--spacing-m);
+            .simple-filters__buttons {
+                justify-content: flex-start;
+                overflow-x: auto;
+                gap: var(--spacing-sm);
+                padding-bottom: var(--spacing-sm);
+                scrollbar-width: none;
+                -ms-overflow-style: none;
             }
             
-            .header-content {
-                height: 50px;
+            .simple-filters__buttons::-webkit-scrollbar {
+                display: none;
             }
-            
-            .main {
-                margin-top: 50px;
+
+            .simple-filter-btn {
+                flex-shrink: 0;
             }
-            
-            .nav {
-                gap: var(--spacing-m);
-            }
-            
-            .hero-lettering {
-                height: 200px;
-                margin-bottom: var(--spacing-l);
-            }
-            
-            .hero-text {
-                font-size: var(--size-base);
-            }
-            
+
             .lettering-grid {
                 grid-template-columns: 1fr;
-                gap: var(--spacing-l);
+                gap: var(--spacing-lg);
             }
-            
-            .lettering-image {
-                height: 200px;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: var(--spacing-l);
+
+            .lettering-card__image {
+                height: 240px;
             }
         }
     </style>
@@ -380,60 +195,66 @@
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <a href="../index.html">🖨</a>
-                </div>
-                <nav class="nav">
-                    <a href="../index.html#fonts">All fonts</a>
-                    <a href="fonts-in-use.html">Fonts in use</a>
-                    <a href="lettering.html" class="active">Custom lettering</a>
-                    <a href="about.html">About</a>
-                </nav>
+            <div class="header__logo">
+                <a href="../index.html">
+                    <img src="../assets/images/logo.png" alt="The Loveprinting Machine" width="40" height="40">
+                </a>
             </div>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="../index.html#fonts" class="nav__link">All fonts</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="fonts-in-use.html" class="nav__link">Fonts in use</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="lettering.html" class="nav__link nav__link--active">Custom lettering</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="about.html" class="nav__link">About</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </header>
 
     <!-- Main Content -->
     <main class="main">
-        <!-- Hero Section -->
-        <section class="hero-section">
+        <!-- Lettering Hero Section (переиспользованный компонент с главной) -->
+        <section class="lettering">
             <div class="container">
-                <div class="hero-lettering">
-                    [Custom Lettering Animation]
+                <div class="lettering__animation">
+                    <img src="../assets/animations/gif/custom-lettering.gif" alt="Custom lettering animation" class="lettering__gif">
                 </div>
-                <p class="hero-text">I've been creating lettering and calligraphy since 2017 — hoping that this is me chosen this field but also experimenting with animated lettering frame by frame. But I'm also experimenting with animated lettering printed of created by other.</p>
-                <div class="hero-cta">
-                    <a href="#contact" class="cta-link">
-                        See lettering collection →
-                    </a>
+                <div class="lettering__content">
+                    <div class="lettering__text">
+                        <p>I've been creating lettering and calligraphy since 2017 — hoping that this is me chosen this field but also experimenting with animated lettering frame by frame. But I'm also experimenting with animated lettering printed of created by other.</p>
+                    </div>
+                    <!-- Ссылка убрана, так как мы уже на целевой странице -->
                 </div>
             </div>
         </section>
 
-        <!-- Filters Section -->
-        <section class="filters-section">
+        <!-- Simple Filters Section -->
+        <section class="simple-filters">
             <div class="container">
-                <div class="filters-grid" id="filtersGrid">
-                    <button class="filter-button active" data-filter="all">All</button>
-                    <button class="filter-button" data-filter="lettering">Lettering</button>
-                    <button class="filter-button" data-filter="poster">Poster</button>
-                    <button class="filter-button" data-filter="logo">Logo</button>
-                    <button class="filter-button" data-filter="animation">Animation</button>
-                    <button class="filter-button" data-filter="playfaces">Playfaces</button>
+                <div class="simple-filters__buttons" id="letteringFilters">
+                    <button class="simple-filter-btn active" data-filter="all">All</button>
+                    <button class="simple-filter-btn" data-filter="lettering">Lettering</button>
+                    <button class="simple-filter-btn" data-filter="poster">Poster</button>
+                    <button class="simple-filter-btn" data-filter="logo">Logo</button>
+                    <button class="simple-filter-btn" data-filter="animation">Animation</button>
+                    <button class="simple-filter-btn" data-filter="playfaces">Playfaces</button>
                 </div>
             </div>
         </section>
 
         <!-- Lettering Grid Section -->
-        <section class="lettering-section">
+        <section class="lettering-grid-section">
             <div class="container">
                 <div class="lettering-grid" id="letteringGrid">
-                    <!-- Lettering projects will be loaded here -->
-                </div>
-                <div id="emptyState" class="empty-state" style="display: none;">
-                    <h3>No lettering projects found</h3>
-                    <p>Try selecting a different filter or view all projects.</p>
+                    <!-- Lettering projects will be loaded here by JavaScript -->
                 </div>
             </div>
         </section>
@@ -442,179 +263,239 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>The Loveprinting Machine<br>Type Foundry</h3>
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <h2 class="footer__title">The Loveprinting Machine</h2>
+                    <p class="footer__subtitle">Type Foundry</p>
                 </div>
-                <div class="footer-section">
-                    <h3>Fonts</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Retiler</a></li>
-                        <li><a href="#">Retry Sans</a></li>
-                        <li><a href="#">Lanze</a></li>
-                        <li><a href="#">Puff</a></li>
-                        <li><a href="#">Nytra Mono</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Telegram</a></li>
-                        <li><a href="#">Instagram</a></li>
-                        <li><a href="#">Behance</a></li>
-                        <li><a href="#">E-mail</a></li>
-                    </ul>
+                <div class="footer__nav">
+                    <div class="footer__section">
+                        <h3 class="footer__heading">Fonts</h3>
+                        <ul class="footer__list">
+                            <li><a href="../typeface/retiler.html">Retiler</a></li>
+                            <li><a href="../typeface/retry-sans.html">Retry Sans</a></li>
+                            <li><a href="../typeface/lanze.html">Lanze</a></li>
+                            <li><a href="../typeface/puff.html">Puff</a></li>
+                            <li><a href="../typeface/nytra-mono.html">Nytra Mono</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer__section">
+                        <h3 class="footer__heading">Links</h3>
+                        <ul class="footer__list">
+                            <li><a href="#" target="_blank">Telegram</a></li>
+                            <li><a href="#" target="_blank">Instagram</a></li>
+                            <li><a href="#" target="_blank">Behance</a></li>
+                            <li><a href="mailto:hello@example.com">E-mail</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <button class="back-to-top" id="backToTop">↑</button>
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">↑</button>
+
+    <!-- JavaScript -->
+    <script src="../js/data-loader.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/filters.js"></script>
+    
     <script>
-        // Sample lettering data (would be loaded from JSON)
-        const letteringData = [
-            {
-                id: "lettering-1",
-                title: "Coffee House Logo",
-                type: "lettering",
-                category: "logo",
-                link: "https://dribbble.com/coffee-house-logo",
-                year: "2024"
-            },
-            {
-                id: "lettering-2",
-                title: "Festival Poster Typography",
-                type: "lettering",
-                category: "poster",
-                link: "https://behance.net/festival-poster",
-                year: "2024"
-            },
-            {
-                id: "lettering-3",
-                title: "Mural Lettering Project",
-                type: "lettering",
-                category: "lettering",
-                link: "#",
-                year: "2023"
-            },
-            {
-                id: "lettering-4",
-                title: "Packaging Design Letters",
-                type: "lettering",
-                category: "lettering",
-                link: "#",
-                year: "2024"
-            },
-            {
-                id: "lettering-5",
-                title: "Magazine Editorial Title",
-                type: "lettering",
-                category: "poster",
-                link: "#",
-                year: "2023"
-            },
-            {
-                id: "lettering-6",
-                title: "Animation Lettering",
-                type: "lettering",
-                category: "animation",
-                link: "https://vimeo.com/animation-lettering",
-                year: "2024"
-            },
-            {
-                id: "lettering-7",
-                title: "Brand Identity Lettering",
-                type: "lettering",
-                category: "logo",
-                link: "#",
-                year: "2024"
-            },
-            {
-                id: "lettering-8",
-                title: "Experimental Typography",
-                type: "lettering",
-                category: "playfaces",
-                link: "#",
-                year: "2023"
+        // Fix data-loader base path for pages in subdirectories
+        if (window.dataLoader) {
+            window.dataLoader.baseUrl = '../data/';
+        }
+
+        // Simple Button Filter Adapter for existing FiltersManager
+        class SimpleButtonFilter {
+            constructor() {
+                this.currentFilter = 'all';
+                this.data = [];
+                this.init();
             }
-        ];
 
-        let currentFilter = 'all';
-        let filteredLettering = letteringData;
+            async init() {
+                console.log('Initializing SimpleButtonFilter...');
+                await this.loadData();
+                this.bindEvents();
+                this.render();
+                console.log('SimpleButtonFilter initialized successfully');
+            }
 
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            initFilters();
-            loadLettering();
-            initBackToTop();
-        });
+            async loadData() {
+                try {
+                    // Используем существующий data-loader
+                    if (window.dataLoader) {
+                        console.log('Loading lettering data from dataLoader...');
+                        const letteringData = await window.dataLoader.getLettering();
+                        this.data = letteringData.letterings || [];
+                        console.log('Loaded lettering data:', this.data);
+                    } else {
+                        console.log('DataLoader not available, using fallback data');
+                        // Fallback data если data-loader недоступен  
+                        this.data = [
+                            {
+                                id: "lettering-1",
+                                title: "Coffee House Logo",
+                                type: "lettering",
+                                category: "logo",
+                                link: "https://dribbble.com/coffee-house-logo",
+                                year: "2024"
+                            },
+                            {
+                                id: "lettering-2",
+                                title: "Festival Poster Typography",
+                                type: "lettering", 
+                                category: "poster",
+                                link: "https://behance.net/festival-poster",
+                                year: "2024"
+                            },
+                            {
+                                id: "lettering-3",
+                                title: "Mural Lettering Project",
+                                type: "lettering",
+                                category: "lettering", 
+                                link: "#",
+                                year: "2023"
+                            }
+                        ];
+                    }
+                } catch (error) {
+                    console.error('Error loading lettering data:', error);
+                }
+            }
 
-        function initFilters() {
-            const filterButtons = document.querySelectorAll('.filter-button');
-            
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Remove active class from all buttons
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    // Add active class to clicked button
-                    this.classList.add('active');
-                    
-                    // Update current filter
-                    currentFilter = this.dataset.filter;
-                    
-                    // Filter and reload lettering
-                    filterLettering();
-                    loadLettering();
+            bindEvents() {
+                const filtersContainer = document.getElementById('letteringFilters');
+                if (filtersContainer) {
+                    filtersContainer.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('simple-filter-btn')) {
+                            this.handleFilterClick(e.target);
+                        }
+                    });
+                }
+            }
+
+            handleFilterClick(button) {
+                // Remove active class from all buttons
+                document.querySelectorAll('.simple-filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
                 });
-            });
-        }
-
-        function filterLettering() {
-            if (currentFilter === 'all') {
-                filteredLettering = letteringData;
-            } else {
-                filteredLettering = letteringData.filter(lettering => 
-                    lettering.category === currentFilter
-                );
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Update current filter
+                this.currentFilter = button.dataset.filter;
+                
+                // Re-render
+                this.render();
             }
-        }
 
-        function loadLettering() {
-            const letteringGrid = document.getElementById('letteringGrid');
-            const emptyState = document.getElementById('emptyState');
-            
-            letteringGrid.innerHTML = '';
-            
-            if (filteredLettering.length === 0) {
-                emptyState.style.display = 'block';
-                return;
-            } else {
-                emptyState.style.display = 'none';
+            getFilteredData() {
+                if (this.currentFilter === 'all') {
+                    return this.data;
+                }
+                
+                return this.data.filter(item => item.category === this.currentFilter);
             }
-            
-            filteredLettering.forEach(lettering => {
-                const letteringCard = document.createElement('div');
-                letteringCard.className = 'lettering-card';
-                letteringCard.innerHTML = `
-                    <div class="lettering-image">
-                        [Lettering Image]
-                    </div>
-                    <div class="lettering-info">
-                        <div class="lettering-type">
-                            Type:<br>
-                            ${lettering.category}
+
+            render() {
+                console.log('Rendering lettering projects, current filter:', this.currentFilter);
+                console.log('Available data:', this.data);
+                
+                const container = document.getElementById('letteringGrid');
+                const parentContainer = container ? container.parentNode : null;
+                
+                if (!container || !parentContainer) {
+                    console.error('Container not found');
+                    return;
+                }
+                
+                const filteredData = this.getFilteredData();
+                console.log('Filtered data:', filteredData);
+                
+                // Clear container
+                container.innerHTML = '';
+                
+                // Remove any existing no-results
+                const existingNoResults = parentContainer.querySelector('.no-results');
+                if (existingNoResults) {
+                    existingNoResults.remove();
+                }
+                
+                // Handle empty state
+                if (filteredData.length === 0) {
+                    console.log('No data to display');
+                    this.showNoResults(parentContainer);
+                    return;
+                }
+                
+                // Render items
+                console.log('Rendering', filteredData.length, 'items');
+                filteredData.forEach(item => {
+                    const card = this.createLetteringCard(item);
+                    container.appendChild(card);
+                });
+            }
+
+            createLetteringCard(item) {
+                const card = document.createElement('div');
+                card.className = 'lettering-card';
+                
+                card.innerHTML = `
+                    <div class="lettering-card__image">
+                        <div style="background: var(--color-gray-100); padding: var(--spacing-2xl); text-align: center; color: var(--color-gray-500); font-size: var(--size-sm);">
+                            Lettering Project Image
                         </div>
-                        <h3 class="lettering-title">${lettering.title}</h3>
-                        <a href="${lettering.link}" class="lettering-link" target="_blank">
+                    </div>
+                    <div class="lettering-card__info">
+                        <div class="lettering-card__type">
+                            Type:<br>
+                            ${item.category}
+                        </div>
+                        <h3 class="lettering-card__title">${item.title}</h3>
+                        <a href="${item.link}" class="lettering-card__link" target="_blank">
                             Link →
                         </a>
                     </div>
                 `;
                 
-                letteringGrid.appendChild(letteringCard);
-            });
+                return card;
+            }
+
+            showNoResults(container) {
+                // Очистим контейнер перед добавлением no-results
+                container.innerHTML = '';
+                
+                const noResults = document.createElement('div');
+                noResults.className = 'no-results';
+                noResults.innerHTML = `
+                    <p class="no-results__message">No lettering projects found</p>
+                    <button class="no-results__clear" onclick="letteringFilter.clearAllFilters()">
+                        Clear all filters
+                    </button>
+                `;
+                container.appendChild(noResults);
+            }
+
+            clearAllFilters() {
+                this.currentFilter = 'all';
+                
+                // Reset active button
+                document.querySelectorAll('.simple-filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.filter === 'all') {
+                        btn.classList.add('active');
+                    }
+                });
+                
+                this.render();
+            }
         }
 
+        // Initialize back to top button
         function initBackToTop() {
             const backToTop = document.getElementById('backToTop');
             
@@ -633,6 +514,16 @@
                 });
             });
         }
+
+        // Initialize when DOM is loaded
+        let letteringFilter;
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Initialize simple button filter
+            letteringFilter = new SimpleButtonFilter();
+            
+            // Initialize back to top
+            initBackToTop();
+        });
     </script>
 </body>
 </html>
