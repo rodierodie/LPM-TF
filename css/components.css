@@ -1038,3 +1038,439 @@
   color: var(--color-black);
   border-color: var(--color-white);
 }
+
+/* ===== Component Loading States ===== */
+
+/* Loading animation for components */
+#header-container:empty,
+#footer-container:empty {
+  min-height: var(--header-height);
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+#footer-container:empty {
+  min-height: 200px;
+  margin-top: var(--spacing-4xl);
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Hide loading animation when components are loaded */
+.app-loaded #header-container:empty,
+.app-loaded #footer-container:empty {
+  display: none;
+}
+
+/* ===== Enhanced Header Styles ===== */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: var(--header-bg);
+  backdrop-filter: var(--header-backdrop-blur);
+  z-index: var(--z-fixed);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-normal);
+}
+
+/* Scrolled state */
+.header.scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: var(--shadow-md);
+}
+
+.header .container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__logo img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  transition: transform var(--transition-fast);
+}
+
+.header__logo:hover img {
+  transform: scale(1.05);
+}
+
+/* ===== Enhanced Navigation Styles ===== */
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--nav-item-spacing);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav__link {
+  font-size: var(--nav-font-size);
+  font-weight: var(--nav-font-weight);
+  color: var(--color-black);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  padding: var(--spacing-sm) 0;
+  position: relative;
+}
+
+.nav__link:hover {
+  color: var(--color-gray-600);
+}
+
+.nav__link--active {
+  color: var(--color-gray-600);
+  font-weight: 500;
+}
+
+/* Active link indicator */
+.nav__link--active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-black);
+  border-radius: 1px;
+}
+
+/* ===== Enhanced Footer Styles ===== */
+
+.footer {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  padding: var(--spacing-4xl) 0 var(--spacing-2xl);
+  margin-top: auto;
+  position: relative;
+}
+
+.footer__content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--spacing-4xl);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.footer__title {
+  font-size: var(--size-lg);
+  font-weight: 400;
+  color: var(--color-white);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.footer__subtitle {
+  font-size: var(--size-sm);
+  color: var(--color-gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+
+.footer__nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-2xl);
+}
+
+.footer__column {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer__heading {
+  font-size: var(--size-sm);
+  color: var(--color-white);
+  margin-bottom: var(--spacing-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+}
+
+.footer__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer__list a {
+  font-size: var(--size-sm);
+  color: var(--color-gray-400);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--spacing-xs) 0;
+}
+
+.footer__list a:hover {
+  color: var(--color-white);
+}
+
+/* ===== Back to Top Button ===== */
+
+.back-to-top {
+  position: fixed;
+  bottom: var(--spacing-xl);
+  right: var(--spacing-xl);
+  width: 48px;
+  height: 48px;
+  background: var(--color-black);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--border-radius-full);
+  font-size: var(--size-lg);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all var(--transition-normal);
+  z-index: var(--z-fixed);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+  background: var(--color-gray-800);
+}
+
+.back-to-top:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 2px;
+}
+
+/* ===== Skip Link for Accessibility ===== */
+
+.skip-link {
+  position: absolute !important;
+  left: -10000px !important;
+  top: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+
+.skip-link:focus {
+  position: absolute !important;
+  left: 6px !important;
+  top: 7px !important;
+  z-index: 999999 !important;
+  padding: 8px 16px !important;
+  background: #000 !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  border-radius: 3px !important;
+  font-size: 14px !important;
+  width: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* ===== Component Error States ===== */
+
+.component-error {
+  background: #fee;
+  border: 1px solid #fcc;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  color: #c33;
+  font-size: var(--size-sm);
+  text-align: center;
+}
+
+/* ===== Mobile Responsive Styles ===== */
+
+@media (max-width: 768px) {
+  .header {
+    height: var(--header-height-mobile);
+  }
+  
+  .header .container {
+    padding: 0 var(--spacing-md);
+  }
+  
+  .nav__list {
+    gap: var(--spacing-md);
+  }
+  
+  .nav__link {
+    font-size: var(--size-sm);
+    padding: var(--spacing-xs) 0;
+  }
+  
+  .footer__content {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+  }
+  
+  .footer__nav {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+  
+  .back-to-top {
+    width: 44px;
+    height: 44px;
+    bottom: var(--spacing-lg);
+    right: var(--spacing-lg);
+  }
+}
+
+/* ===== Touch Device Optimizations ===== */
+
+@media (pointer: coarse) {
+  .nav__link {
+    padding: var(--spacing-md) var(--spacing-sm);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .footer__list a {
+    padding: var(--spacing-sm) 0;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .back-to-top {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+/* ===== High Contrast Mode Support ===== */
+
+@media (prefers-contrast: high) {
+  .header {
+    border-bottom: 2px solid black;
+  }
+  
+  .nav__link,
+  .footer__list a {
+    text-decoration: underline;
+  }
+  
+  .back-to-top {
+    border: 2px solid white;
+  }
+}
+
+/* ===== Reduced Motion Support ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .nav__link,
+  .footer__list a,
+  .back-to-top {
+    transition: none;
+  }
+  
+  @keyframes loading {
+    0%, 100% { background-position: 0 0; }
+  }
+  
+  .header__logo:hover img {
+    transform: none;
+  }
+  
+  .back-to-top:hover {
+    transform: none;
+  }
+}
+
+/* ===== Dark Mode Support ===== */
+
+@media (prefers-color-scheme: dark) {
+  #header-container:empty,
+  #footer-container:empty {
+    background: linear-gradient(90deg, #2a2a2a 25%, #1a1a1a 50%, #2a2a2a 75%);
+  }
+  
+  .header {
+    background: rgba(26, 26, 26, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .header.scrolled {
+    background: rgba(26, 26, 26, 0.98);
+  }
+  
+  .nav__link {
+    color: var(--color-white);
+  }
+  
+  .nav__link:hover {
+    color: var(--color-gray-300);
+  }
+  
+  .nav__link--active {
+    color: var(--color-gray-300);
+  }
+  
+  .nav__link--active::after {
+    background: var(--color-white);
+  }
+}
+
+/* ===== Animation for Component Loading ===== */
+
+.header,
+.footer {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Main Content Adjustment ===== */
+
+.main {
+  padding-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height));
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding-top: var(--header-height-mobile);
+    min-height: calc(100vh - var(--header-height-mobile));
+  }
+}

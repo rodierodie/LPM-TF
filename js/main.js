@@ -1,6 +1,6 @@
 /**
- * Main JavaScript Module
- * Core functionality for the website
+ * Updated Main JavaScript Module
+ * Работает с модульной системой компонентов
  */
 
 class MainApp {
@@ -36,13 +36,18 @@ class MainApp {
   async onDOMReady() {
     console.log('DOM ready, initializing app...');
     
-    // Initialize core components
-    this.initializeNavigation();
+    // Устанавливаем глобальную переменную текущей страницы
+    window.currentPage = this.currentPage;
+    
+    // Ждем загрузки компонентов (они загружаются автоматически через components-loader.js)
+    await this.waitForComponents();
+    
+    // Initialize core functionality
     this.initializeScrollHandling();
-    this.initializeBackToTop();
     this.initializeVideoHandling();
     this.initializeLazyLoading();
     this.initializeAccessibility();
+    this.initializeSmoothScrolling();
     
     // Load page-specific content
     await this.loadPageContent();
@@ -52,6 +57,27 @@ class MainApp {
     document.body.classList.add('app-loaded');
     
     console.log('App initialized successfully');
+  }
+
+  /**
+   * Wait for components to load
+   */
+  async waitForComponents() {
+    return new Promise((resolve) => {
+      const checkComponents = () => {
+        const header = document.querySelector('.header');
+        const footer = document.querySelector('.footer');
+        
+        if (header && footer) {
+          console.log('Components loaded');
+          resolve();
+        } else {
+          setTimeout(checkComponents, 50);
+        }
+      };
+      
+      checkComponents();
+    });
   }
 
   /**
@@ -76,88 +102,23 @@ class MainApp {
   }
 
   /**
-   * Initialize navigation functionality
+   * Initialize smooth scrolling for anchor links
    */
-  initializeNavigation() {
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', this.handleAnchorClick.bind(this));
-    });
-
-    // Highlight current navigation item
-    this.updateActiveNavigation();
-
-    // Handle navigation visibility on scroll
-    this.setupNavigationScroll();
-  }
-
-  /**
-   * Handle anchor link clicks
-   */
-  handleAnchorClick(event) {
-    event.preventDefault();
-    
-    const targetId = event.currentTarget.getAttribute('href').substring(1);
-    const targetElement = document.getElementById(targetId);
-    
-    if (targetElement) {
-      this.scrollToElement(targetElement);
-    }
-  }
-
-  /**
-   * Smooth scroll to element
-   */
-  scrollToElement(element, offset = 80) {
-    const elementPosition = element.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
-    });
-  }
-
-  /**
-   * Update active navigation item
-   */
-  updateActiveNavigation() {
-    const navLinks = document.querySelectorAll('.nav__link');
-    const currentPath = window.location.pathname;
-
-    navLinks.forEach(link => {
-      const linkPath = new URL(link.href).pathname;
+  initializeSmoothScrolling() {
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a[href^="#"]');
+      if (!link) return;
       
-      if (linkPath === currentPath || 
-          (currentPath === '/' && link.getAttribute('href').startsWith('#'))) {
-        link.classList.add('nav__link--active');
-      } else {
-        link.classList.remove('nav__link--active');
+      e.preventDefault();
+      const targetId = link.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+      
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
       }
-    });
-  }
-
-  /**
-   * Setup navigation scroll behavior
-   */
-  setupNavigationScroll() {
-    const header = document.querySelector('.header');
-    let lastScrollY = window.scrollY;
-
-    window.addEventListener('scroll', () => {
-      const currentScrollY = window.scrollY;
-      
-      if (header) {
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-          // Scrolling down
-          header.style.transform = 'translateY(-100%)';
-        } else {
-          // Scrolling up
-          header.style.transform = 'translateY(0)';
-        }
-      }
-      
-      lastScrollY = currentScrollY;
     });
   }
 
@@ -166,10 +127,10 @@ class MainApp {
    */
   initializeScrollHandling() {
     let ticking = false;
-
+    
     const updateScrollPosition = () => {
       this.scrollPosition = window.pageYOffset;
-      this.updateScrollProgress();
+      this.handleScrollEffects();
       ticking = false;
     };
 
@@ -179,95 +140,28 @@ class MainApp {
         ticking = true;
       }
     });
-
-    // Throttled scroll for performance
-    window.addEventListener('scroll', this.throttle(this.onScroll.bind(this), 16));
   }
 
   /**
-   * Handle scroll events
+   * Handle scroll effects (header transparency, animations, etc.)
    */
-  onScroll() {
-    // Update scroll-based animations or effects
-    this.updateParallaxEffects();
-    this.updateVisibilityStates();
-  }
+  handleScrollEffects() {
+    const header = document.querySelector('.header');
+    if (!header) return;
 
-  /**
-   * Update scroll progress indicator
-   */
-  updateScrollProgress() {
-    const scrollProgress = document.querySelector('.scroll-progress');
-    if (scrollProgress) {
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      scrollProgress.style.width = scrolled + '%';
+    // Add scrolled class for header background
+    if (this.scrollPosition > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
     }
-  }
 
-  /**
-   * Update parallax effects
-   */
-  updateParallaxEffects() {
-    const parallaxElements = document.querySelectorAll('[data-parallax]');
-    
-    parallaxElements.forEach(element => {
-      const speed = element.dataset.parallax || 0.5;
-      const yPos = -(this.scrollPosition * speed);
-      element.style.transform = `translateY(${yPos}px)`;
-    });
-  }
-
-  /**
-   * Update element visibility states
-   */
-  updateVisibilityStates() {
-    const observedElements = document.querySelectorAll('[data-observe]');
-    
-    observedElements.forEach(element => {
-      if (this.isElementInViewport(element)) {
-        element.classList.add('in-viewport');
-      } else {
-        element.classList.remove('in-viewport');
-      }
-    });
-  }
-
-  /**
-   * Check if element is in viewport
-   */
-  isElementInViewport(element, threshold = 0.1) {
-    const rect = element.getBoundingClientRect();
-    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-    
-    return (
-      rect.top >= -rect.height * threshold &&
-      rect.bottom <= windowHeight + rect.height * threshold
-    );
-  }
-
-  /**
-   * Initialize back to top button
-   */
-  initializeBackToTop() {
-    const backToTop = document.getElementById('backToTop');
-    
-    if (backToTop) {
-      window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-          backToTop.classList.add('visible');
-        } else {
-          backToTop.classList.remove('visible');
-        }
-      });
-      
-      backToTop.addEventListener('click', () => {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      });
+    // Parallax effects for hero sections
+    const heroElement = document.querySelector('.hero');
+    if (heroElement && this.scrollPosition < window.innerHeight) {
+      const parallaxSpeed = 0.5;
+      const yPos = -(this.scrollPosition * parallaxSpeed);
+      heroElement.style.transform = `translateY(${yPos}px)`;
     }
   }
 
@@ -275,73 +169,43 @@ class MainApp {
    * Initialize video handling
    */
   initializeVideoHandling() {
-    const videos = document.querySelectorAll('video');
+    const videos = document.querySelectorAll('video[autoplay]');
     
     videos.forEach(video => {
-      // Ensure videos are properly loaded
-      video.addEventListener('loadedmetadata', () => {
-        console.log('Video metadata loaded:', video.src);
+      // Ensure video plays properly
+      video.muted = true;
+      
+      // Handle intersection observer for performance
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            video.play().catch(console.warn);
+          } else {
+            video.pause();
+          }
+        });
       });
-
-      // Handle video errors
-      video.addEventListener('error', (e) => {
-        console.error('Video error:', e, video.src);
-        this.handleVideoError(video);
-      });
-
-      // Pause video when not in view (performance optimization)
-      this.setupVideoIntersectionObserver(video);
+      
+      observer.observe(video);
     });
   }
 
   /**
-   * Handle video loading errors
-   */
-  handleVideoError(video) {
-    const container = video.closest('.hero__video-container');
-    if (container) {
-      // Replace with fallback image or hide video
-      container.style.display = 'none';
-      console.warn('Video failed to load, hiding video container');
-    }
-  }
-
-  /**
-   * Setup intersection observer for videos
-   */
-  setupVideoIntersectionObserver(video) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          video.play().catch(e => console.log('Video autoplay prevented:', e));
-        } else {
-          video.pause();
-        }
-      });
-    }, { threshold: 0.5 });
-
-    observer.observe(video);
-  }
-
-  /**
-   * Initialize lazy loading
+   * Initialize lazy loading for images
    */
   initializeLazyLoading() {
     if ('IntersectionObserver' in window) {
-      const imageObserver = new IntersectionObserver((entries) => {
+      const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const img = entry.target;
-            if (img.dataset.src) {
-              img.src = img.dataset.src;
-              img.classList.add('loaded');
-              imageObserver.unobserve(img);
-            }
+            img.src = img.dataset.src;
+            img.classList.remove('lazy');
+            imageObserver.unobserve(img);
           }
         });
       });
 
-      // Observe images with data-src attribute
       document.querySelectorAll('img[data-src]').forEach(img => {
         imageObserver.observe(img);
       });
@@ -352,194 +216,247 @@ class MainApp {
    * Initialize accessibility features
    */
   initializeAccessibility() {
-    // Skip link functionality
-    const skipLink = document.querySelector('.skip-link');
-    if (skipLink) {
-      skipLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        const target = document.querySelector(skipLink.getAttribute('href'));
-        if (target) {
-          target.focus();
-          this.scrollToElement(target);
-        }
-      });
-    }
-
-    // Keyboard navigation support
-    this.setupKeyboardNavigation();
-    
-    // Focus management
-    this.setupFocusManagement();
-  }
-
-  /**
-   * Setup keyboard navigation
-   */
-  setupKeyboardNavigation() {
+    // Focus management for modals and navigation
     document.addEventListener('keydown', (e) => {
-      // ESC key handling
+      // Escape key to close modals
       if (e.key === 'Escape') {
-        this.handleEscapeKey();
-      }
-      
-      // Enter key on buttons
-      if (e.key === 'Enter' && e.target.role === 'button') {
-        e.target.click();
+        const activeModal = document.querySelector('.modal.active');
+        if (activeModal) {
+          this.closeModal(activeModal);
+        }
       }
     });
+
+    // Skip to main content link
+    this.addSkipLink();
   }
 
   /**
-   * Handle escape key press
+   * Add skip to main content link for accessibility
    */
-  handleEscapeKey() {
-    // Close any open modals, menus, etc.
-    const activeModal = document.querySelector('.modal.active');
-    if (activeModal) {
-      this.closeModal(activeModal);
-    }
-  }
+  addSkipLink() {
+    if (document.querySelector('.skip-link')) return;
 
-  /**
-   * Setup focus management
-   */
-  setupFocusManagement() {
-    // Trap focus in modals
-    document.addEventListener('focusin', (e) => {
-      const modal = e.target.closest('.modal');
-      if (modal && modal.classList.contains('active')) {
-        this.trapFocus(modal, e);
-      }
+    const skipLink = document.createElement('a');
+    skipLink.href = '#main';
+    skipLink.className = 'skip-link';
+    skipLink.textContent = 'Skip to main content';
+    skipLink.style.cssText = `
+      position: absolute;
+      left: -10000px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    `;
+
+    skipLink.addEventListener('focus', () => {
+      skipLink.style.cssText = `
+        position: absolute;
+        left: 6px;
+        top: 7px;
+        z-index: 999999;
+        padding: 8px 16px;
+        background: #000;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 3px;
+      `;
     });
+
+    skipLink.addEventListener('blur', () => {
+      skipLink.style.cssText = `
+        position: absolute;
+        left: -10000px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      `;
+    });
+
+    document.body.insertBefore(skipLink, document.body.firstChild);
   }
 
   /**
    * Load page-specific content
    */
   async loadPageContent() {
-    try {
-      switch (this.currentPage) {
-        case 'home':
-          await this.loadHomeContent();
-          break;
-        case 'typeface':
-          await this.loadTypefaceContent();
-          break;
-        case 'fonts-in-use':
-          await this.loadFontsInUseContent();
-          break;
-        case 'lettering':
-          await this.loadLetteringContent();
-          break;
-        case 'about':
-          await this.loadAboutContent();
-          break;
-      }
-    } catch (error) {
-      console.error('Error loading page content:', error);
+    switch (this.currentPage) {
+      case 'home':
+        await this.loadHomePage();
+        break;
+      case 'fonts-in-use':
+        await this.loadFontsInUsePage();
+        break;
+      case 'lettering':
+        await this.loadLetteringPage();
+        break;
+      case 'typeface':
+        await this.loadTypefacePage();
+        break;
+      case 'about':
+        await this.loadAboutPage();
+        break;
     }
   }
 
   /**
-   * Load home page content
+   * Load home page specific content
    */
-  async loadHomeContent() {
-    console.log('Loading home page content...');
-    // Home page content is mostly static HTML
-    // Any dynamic content would be loaded here
-  }
-
-  /**
-   * Load typeface page content
-   */
-  async loadTypefaceContent() {
-    console.log('Loading typeface page content...');
-    // This would be implemented when typeface pages are created
-  }
-
-  /**
-   * Load fonts in use content
-   */
-  async loadFontsInUseContent() {
-    console.log('Loading fonts in use content...');
-    // This would be implemented when the page is created
-  }
-
-  /**
-   * Load lettering content
-   */
-  async loadLetteringContent() {
-    console.log('Loading lettering content...');
-    // This would be implemented when the page is created
-  }
-
-  /**
-   * Load about content
-   */
-  async loadAboutContent() {
-    console.log('Loading about content...');
-    // This would be implemented when the page is created
-  }
-
-  /**
-   * Utility function to throttle function calls
-   */
-  throttle(func, limit) {
-    let inThrottle;
-    return function() {
-      const args = arguments;
-      const context = this;
-      if (!inThrottle) {
-        func.apply(context, args);
-        inThrottle = true;
-        setTimeout(() => inThrottle = false, limit);
+  async loadHomePage() {
+    try {
+      // Load fonts for showcase
+      if (window.dataLoader) {
+        const fontsData = await window.dataLoader.getTypefaces();
+        await this.renderFontsShowcase(fontsData);
       }
-    };
+
+      // Load project previews
+      if (window.dataLoader) {
+        const projectsData = await window.dataLoader.getProjects();
+        await this.renderProjectsPreview(projectsData);
+      }
+    } catch (error) {
+      console.error('Error loading home page content:', error);
+    }
   }
 
   /**
-   * Utility function to debounce function calls
+   * Load fonts in use page specific content
    */
-  debounce(func, wait, immediate) {
-    let timeout;
-    return function() {
-      const context = this;
-      const args = arguments;
-      const later = function() {
-        timeout = null;
-        if (!immediate) func.apply(context, args);
-      };
-      const callNow = immediate && !timeout;
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-      if (callNow) func.apply(context, args);
-    };
+  async loadFontsInUsePage() {
+    try {
+      if (window.dataLoader) {
+        const projectsData = await window.dataLoader.getProjects();
+        
+        // Update results count
+        const totalProjects = projectsData.projects?.length || 0;
+        const countElement = document.querySelector('[data-count="projects"]');
+        if (countElement) {
+          countElement.textContent = `${totalProjects} projects`;
+        }
+
+        // Initialize filters
+        if (window.filtersManager) {
+          await window.filtersManager.loadDataForType('projects');
+        }
+      }
+    } catch (error) {
+      console.error('Error loading fonts in use page:', error);
+    }
   }
 
   /**
-   * Public method to reload the app
+   * Load lettering page specific content
    */
-  reload() {
-    this.isLoaded = false;
-    this.init();
+  async loadLetteringPage() {
+    try {
+      if (window.dataLoader) {
+        const letteringData = await window.dataLoader.getLettering();
+        
+        // Initialize filters
+        if (window.filtersManager) {
+          await window.filtersManager.loadDataForType('lettering');
+        }
+      }
+    } catch (error) {
+      console.error('Error loading lettering page:', error);
+    }
   }
 
   /**
-   * Public method to get app state
+   * Load typeface page specific content
    */
-  getState() {
-    return {
-      isLoaded: this.isLoaded,
-      currentPage: this.currentPage,
-      scrollPosition: this.scrollPosition
-    };
+  async loadTypefacePage() {
+    try {
+      // Get font ID from URL
+      const fontId = this.getFontIdFromURL();
+      
+      if (fontId && window.typetesterManager) {
+        await window.typetesterManager.init(fontId);
+      }
+    } catch (error) {
+      console.error('Error loading typeface page:', error);
+    }
+  }
+
+  /**
+   * Load about page specific content
+   */
+  async loadAboutPage() {
+    // About page is mostly static, no special loading needed
+    console.log('About page loaded');
+  }
+
+  /**
+   * Get font ID from current URL
+   */
+  getFontIdFromURL() {
+    const path = window.location.pathname;
+    const match = path.match(/\/typeface\/([^/]+)\.html/);
+    return match ? match[1] : null;
+  }
+
+  /**
+   * Render fonts showcase for home page
+   */
+  async renderFontsShowcase(fontsData) {
+    const container = document.getElementById('fonts-container');
+    if (!container || !fontsData?.fonts) return;
+
+    const showcases = fontsData.fonts.map(font => `
+      <div class="font-showcase font-showcase--${font.id === 'retry-sans' ? 'black' : 'gray'}">
+        <div class="font-showcase__content">
+          <h2 class="font-showcase__title">${font.nameDisplay || font.name}</h2>
+          <div class="font-showcase__preview">
+            <img src="assets/svg/${font.previewSVG}" alt="${font.name} preview" loading="lazy">
+          </div>
+          <div class="font-showcase__meta">
+            <span class="font-showcase__styles">${font.styles} styles</span>
+            <a href="typeface/${font.id}.html" class="font-showcase__link">View details →</a>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    container.innerHTML = showcases;
+  }
+
+  /**
+   * Render projects preview for home page
+   */
+  async renderProjectsPreview(projectsData) {
+    const container = document.getElementById('projects-preview');
+    if (!container || !projectsData?.projects) return;
+
+    // Show first 6 projects
+    const previewProjects = projectsData.projects.slice(0, 6);
+    
+    const projectsHTML = previewProjects.map((project, index) => `
+      <div class="project-card ${index === 2 ? 'project-card--large' : ''}">
+        <div class="project-card__image">
+          ${project.images?.[0] ? 
+            `<img src="assets/images/projects/${project.images[0]}" alt="${project.name}" loading="lazy">` :
+            `<span>Project Preview</span>`
+          }
+        </div>
+      </div>
+    `).join('');
+
+    container.innerHTML = projectsHTML;
+  }
+
+  /**
+   * Close modal (for future modal functionality)
+   */
+  closeModal(modal) {
+    modal.classList.remove('active');
+    document.body.classList.remove('modal-open');
   }
 }
 
-// Initialize the application
-window.mainApp = new MainApp();
-
-// Export for module systems
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = MainApp;
+// Initialize app when script loads
+if (typeof window !== 'undefined') {
+  window.mainApp = new MainApp();
 }
