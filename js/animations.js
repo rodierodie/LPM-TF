@@ -1,433 +1,553 @@
 /**
- * Модуль анимаций
- * Управление GIF анимациями, scroll-based эффектами и Intersection Observer
+ * Animations Module
+ * Handles GIF animations, scroll effects, and visual transitions
  */
 
-class AnimationManager {
-    constructor() {
-        this.observers = {};
-        this.scrollAnimations = new Map();
-        this.gifControllers = new Map();
-        this.isInitialized = false;
-        
-        this.init();
+class AnimationsManager {
+  constructor() {
+    this.animatedElements = new Map();
+    this.scrollPosition = 0;
+    this.isScrolling = false;
+    this.observers = new Map();
+    
+    this.init();
+  }
+
+  /**
+   * Initialize animations system
+   */
+  init() {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => this.onDOMReady());
+    } else {
+      this.onDOMReady();
     }
+  }
 
-    init() {
-        if (this.isInitialized) return;
-        
-        this.setupIntersectionObserver();
-        this.setupScrollAnimations();
-        this.setupGifControllers();
-        this.setupParallaxEffects();
-        this.bindEvents();
-        
-        this.isInitialized = true;
-    }
+  /**
+   * Handle DOM ready
+   */
+  onDOMReady() {
+    this.setupIntersectionObservers();
+    this.setupScrollAnimations();
+    this.setupGifControls();
+    this.setupParallaxEffects();
+    this.setupRevealAnimations();
+    this.initializePerformanceOptimizations();
+    
+    console.log('Animations initialized');
+  }
 
-    /**
-     * Настройка Intersection Observer для появления элементов
-     */
-    setupIntersectionObserver() {
-        // Базовый observer для fade-in эффектов
-        this.observers.fadeIn = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in');
-                    
-                    // Запуск GIF анимации при появлении
-                    const gif = entry.target.querySelector('.scroll-gif');
-                    if (gif) {
-                        this.playGif(gif);
-                    }
-                } else {
-                    entry.target.classList.remove('animate-in');
-                    
-                    // Остановка GIF при исчезновении
-                    const gif = entry.target.querySelector('.scroll-gif');
-                    if (gif) {
-                        this.pauseGif(gif);
-                    }
-                }
-            });
-        }, {
-            threshold: 0.2,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        // Observer для анимаций с задержкой
-        this.observers.staggered = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const children = entry.target.querySelectorAll('.stagger-item');
-                    children.forEach((child, index) => {
-                        setTimeout(() => {
-                            child.classList.add('animate-in');
-                        }, index * 100);
-                    });
-                }
-            });
-        }, {
-            threshold: 0.3
-        });
-
-        // Наблюдение за элементами
-        this.observeElements();
-    }
-
-    observeElements() {
-        // Элементы для базовой анимации появления
-        const fadeElements = document.querySelectorAll('[data-animation="fade-in"], .scroll-animation, .typefaces-preview, .usp');
-        fadeElements.forEach(el => {
-            this.observers.fadeIn.observe(el);
-        });
-
-        // Элементы для анимации с задержкой
-        const staggeredElements = document.querySelectorAll('[data-animation="staggered"], .typefaces-grid, .projects-grid');
-        staggeredElements.forEach(el => {
-            this.observers.staggered.observe(el);
-        });
-    }
-
-    /**
-     * Настройка scroll-based анимаций
-     */
-    setupScrollAnimations() {
-        const scrollElements = document.querySelectorAll('[data-animation*="scroll-trigger"]');
-        
-        scrollElements.forEach(element => {
-            const gif = element.querySelector('.scroll-gif, .animation-gif');
-            if (gif) {
-                this.scrollAnimations.set(element, {
-                    gif: gif,
-                    originalSrc: gif.src,
-                    isPlaying: false,
-                    threshold: 0.5
-                });
-            }
-        });
-
-        // Обработчик скролла с throttling
-        let ticking = false;
-        const handleScroll = () => {
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    this.updateScrollAnimations();
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll, { passive: true });
-    }
-
-    updateScrollAnimations() {
-        this.scrollAnimations.forEach((animation, element) => {
-            const rect = element.getBoundingClientRect();
-            const isVisible = (
-                rect.top < window.innerHeight && 
-                rect.bottom > 0
-            );
-            const visibilityRatio = this.calculateVisibilityRatio(rect);
-
-            if (isVisible && visibilityRatio > animation.threshold) {
-                if (!animation.isPlaying) {
-                    this.playGif(animation.gif);
-                    animation.isPlaying = true;
-                }
-            } else {
-                if (animation.isPlaying) {
-                    this.pauseGif(animation.gif);
-                    animation.isPlaying = false;
-                }
-            }
-        });
-    }
-
-    calculateVisibilityRatio(rect) {
-        const windowHeight = window.innerHeight;
-        const elementHeight = rect.height;
-        
-        let visibleHeight = 0;
-        
-        if (rect.top >= 0 && rect.bottom <= windowHeight) {
-            // Элемент полностью видим
-            visibleHeight = elementHeight;
-        } else if (rect.top < 0 && rect.bottom > windowHeight) {
-            // Элемент больше экрана
-            visibleHeight = windowHeight;
-        } else if (rect.top < 0) {
-            // Элемент обрезан сверху
-            visibleHeight = rect.bottom;
-        } else if (rect.bottom > windowHeight) {
-            // Элемент обрезан снизу
-            visibleHeight = windowHeight - rect.top;
+  /**
+   * Setup intersection observers for performance
+   */
+  setupIntersectionObservers() {
+    // Observer for fade-in animations
+    const fadeInObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in');
+          fadeInObserver.unobserve(entry.target);
         }
-        
-        return Math.max(0, visibleHeight / elementHeight);
-    }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '50px'
+    });
 
-    /**
-     * Настройка контроллеров GIF
-     */
-    setupGifControllers() {
-        const gifs = document.querySelectorAll('.scroll-gif, .animation-gif, [data-gif-control]');
-        
-        gifs.forEach(gif => {
-            this.setupGifController(gif);
-        });
-    }
-
-    setupGifController(gif) {
-        const controller = {
-            element: gif,
-            originalSrc: gif.src,
-            isPlaying: false,
-            canvas: null,
-            context: null,
-            frames: [],
-            currentFrame: 0,
-            animationId: null
-        };
-
-        // Для оптимизации можно создать canvas версию
-        if (gif.dataset.canvasOptimize === 'true') {
-            this.createCanvasVersion(controller);
+    // Observer for slide-up animations
+    const slideUpObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-slide-up');
+          slideUpObserver.unobserve(entry.target);
         }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '50px'
+    });
 
-        this.gifControllers.set(gif, controller);
+    // Observer for scale animations
+    const scaleObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-scale-in');
+          scaleObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.2,
+      rootMargin: '30px'
+    });
 
-        // Обработчики событий
-        gif.addEventListener('mouseenter', () => {
-            this.playGif(gif);
+    // Apply observers to elements
+    document.querySelectorAll('[data-animate="fade-in"]').forEach(el => {
+      fadeInObserver.observe(el);
+    });
+
+    document.querySelectorAll('[data-animate="slide-up"]').forEach(el => {
+      slideUpObserver.observe(el);
+    });
+
+    document.querySelectorAll('[data-animate="scale-in"]').forEach(el => {
+      scaleObserver.observe(el);
+    });
+
+    // Store observers for cleanup
+    this.observers.set('fadeIn', fadeInObserver);
+    this.observers.set('slideUp', slideUpObserver);
+    this.observers.set('scale', scaleObserver);
+  }
+
+  /**
+   * Setup scroll-based animations
+   */
+  setupScrollAnimations() {
+    let ticking = false;
+
+    const onScroll = () => {
+      this.scrollPosition = window.pageYOffset;
+      
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          this.updateScrollAnimations();
+          ticking = false;
         });
+        ticking = true;
+      }
+    };
 
-        gif.addEventListener('mouseleave', () => {
-            if (gif.dataset.pauseOnHover !== 'false') {
-                this.pauseGif(gif);
-            }
-        });
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  /**
+   * Update scroll-based animations
+   */
+  updateScrollAnimations() {
+    this.updateParallax();
+    this.updateProgressBars();
+    this.updateRevealElements();
+    this.updateStickyElements();
+  }
+
+  /**
+   * Setup GIF animation controls
+   */
+  setupGifControls() {
+    const gifs = document.querySelectorAll('img[src*=".gif"]');
+    
+    gifs.forEach(gif => {
+      this.setupGifIntersectionObserver(gif);
+      this.setupGifPlaybackControls(gif);
+    });
+  }
+
+  /**
+   * Setup intersection observer for GIF optimization
+   */
+  setupGifIntersectionObserver(gif) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.playGif(gif);
+        } else {
+          this.pauseGif(gif);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '100px'
+    });
+
+    observer.observe(gif);
+    this.observers.set(`gif-${gif.src}`, observer);
+  }
+
+  /**
+   * Setup GIF playback controls
+   */
+  setupGifPlaybackControls(gif) {
+    // Store original src
+    const originalSrc = gif.src;
+    gif.dataset.originalSrc = originalSrc;
+    
+    // Create static version path for GIFs in gif subfolder
+    let staticSrc;
+    if (originalSrc.includes('assets/animations/gif/')) {
+      staticSrc = originalSrc.replace('/gif/', '/gif/').replace('.gif', '-static.jpg');
+    } else {
+      staticSrc = originalSrc.replace('.gif', '-static.jpg');
     }
+    gif.dataset.staticSrc = staticSrc;
+    
+    // Add loading state
+    gif.addEventListener('load', () => {
+      gif.classList.add('gif-loaded');
+    });
 
-    createCanvasVersion(controller) {
-        // Создание canvas для более точного контроля анимации
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
+    // Handle errors gracefully
+    gif.addEventListener('error', () => {
+      console.warn('GIF failed to load:', originalSrc);
+      gif.classList.add('gif-error');
+    });
+  }
+
+  /**
+   * Play GIF animation
+   */
+  playGif(gif) {
+    if (gif.dataset.originalSrc && gif.src !== gif.dataset.originalSrc) {
+      gif.src = gif.dataset.originalSrc;
+      gif.classList.add('gif-playing');
+    }
+  }
+
+  /**
+   * Pause GIF animation (switch to static)
+   */
+  pauseGif(gif) {
+    if (gif.dataset.staticSrc && gif.src !== gif.dataset.staticSrc) {
+      // Only switch to static if it exists
+      const img = new Image();
+      img.onload = () => {
+        gif.src = gif.dataset.staticSrc;
+        gif.classList.remove('gif-playing');
+      };
+      img.onerror = () => {
+        // Keep original GIF if static version doesn't exist
+        console.log('Static version not available for:', gif.dataset.originalSrc);
+      };
+      img.src = gif.dataset.staticSrc;
+    }
+  }
+
+  /**
+   * Setup parallax effects
+   */
+  setupParallaxEffects() {
+    const parallaxElements = document.querySelectorAll('[data-parallax]');
+    
+    parallaxElements.forEach(element => {
+      const speed = parseFloat(element.dataset.parallax) || 0.5;
+      const direction = element.dataset.parallaxDirection || 'up';
+      
+      this.animatedElements.set(element, {
+        type: 'parallax',
+        speed: speed,
+        direction: direction,
+        initialOffset: element.offsetTop
+      });
+    });
+  }
+
+  /**
+   * Update parallax elements
+   */
+  updateParallax() {
+    this.animatedElements.forEach((config, element) => {
+      if (config.type === 'parallax') {
+        const rect = element.getBoundingClientRect();
+        const isVisible = rect.bottom >= 0 && rect.top <= window.innerHeight;
         
-        canvas.width = controller.element.naturalWidth || controller.element.offsetWidth;
-        canvas.height = controller.element.naturalHeight || controller.element.offsetHeight;
-        canvas.style.width = controller.element.style.width || '100%';
-        canvas.style.height = controller.element.style.height || 'auto';
+        if (isVisible) {
+          const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+          const movement = (progress - 0.5) * 100 * config.speed;
+          
+          let transform = '';
+          switch (config.direction) {
+            case 'up':
+              transform = `translateY(${-movement}px)`;
+              break;
+            case 'down':
+              transform = `translateY(${movement}px)`;
+              break;
+            case 'left':
+              transform = `translateX(${-movement}px)`;
+              break;
+            case 'right':
+              transform = `translateX(${movement}px)`;
+              break;
+            case 'scale':
+              const scale = 1 + (progress * 0.1);
+              transform = `scale(${scale})`;
+              break;
+          }
+          
+          element.style.transform = transform;
+        }
+      }
+    });
+  }
+
+  /**
+   * Setup reveal animations
+   */
+  setupRevealAnimations() {
+    const revealElements = document.querySelectorAll('[data-reveal]');
+    
+    revealElements.forEach((element, index) => {
+      const delay = element.dataset.revealDelay || index * 100;
+      const direction = element.dataset.revealDirection || 'up';
+      const distance = element.dataset.revealDistance || '30px';
+      
+      // Set initial state
+      element.style.opacity = '0';
+      element.style.transform = this.getRevealTransform(direction, distance);
+      element.style.transition = `opacity 0.6s ease, transform 0.6s ease`;
+      element.style.transitionDelay = `${delay}ms`;
+      
+      this.animatedElements.set(element, {
+        type: 'reveal',
+        revealed: false,
+        direction: direction,
+        distance: distance
+      });
+    });
+  }
+
+  /**
+   * Get transform for reveal animation
+   */
+  getRevealTransform(direction, distance) {
+    switch (direction) {
+      case 'up':
+        return `translateY(${distance})`;
+      case 'down':
+        return `translateY(-${distance})`;
+      case 'left':
+        return `translateX(${distance})`;
+      case 'right':
+        return `translateX(-${distance})`;
+      case 'fade':
+        return 'none';
+      default:
+        return `translateY(${distance})`;
+    }
+  }
+
+  /**
+   * Update reveal elements
+   */
+  updateRevealElements() {
+    this.animatedElements.forEach((config, element) => {
+      if (config.type === 'reveal' && !config.revealed) {
+        const rect = element.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight * 0.8;
         
-        controller.canvas = canvas;
-        controller.context = context;
-        
-        // Замена img на canvas (опционально)
-        if (controller.element.dataset.replaceWithCanvas === 'true') {
-            controller.element.parentNode.replaceChild(canvas, controller.element);
-            controller.element = canvas;
+        if (isVisible) {
+          element.style.opacity = '1';
+          element.style.transform = 'none';
+          config.revealed = true;
         }
+      }
+    });
+  }
+
+  /**
+   * Update progress bars
+   */
+  updateProgressBars() {
+    const progressBars = document.querySelectorAll('[data-progress]');
+    
+    progressBars.forEach(bar => {
+      const rect = bar.getBoundingClientRect();
+      const isVisible = rect.bottom >= 0 && rect.top <= window.innerHeight;
+      
+      if (isVisible && !bar.classList.contains('progress-animated')) {
+        const targetProgress = parseFloat(bar.dataset.progress) || 0;
+        this.animateProgressBar(bar, targetProgress);
+        bar.classList.add('progress-animated');
+      }
+    });
+  }
+
+  /**
+   * Animate progress bar
+   */
+  animateProgressBar(bar, targetProgress) {
+    const fill = bar.querySelector('.progress-fill') || bar;
+    let currentProgress = 0;
+    const increment = targetProgress / 60; // 60 frames for 1 second at 60fps
+    
+    const animate = () => {
+      currentProgress += increment;
+      if (currentProgress >= targetProgress) {
+        currentProgress = targetProgress;
+      }
+      
+      fill.style.width = `${currentProgress}%`;
+      
+      if (currentProgress < targetProgress) {
+        requestAnimationFrame(animate);
+      }
+    };
+    
+    requestAnimationFrame(animate);
+  }
+
+  /**
+   * Update sticky elements
+   */
+  updateStickyElements() {
+    const stickyElements = document.querySelectorAll('[data-sticky]');
+    
+    stickyElements.forEach(element => {
+      const rect = element.getBoundingClientRect();
+      const offset = parseFloat(element.dataset.stickyOffset) || 0;
+      
+      if (rect.top <= offset) {
+        element.classList.add('is-stuck');
+      } else {
+        element.classList.remove('is-stuck');
+      }
+    });
+  }
+
+  /**
+   * Initialize performance optimizations
+   */
+  initializePerformanceOptimizations() {
+    // Reduce motion for users who prefer it
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      this.disableAnimations();
     }
 
-    /**
-     * Методы управления GIF
-     */
-    playGif(gif) {
-        const controller = this.gifControllers.get(gif);
-        if (controller && !controller.isPlaying) {
-            // Восстановление оригинального src для запуска анимации
-            if (gif.src !== controller.originalSrc) {
-                gif.src = controller.originalSrc;
-            }
-            controller.isPlaying = true;
-            
-            // Добавление класса для CSS анимаций
-            gif.classList.add('gif-playing');
-        }
+    // Pause animations when tab is not visible
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        this.pauseAllAnimations();
+      } else {
+        this.resumeAllAnimations();
+      }
+    });
+
+    // Optimize for low-end devices
+    this.optimizeForDevice();
+  }
+
+  /**
+   * Disable animations for accessibility
+   */
+  disableAnimations() {
+    document.body.classList.add('no-animations');
+    
+    // Stop all GIF animations
+    document.querySelectorAll('img[src*=".gif"]').forEach(gif => {
+      this.pauseGif(gif);
+    });
+  }
+
+  /**
+   * Pause all animations
+   */
+  pauseAllAnimations() {
+    document.body.classList.add('animations-paused');
+    
+    // Pause GIFs
+    document.querySelectorAll('img[src*=".gif"]').forEach(gif => {
+      this.pauseGif(gif);
+    });
+  }
+
+  /**
+   * Resume all animations
+   */
+  resumeAllAnimations() {
+    document.body.classList.remove('animations-paused');
+    
+    // Resume GIFs that are in viewport
+    document.querySelectorAll('img[src*=".gif"]').forEach(gif => {
+      if (this.isElementInViewport(gif)) {
+        this.playGif(gif);
+      }
+    });
+  }
+
+  /**
+   * Optimize animations for device capabilities
+   */
+  optimizeForDevice() {
+    // Reduce animations on low-end devices
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
+      document.body.classList.add('low-end-device');
     }
 
-    pauseGif(gif) {
-        const controller = this.gifControllers.get(gif);
-        if (controller && controller.isPlaying) {
-            controller.isPlaying = false;
-            gif.classList.remove('gif-playing');
-            
-            // Остановка на первом кадре (требует дополнительной настройки)
-            if (controller.canvas) {
-                this.stopCanvasAnimation(controller);
-            }
-        }
+    // Reduce animations on slow connections
+    if (navigator.connection) {
+      const connection = navigator.connection;
+      if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
+        document.body.classList.add('slow-connection');
+        this.disableAnimations();
+      }
     }
+  }
 
-    stopCanvasAnimation(controller) {
-        if (controller.animationId) {
-            cancelAnimationFrame(controller.animationId);
-            controller.animationId = null;
-        }
+  /**
+   * Check if element is in viewport
+   */
+  isElementInViewport(element, threshold = 0) {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top >= -threshold &&
+      rect.left >= -threshold &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + threshold &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth) + threshold
+    );
+  }
+
+  /**
+   * Cleanup animations
+   */
+  cleanup() {
+    // Disconnect all observers
+    this.observers.forEach(observer => {
+      observer.disconnect();
+    });
+    
+    // Clear animated elements
+    this.animatedElements.clear();
+    
+    console.log('Animations cleaned up');
+  }
+
+  /**
+   * Public method to trigger animation
+   */
+  triggerAnimation(element, animationType, options = {}) {
+    switch (animationType) {
+      case 'fade-in':
+        element.classList.add('animate-fade-in');
+        break;
+      case 'slide-up':
+        element.classList.add('animate-slide-up');
+        break;
+      case 'scale-in':
+        element.classList.add('animate-scale-in');
+        break;
+      case 'bounce':
+        element.classList.add('animate-bounce');
+        setTimeout(() => element.classList.remove('animate-bounce'), 1000);
+        break;
     }
+  }
 
-    /**
-     * Parallax эффекты
-     */
-    setupParallaxEffects() {
-        const parallaxElements = document.querySelectorAll('[data-parallax]');
-        
-        if (parallaxElements.length === 0) return;
-
-        let ticking = false;
-        const handleParallaxScroll = () => {
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    this.updateParallax(parallaxElements);
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        };
-
-        window.addEventListener('scroll', handleParallaxScroll, { passive: true });
-    }
-
-    updateParallax(elements) {
-        const scrollY = window.pageYOffset;
-        
-        elements.forEach(element => {
-            const speed = parseFloat(element.dataset.parallax) || 0.5;
-            const yPos = -(scrollY * speed);
-            
-            element.style.transform = `translateY(${yPos}px)`;
-        });
-    }
-
-    /**
-     * Привязка дополнительных событий
-     */
-    bindEvents() {
-        // Обработчик изменения размера окна
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                this.handleResize();
-            }, 250);
-        });
-
-        // Обработчик изменения видимости страницы
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                this.pauseAllAnimations();
-            } else {
-                this.resumeVisibleAnimations();
-            }
-        });
-
-        // Обработчики для ручного управления анимациями
-        document.addEventListener('click', (e) => {
-            const gifControl = e.target.closest('[data-gif-toggle]');
-            if (gifControl) {
-                e.preventDefault();
-                const targetGif = document.querySelector(gifControl.dataset.gifToggle);
-                if (targetGif) {
-                    this.toggleGif(targetGif);
-                }
-            }
-        });
-    }
-
-    handleResize() {
-        // Перерасчет позиций и размеров при изменении размера окна
-        this.scrollAnimations.forEach((animation, element) => {
-            // Обновление canvas размеров если используется
-            const controller = this.gifControllers.get(animation.gif);
-            if (controller && controller.canvas) {
-                const rect = animation.gif.getBoundingClientRect();
-                controller.canvas.width = rect.width;
-                controller.canvas.height = rect.height;
-            }
-        });
-    }
-
-    pauseAllAnimations() {
-        this.gifControllers.forEach((controller, gif) => {
-            if (controller.isPlaying) {
-                this.pauseGif(gif);
-            }
-        });
-    }
-
-    resumeVisibleAnimations() {
-        this.scrollAnimations.forEach((animation, element) => {
-            const rect = element.getBoundingClientRect();
-            const isVisible = (
-                rect.top < window.innerHeight && 
-                rect.bottom > 0
-            );
-            
-            if (isVisible) {
-                this.playGif(animation.gif);
-            }
-        });
-    }
-
-    toggleGif(gif) {
-        const controller = this.gifControllers.get(gif);
-        if (controller) {
-            if (controller.isPlaying) {
-                this.pauseGif(gif);
-            } else {
-                this.playGif(gif);
-            }
-        }
-    }
-
-    /**
-     * Публичные методы для внешнего использования
-     */
-    addScrollAnimation(element, options = {}) {
-        const gif = element.querySelector('.scroll-gif, .animation-gif');
-        if (gif) {
-            this.scrollAnimations.set(element, {
-                gif: gif,
-                originalSrc: gif.src,
-                isPlaying: false,
-                threshold: options.threshold || 0.5
-            });
-            
-            this.setupGifController(gif);
-        }
-    }
-
-    removeScrollAnimation(element) {
-        this.scrollAnimations.delete(element);
-    }
-
-    destroy() {
-        // Очистка observers
-        Object.values(this.observers).forEach(observer => {
-            observer.disconnect();
-        });
-
-        // Очистка анимаций
-        this.gifControllers.forEach((controller) => {
-            this.stopCanvasAnimation(controller);
-        });
-
-        // Очистка событий
-        window.removeEventListener('scroll', this.updateScrollAnimations);
-        window.removeEventListener('resize', this.handleResize);
-
-        this.isInitialized = false;
-    }
+  /**
+   * Public method to get animation state
+   */
+  getAnimationState() {
+    return {
+      scrollPosition: this.scrollPosition,
+      animatedElementsCount: this.animatedElements.size,
+      observersCount: this.observers.size
+    };
+  }
 }
 
-// Инициализация менеджера анимаций
-let animationManager;
+// Create global instance
+window.animationsManager = new AnimationsManager();
 
-document.addEventListener('DOMContentLoaded', () => {
-    animationManager = new AnimationManager();
-});
-
-// Экспорт для глобального использования
-window.AnimationManager = AnimationManager;
-window.animationManager = animationManager;
+// Export for module systems
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = AnimationsManager;
+}

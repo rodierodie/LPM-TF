@@ -1,357 +1,321 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lettering - The Loveprinting Machine Type Foundry</title>
-    
-    <!-- Подключение модульных CSS файлов -->
-    <link rel="stylesheet" href="../css/variables.css">
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/typography.css">
-    <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/responsive.css">
-    
-    <!-- Preload критичных ресурсов -->
-    <link rel="preload" href="../fonts/retry-sans-mono.woff2" as="font" type="font/woff2" crossorigin>
-</head>
-<body data-page="lettering">
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <nav class="nav">
-                <a href="../index.html" class="logo">
-                    <img src="../assets/svg/logo.svg" alt="The Loveprinting Machine">
-                </a>
-                <ul class="nav__list">
-                    <li><a href="typefaces.html">Typefaces</a></li>
-                    <li><a href="fonts-in-use.html">Fonts in use</a></li>
-                    <li><a href="lettering.html" class="nav__link--active">Lettering</a></li>
-                    <li><a href="about.html">About</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Page Hero -->
-    <section class="page-hero">
-        <div class="container">
-            <h1 class="page-hero__title">Custom Lettering</h1>
-            <p class="page-hero__description">
-                Hand-crafted lettering projects combining traditional techniques with modern design sensibilities. Each piece tells a unique story through custom typography.
-            </p>
-        </div>
-    </section>
-
-    <!-- Scroll Animation -->
-    <section class="scroll-animation" data-animation="scroll-trigger">
-        <div class="container">
-            <div class="animation-container">
-                <img src="../assets/gif/lettering-animation.gif" alt="Lettering Animation" class="scroll-gif">
-            </div>
-        </div>
-    </section>
-
-    <!-- Filters Section -->
-    <section class="filters">
-        <div class="container">
-            <div class="filters__header">
-                <h2 class="filters__title">Filter Lettering Projects</h2>
-                <div class="filters__results">
-                    <span data-results-count>Loading...</span>
-                </div>
-            </div>
-            
-            <div class="filters__controls">
-                <!-- Поиск -->
-                <div class="filter-group">
-                    <label for="search" class="filter-label">Search:</label>
-                    <input 
-                        type="text" 
-                        id="search" 
-                        data-filter="search" 
-                        placeholder="Search lettering projects..." 
-                        class="filter-input"
-                    >
-                </div>
-
-                <!-- Фильтр по категориям -->
-                <div class="filter-group">
-                    <label for="category-filter" class="filter-label">Category:</label>
-                    <select id="category-filter" data-filter-type="category" class="filter-select">
-                        <option value="">All Categories</option>
-                        <!-- Опции будут загружены динамически -->
-                    </select>
-                </div>
-
-                <!-- Фильтр по стилям -->
-                <div class="filter-group">
-                    <label for="style-filter" class="filter-label">Style:</label>
-                    <select id="style-filter" data-filter-type="style" class="filter-select">
-                        <option value="">All Styles</option>
-                        <!-- Опции будут загружены динамически -->
-                    </select>
-                </div>
-
-                <!-- Фильтр по технике -->
-                <div class="filter-group">
-                    <label for="technique-filter" class="filter-label">Technique:</label>
-                    <select id="technique-filter" data-filter-type="technique" class="filter-select">
-                        <option value="">All Techniques</option>
-                        <!-- Опции будут загружены динамически -->
-                    </select>
-                </div>
-
-                <!-- Фильтр по типу проекта -->
-                <div class="filter-group">
-                    <label class="filter-label">Project Type:</label>
-                    <div class="checkbox-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" data-filter-type="type" value="commercial">
-                            <span class="checkbox-text">Commercial</span>
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" data-filter-type="type" value="personal">
-                            <span class="checkbox-text">Personal</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Показать только избранные -->
-                <div class="filter-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" data-filter-type="featured" value="true">
-                        <span class="checkbox-text">Featured Only</span>
-                    </label>
-                </div>
-
-                <!-- Сортировка -->
-                <div class="filter-group">
-                    <label for="sort-select" class="filter-label">Sort by:</label>
-                    <select id="sort-select" data-sort class="filter-select">
-                        <option value="date:desc">Newest First</option>
-                        <option value="date:asc">Oldest First</option>
-                        <option value="title:asc">Title A-Z</option>
-                        <option value="title:desc">Title Z-A</option>
-                        <option value="client:asc">Client A-Z</option>
-                    </select>
-                </div>
-
-                <!-- Кнопка сброса -->
-                <div class="filter-group">
-                    <button data-filter-reset class="btn btn--secondary">Reset Filters</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Lettering Grid -->
-    <section class="lettering-projects" data-animation="staggered">
-        <div class="container">
-            <div class="lettering-grid" id="lettering-grid">
-                <!-- Контент будет загружен динамически из lettering.json -->
-                <div class="loading-placeholder">
-                    <p>Loading lettering projects...</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services CTA -->
-    <section class="services-cta">
-        <div class="container">
-            <div class="services-cta__content">
-                <h2>Custom Lettering Services</h2>
-                <p>Need custom lettering for your project? I create bespoke lettering solutions for logos, branding, packaging, and more.</p>
-                <div class="services-cta__features">
-                    <div class="service-feature">
-                        <h3>Logo Design</h3>
-                        <p>Custom lettering for brand identities and logo marks</p>
-                    </div>
-                    <div class="service-feature">
-                        <h3>Packaging Design</h3>
-                        <p>Hand-lettered solutions for product packaging</p>
-                    </div>
-                    <div class="service-feature">
-                        <h3>Editorial Design</h3>
-                        <p>Custom headlines and display lettering for publications</p>
-                    </div>
-                    <div class="service-feature">
-                        <h3>Environmental Design</h3>
-                        <p>Signage and large-scale lettering installations</p>
-                    </div>
-                </div>
-                <div class="services-cta__actions">
-                    <a href="mailto:info@loveprinting.com?subject=Custom Lettering Inquiry" class="btn btn--primary">Get a Quote</a>
-                    <a href="about.html" class="btn btn--secondary">Learn More</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Process Section -->
-    <section class="process">
-        <div class="container">
-            <h2 class="section-title">My Lettering Process</h2>
-            <div class="process-steps">
-                <div class="process-step">
-                    <div class="process-step__number">01</div>
-                    <h3 class="process-step__title">Discovery</h3>
-                    <p class="process-step__description">Understanding your project goals, brand personality, and target audience to inform the lettering direction.</p>
-                </div>
-                <div class="process-step">
-                    <div class="process-step__number">02</div>
-                    <h3 class="process-step__title">Exploration</h3>
-                    <p class="process-step__description">Sketching multiple concepts and exploring different lettering styles and approaches.</p>
-                </div>
-                <div class="process-step">
-                    <div class="process-step__number">03</div>
-                    <h3 class="process-step__title">Refinement</h3>
-                    <p class="process-step__description">Developing selected concepts with attention to details, spacing, and overall composition.</p>
-                </div>
-                <div class="process-step">
-                    <div class="process-step__number">04</div>
-                    <h3 class="process-step__title">Finalization</h3>
-                    <p class="process-step__description">Creating final artwork in various formats, ready for your specific application needs.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer__content">
-                <div class="footer__logo">
-                    <img src="../assets/svg/logo.svg" alt="The Loveprinting Machine">
-                </div>
-                <nav class="footer__nav">
-                    <ul>
-                        <li><a href="typefaces.html">Typefaces</a></li>
-                        <li><a href="fonts-in-use.html">Fonts in use</a></li>
-                        <li><a href="lettering.html">Lettering</a></li>
-                        <li><a href="about.html">About</a></li>
-                    </ul>
-                </nav>
-                <div class="footer__contacts">
-                    <p>info@loveprinting.com</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link">Instagram</a>
-                        <a href="#" class="social-link">Behance</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer__bottom">
-                <p>&copy; 2025 The Loveprinting Machine Type Foundry. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Подключение модульных JavaScript файлов -->
-    <script src="../js/data-loader.js"></script>
-    <script src="../js/filters.js"></script>
-    <script src="../js/animations.js"></script>
-    <script src="../js/main.js"></script>
-    
-    <!-- Инициализация страницы леттеринга -->
-    <script>
-        // Минимальная инициализация - вся логика в модулях
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                // Загрузка данных о леттеринге
-                const letteringData = await window.DataLoader.loadLettering();
-                
-                // Настройка фильтра
-                window.letteringFilter = new window.FilterSystem({
-                    defaultSort: 'date',
-                    defaultOrder: 'desc',
-                    onRender: (filteredData) => {
-                        window.renderLettering(filteredData);
-                    }
-                });
-                
-                if (letteringData) {
-                    window.letteringFilter.setData(letteringData.lettering);
-                    
-                    // Заполнение опций фильтров
-                    const categorySelect = document.getElementById('category-filter');
-                    letteringData.categories.forEach(category => {
-                        const option = document.createElement('option');
-                        option.value = category.id;
-                        option.textContent = category.name;
-                        categorySelect.appendChild(option);
-                    });
-                    
-                    const styleSelect = document.getElementById('style-filter');
-                    letteringData.styles.forEach(style => {
-                        const option = document.createElement('option');
-                        option.value = style.id;
-                        option.textContent = style.name;
-                        styleSelect.appendChild(option);
-                    });
-                    
-                    const techniqueSelect = document.getElementById('technique-filter');
-                    letteringData.techniques.forEach(technique => {
-                        const option = document.createElement('option');
-                        option.value = technique.id;
-                        option.textContent = technique.name;
-                        techniqueSelect.appendChild(option);
-                    });
-                }
-                
-                // Импорт фильтров из URL
-                window.letteringFilter.importFromURL();
-                
-            } catch (error) {
-                console.error('Error loading lettering data:', error);
-                document.getElementById('lettering-grid').innerHTML = 
-                    '<p class="error-message">Error loading lettering projects. Please try again later.</p>';
-            }
-        });
-        
-        // Функция рендеринга проектов леттеринга
-        window.renderLettering = (projects) => {
-            const grid = document.getElementById('lettering-grid');
-            
-            if (!projects || projects.length === 0) {
-                grid.innerHTML = '<p class="no-results">No lettering projects found matching your criteria.</p>';
-                return;
-            }
-            
-            grid.innerHTML = projects.map(project => `
-                <article class="lettering-card stagger-item">
-                    <div class="lettering-card__image">
-                        <img src="../${project.image}" alt="${project.title}" loading="lazy">
-                        ${project.featured ? '<span class="lettering-card__featured">Featured</span>' : ''}
-                        <div class="lettering-card__overlay">
-                            <div class="lettering-card__meta">
-                                <span class="lettering-card__style">${project.style}</span>
-                                <span class="lettering-card__technique">${project.technique}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="lettering-card__content">
-                        <h3 class="lettering-card__title">${project.title}</h3>
-                        <p class="lettering-card__client">${project.client}</p>
-                        <p class="lettering-card__description">${project.description}</p>
-                        <div class="lettering-card__details">
-                            <span class="detail-item">
-                                <strong>Category:</strong> ${project.category}
-                            </span>
-                            <span class="detail-item">
-                                <strong>Type:</strong> ${project.type}
-                            </span>
-                        </div>
-                        <div class="lettering-card__tags">
-                            ${project.tags.map(tag => 
-                                `<span class="tag">#${tag}</span>`
-                            ).join('')}
-                        </div>
-                    </div>
-                </article>
-            `).join('');
-        };
-    </script>
-</body>
-</html>
+{
+  "letterings": [
+    {
+      "id": "coffee-house-logo",
+      "title": "Coffee House Logotype",
+      "type": "logotype",
+      "style": "script",
+      "image": "lettering-coffee-house.jpg",
+      "description": "Hand-lettered logo for an artisanal coffee roastery. Flowing script that captures the warmth and craftsmanship of small-batch coffee making.",
+      "year": "2024",
+      "client": "Artisan Coffee House",
+      "medium": "Digital lettering",
+      "dimensions": "Vector logo",
+      "colors": ["#8B4513", "#F4E4BC", "#2F1B14"],
+      "techniques": ["Hand sketching", "Digital refinement", "Vector tracing"],
+      "applications": ["Logo", "Signage", "Packaging", "Business cards"],
+      "featured": true,
+      "link": "https://dribbble.com/shots/coffee-house-lettering",
+      "tags": ["coffee", "script", "warm", "artisanal", "handcrafted"],
+      "process": [
+        "Initial hand sketches",
+        "Digital rough drafts",
+        "Vector refinement",
+        "Color exploration",
+        "Final logo variations"
+      ]
+    },
+    {
+      "id": "music-festival-poster",
+      "title": "Sonic Waves Festival Poster",
+      "type": "poster",
+      "style": "decorative",
+      "image": "lettering-sonic-waves.jpg",
+      "description": "Psychedelic lettering for an outdoor music festival poster. Letters flow like sound waves, incorporating musical elements and vibrant colors.",
+      "year": "2024",
+      "client": "Sonic Waves Festival",
+      "medium": "Mixed media",
+      "dimensions": "24x36 inches",
+      "colors": ["#FF6B35", "#F7931E", "#FFD23F", "#06FFA5", "#B19CD9"],
+      "techniques": ["Hand lettering", "Digital illustration", "Gradient effects"],
+      "applications": ["Poster", "Digital marketing", "Merchandise"],
+      "featured": true,
+      "link": "https://behance.net/gallery/sonic-waves-lettering",
+      "tags": ["music", "festival", "psychedelic", "waves", "vibrant"],
+      "inspiration": "1960s concert posters, sound visualization, nature patterns"
+    },
+    {
+      "id": "brewery-mural",
+      "title": "Hopcraft Brewery Mural",
+      "type": "mural",
+      "style": "sans",
+      "image": "lettering-brewery-mural.jpg",
+      "description": "Large-scale wall mural for a craft brewery. Bold, industrial lettering that reflects the brewery's modern approach to traditional brewing.",
+      "year": "2023",
+      "client": "Hopcraft Brewing Co.",
+      "medium": "Acrylic paint on brick",
+      "dimensions": "20x8 feet",
+      "colors": ["#1A1A1A", "#DAA520", "#FFFFFF", "#8B4513"],
+      "techniques": ["Traditional sign painting", "Brush lettering", "Geometric construction"],
+      "applications": ["Exterior mural", "Brand photography backdrop"],
+      "featured": false,
+      "link": "https://instagram.com/p/brewery-mural",
+      "tags": ["brewery", "mural", "industrial", "craft beer", "bold"],
+      "location": "Portland, Oregon",
+      "duration": "5 days painting"
+    },
+    {
+      "id": "cosmetics-packaging",
+      "title": "Luna Beauty Product Names",
+      "type": "packaging",
+      "style": "serif",
+      "image": "lettering-luna-beauty.jpg",
+      "description": "Elegant lettering for luxury cosmetics packaging. Each product name is custom lettered to convey sophistication and femininity.",
+      "year": "2023",
+      "client": "Luna Beauty",
+      "medium": "Digital lettering",
+      "dimensions": "Various packaging sizes",
+      "colors": ["#C9A96E", "#FFFFFF", "#F8F8F8", "#2C2C2C"],
+      "techniques": ["Classical calligraphy", "Digital refinement", "Luxury styling"],
+      "applications": ["Product packaging", "Labels", "Marketing materials"],
+      "featured": true,
+      "link": "https://packagingoftheworld.com/luna-beauty",
+      "tags": ["cosmetics", "luxury", "elegant", "feminine", "packaging"],
+      "products": ["Midnight Serum", "Golden Hour Cream", "Starlight Powder", "Dawn Mist Toner"]
+    },
+    {
+      "id": "magazine-headlines",
+      "title": "Culture Magazine Headlines",
+      "type": "editorial",
+      "style": "decorative",
+      "image": "lettering-culture-magazine.jpg",
+      "description": "Custom lettering for magazine article headlines. Each piece is tailored to the content, creating unique typographic expressions for different stories.",
+      "year": "2023",
+      "client": "Culture Quarterly",
+      "medium": "Digital lettering",
+      "dimensions": "Magazine spreads",
+      "colors": ["Various per article"],
+      "techniques": ["Conceptual lettering", "Editorial typography", "Digital illustration"],
+      "applications": ["Magazine headlines", "Pull quotes", "Section dividers"],
+      "featured": false,
+      "link": "https://culturequarterly.com/lettering-issue",
+      "tags": ["editorial", "magazine", "headlines", "conceptual", "varied"],
+      "articles": [
+        "The Future of Art",
+        "Digital Nomad Culture", 
+        "Sustainable Fashion",
+        "Urban Architecture"
+      ]
+    },
+    {
+      "id": "wedding-invitations",
+      "title": "Anderson Wedding Suite",
+      "type": "wedding",
+      "style": "script",
+      "image": "lettering-wedding-anderson.jpg",
+      "description": "Romantic script lettering for wedding invitations and stationery. Combines traditional calligraphy with modern touches for a timeless feel.",
+      "year": "2024",
+      "client": "Emily & James Anderson",
+      "medium": "Digital calligraphy",
+      "dimensions": "Invitation suite",
+      "colors": ["#8FBC8F", "#FFFFFF", "#F5F5DC", "#2F4F4F"],
+      "techniques": ["Modern calligraphy", "Digital lettering", "Flourish design"],
+      "applications": ["Invitations", "Save the dates", "Menu cards", "Signage"],
+      "featured": false,
+      "link": "https://pinterest.com/anderson-wedding-lettering",
+      "tags": ["wedding", "romantic", "calligraphy", "elegant", "timeless"],
+      "suite": [
+        "Save the date cards",
+        "Wedding invitations",
+        "RSVP cards",
+        "Menu cards",
+        "Table numbers",
+        "Welcome sign"
+      ]
+    },
+    {
+      "id": "restaurant-menu",
+      "title": "Bella Vista Menu Design",
+      "type": "menu",
+      "style": "script",
+      "image": "lettering-bella-vista.jpg",
+      "description": "Hand-lettered menu for an Italian restaurant. Warm, inviting lettering that evokes the comfort and tradition of Italian dining.",
+      "year": "2023",
+      "client": "Bella Vista Ristorante",
+      "medium": "Digital lettering",
+      "dimensions": "Menu booklet",
+      "colors": ["#8B0000", "#DAA520", "#F5F5DC", "#2F4F4F"],
+      "techniques": ["Traditional lettering", "Italian-inspired flourishes", "Menu typography"],
+      "applications": ["Menu cards", "Chalkboard signage", "Window graphics"],
+      "featured": false,
+      "link": "https://bellavista.com/menu",
+      "tags": ["restaurant", "italian", "menu", "traditional", "warm"],
+      "sections": [
+        "Antipasti",
+        "Primi Piatti", 
+        "Secondi Piatti",
+        "Dolci",
+        "Vini"
+      ]
+    },
+    {
+      "id": "skateboard-graphics",
+      "title": "Street Culture Skateboard Series",
+      "type": "graphics",
+      "style": "decorative",
+      "image": "lettering-skateboard.jpg",
+      "description": "Bold lettering for skateboard deck graphics. Captures the rebellious spirit and energy of street culture with dynamic, graffiti-inspired letterforms.",
+      "year": "2024",
+      "client": "Underground Skate Co.",
+      "medium": "Digital graphics",
+      "dimensions": "Skateboard deck (32x8 inches)",
+      "colors": ["#FF0000", "#000000", "#FFFFFF", "#FFD700"],
+      "techniques": ["Graffiti lettering", "Street art styling", "Bold graphics"],
+      "applications": ["Skateboard decks", "Apparel", "Stickers", "Posters"],
+      "featured": true,
+      "link": "https://undergroundskate.com/lettering-series",
+      "tags": ["skateboard", "street", "graffiti", "bold", "youth"],
+      "series": [
+        "Urban Warrior",
+        "Night Rider",
+        "Street King",
+        "Rebel Soul"
+      ]
+    },
+    {
+      "id": "book-cover",
+      "title": "Poetry Collection Cover",
+      "type": "book",
+      "style": "serif",
+      "image": "lettering-poetry-book.jpg",
+      "description": "Delicate lettering for a poetry book cover. Flowing, organic letterforms that mirror the lyrical quality of the poems within.",
+      "year": "2023",
+      "client": "Independent Poetry Press",
+      "medium": "Digital lettering",
+      "dimensions": "Book cover (6x9 inches)",
+      "colors": ["#4B0082", "#E6E6FA", "#FFFFFF", "#2F2F2F"],
+      "techniques": ["Expressive lettering", "Organic forms", "Literary typography"],
+      "applications": ["Book cover", "Chapter headers", "Poetry layout"],
+      "featured": false,
+      "link": "https://independentpoetry.com/whispers-wind",
+      "tags": ["book", "poetry", "delicate", "literary", "organic"],
+      "bookTitle": "Whispers in the Wind",
+      "author": "Maria Santos"
+    },
+    {
+      "id": "tech-conference",
+      "title": "Future Tech Conference Logo",
+      "type": "logotype",
+      "style": "sans",
+      "image": "lettering-tech-conference.jpg",
+      "description": "Modern, tech-inspired lettering for an annual technology conference. Clean lines with subtle circuit board-inspired details.",
+      "year": "2024",
+      "client": "Future Tech Conference",
+      "medium": "Digital lettering",
+      "dimensions": "Vector logo",
+      "colors": ["#00FFFF", "#0066CC", "#FFFFFF", "#1A1A1A"],
+      "techniques": ["Geometric lettering", "Tech-inspired details", "Modular design"],
+      "applications": ["Conference logo", "Signage", "Digital assets", "Merchandise"],
+      "featured": false,
+      "link": "https://futuretechconf.com",
+      "tags": ["technology", "conference", "modern", "geometric", "digital"],
+      "theme": "AI and the Future of Work"
+    }
+  ],
+  "types": [
+    {
+      "id": "logotype",
+      "name": "Logotype",
+      "description": "Custom lettering for brand logos and wordmarks"
+    },
+    {
+      "id": "poster",
+      "name": "Poster",
+      "description": "Lettering for promotional and artistic posters"
+    },
+    {
+      "id": "mural",
+      "name": "Mural",
+      "description": "Large-scale lettering for walls and environments"
+    },
+    {
+      "id": "packaging",
+      "name": "Packaging",
+      "description": "Product packaging and label lettering"
+    },
+    {
+      "id": "editorial",
+      "name": "Editorial",
+      "description": "Magazine and publication lettering"
+    },
+    {
+      "id": "wedding",
+      "name": "Wedding",
+      "description": "Wedding invitations and event stationery"
+    },
+    {
+      "id": "menu",
+      "name": "Menu",
+      "description": "Restaurant and hospitality lettering"
+    },
+    {
+      "id": "graphics",
+      "name": "Graphics",
+      "description": "Decorative and artistic lettering"
+    },
+    {
+      "id": "book",
+      "name": "Book",
+      "description": "Book covers and literary applications"
+    }
+  ],
+  "styles": [
+    {
+      "id": "script",
+      "name": "Script",
+      "description": "Flowing, connected letterforms"
+    },
+    {
+      "id": "sans",
+      "name": "Sans Serif",
+      "description": "Clean, modern letterforms"
+    },
+    {
+      "id": "serif",
+      "name": "Serif",
+      "description": "Traditional letterforms with serifs"
+    },
+    {
+      "id": "decorative",
+      "name": "Decorative",
+      "description": "Ornamental and stylized lettering"
+    }
+  ],
+  "techniques": [
+    "Hand sketching",
+    "Digital lettering",
+    "Traditional calligraphy",
+    "Brush lettering",
+    "Sign painting",
+    "Graffiti lettering",
+    "Vector illustration",
+    "Mixed media"
+  ],
+  "industries": [
+    "Food & Beverage",
+    "Entertainment",
+    "Fashion & Beauty",
+    "Technology",
+    "Publishing",
+    "Events & Weddings",
+    "Sports & Recreation",
+    "Arts & Culture"
+  ],
+  "metadata": {
+    "totalProjects": 10,
+    "featuredProjects": 4,
+    "yearRange": "2023-2024",
+    "lastUpdated": "2024-08-11",
+    "version": "1.0.0"
+  }
+}

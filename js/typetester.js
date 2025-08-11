@@ -1,468 +1,769 @@
 /**
- * Typetester Module
- * Handles interactive font testing functionality
+ * Type Tester Module
+ * Interactive font testing functionality with variable font support
  */
 
-class Typetester {
-  constructor(options = {}) {
-    this.options = {
-      container: '#typetester',
-      displayElement: '#displayText',
-      textInput: '#customText',
-      fontSizeRange: '#fontSize',
-      fontWeightRange: '#fontWeight',
-      letterSpacingRange: '#letterSpacing',
-      lineHeightRange: '#lineHeight',
-      fontStyleSelect: '#fontStyle',
-      defaultText: 'Start typing',
-      minFontSize: 12,
-      maxFontSize: 120,
-      minWeight: 100,
-      maxWeight: 900,
-      ...options
-    };
-    
+class TypeTester {
+  constructor() {
     this.currentFont = null;
-    this.isVariable = false;
-    this.variableAxes = {};
+    this.settings = {
+      fontSize: 48,
+      lineHeight: 1.2,
+      letterSpacing: 0,
+      wordSpacing: 0,
+      textAlign: 'left',
+      fontStyle: 'normal',
+      fontWeight: 400,
+      fontWidth: 100,
+      customText: 'Start Typing'
+    };
+    this.variableAxes = new Map();
+    this.presetTexts = [
+      'Start Typing',
+      'The quick brown fox jumps over the lazy dog',
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      'abcdefghijklmnopqrstuvwxyz',
+      '1234567890 !@#$%^&*()',
+      'Typography is the art and technique of arranging type.',
+      'Design is not just what it looks like and feels like. Design is how it works.',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+    ];
     
     this.init();
   }
 
   /**
-   * Initialize the typetester
+   * Initialize Type Tester
    */
   init() {
-    this.bindEvents();
-    this.loadInitialValues();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => this.onDOMReady());
+    } else {
+      this.onDOMReady();
+    }
   }
 
   /**
-   * Set the current font data
-   * @param {Object} fontData - Font data object
+   * Handle DOM ready
    */
-  setFont(fontData) {
-    this.currentFont = fontData;
-    this.isVariable = fontData.type === 'variable';
-    this.variableAxes = fontData.variableAxes || {};
+  onDOMReady() {
+    this.setupTypeTester();
+    this.bindEvents();
+    this.loadInitialFont();
     
-    this.updateFontFamily();
-    this.updateVariableControls();
-    this.updateDisplay();
+    console.log('Type Tester initialized');
+  }
+
+  /**
+   * Setup type tester interface
+   */
+  setupTypeTester() {
+    const testerContainer = document.querySelector('.type-tester');
+    if (!testerContainer) {
+      console.warn('Type tester container not found');
+      return;
+    }
+
+    // Create tester HTML if not exists
+    if (!testerContainer.querySelector('.type-tester__preview')) {
+      this.createTypeTesterHTML(testerContainer);
+    }
+
+    // Initialize controls
+    this.initializeControls();
+    this.initializeTextPresets();
+    this.initializeVariableControls();
+  }
+
+  /**
+   * Create type tester HTML structure
+   */
+  createTypeTesterHTML(container) {
+    container.innerHTML = `
+      <div class="type-tester__controls">
+        <div class="type-tester__control-group">
+          <label class="type-tester__label">Text</label>
+          <div class="type-tester__text-controls">
+            <textarea 
+              class="type-tester__textarea" 
+              placeholder="Start typing..."
+              rows="2"
+            >${this.settings.customText}</textarea>
+            <div class="type-tester__presets">
+              <select class="type-tester__preset-select">
+                <option value="">Choose preset text...</option>
+                ${this.presetTexts.map((text, index) => 
+                  `<option value="${index}">${text.substring(0, 50)}${text.length > 50 ? '...' : ''}</option>`
+                ).join('')}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="type-tester__control-group">
+          <label class="type-tester__label">Size</label>
+          <div class="type-tester__size-controls">
+            <input 
+              type="range" 
+              class="type-tester__slider" 
+              id="fontSize"
+              min="12" 
+              max="120" 
+              value="${this.settings.fontSize}"
+            >
+            <input 
+              type="number" 
+              class="type-tester__number" 
+              id="fontSizeNumber"
+              min="12" 
+              max="120" 
+              value="${this.settings.fontSize}"
+            >
+            <span class="type-tester__unit">px</span>
+          </div>
+        </div>
+
+        <div class="type-tester__control-group">
+          <label class="type-tester__label">Line Height</label>
+          <div class="type-tester__control-input">
+            <input 
+              type="range" 
+              class="type-tester__slider" 
+              id="lineHeight"
+              min="0.8" 
+              max="2.0" 
+              step="0.1" 
+              value="${this.settings.lineHeight}"
+            >
+            <span class="type-tester__value">${this.settings.lineHeight}</span>
+          </div>
+        </div>
+
+        <div class="type-tester__control-group">
+          <label class="type-tester__label">Letter Spacing</label>
+          <div class="type-tester__control-input">
+            <input 
+              type="range" 
+              class="type-tester__slider" 
+              id="letterSpacing"
+              min="-50" 
+              max="200" 
+              step="1" 
+              value="${this.settings.letterSpacing}"
+            >
+            <span class="type-tester__value">${this.settings.letterSpacing}</span>
+          </div>
+        </div>
+
+        <div class="type-tester__control-group">
+          <label class="type-tester__label">Alignment</label>
+          <div class="type-tester__alignment-controls">
+            <button class="type-tester__align-btn active" data-align="left">Left</button>
+            <button class="type-tester__align-btn" data-align="center">Center</button>
+            <button class="type-tester__align-btn" data-align="right">Right</button>
+          </div>
+        </div>
+
+        <div class="type-tester__variable-controls" style="display: none;">
+          <!-- Variable font controls will be populated dynamically -->
+        </div>
+
+        <div class="type-tester__actions">
+          <button class="type-tester__reset-btn">Reset</button>
+          <button class="type-tester__export-btn">Export Settings</button>
+        </div>
+      </div>
+
+      <div class="type-tester__preview">
+        <div class="type-tester__preview-text" contenteditable="true">
+          ${this.settings.customText}
+        </div>
+      </div>
+    `;
+  }
+
+  /**
+   * Initialize controls
+   */
+  initializeControls() {
+    this.controls = {
+      textarea: document.querySelector('.type-tester__textarea'),
+      presetSelect: document.querySelector('.type-tester__preset-select'),
+      fontSizeSlider: document.getElementById('fontSize'),
+      fontSizeNumber: document.getElementById('fontSizeNumber'),
+      lineHeightSlider: document.getElementById('lineHeight'),
+      letterSpacingSlider: document.getElementById('letterSpacing'),
+      alignmentButtons: document.querySelectorAll('.type-tester__align-btn'),
+      resetButton: document.querySelector('.type-tester__reset-btn'),
+      exportButton: document.querySelector('.type-tester__export-btn'),
+      previewText: document.querySelector('.type-tester__preview-text')
+    };
+
+    // Update value displays
+    this.updateValueDisplays();
   }
 
   /**
    * Bind event listeners
    */
   bindEvents() {
+    const { controls } = this;
+
     // Text input
-    const textInput = document.querySelector(this.options.textInput);
-    if (textInput) {
-      textInput.addEventListener('input', () => this.updateDisplayText());
+    if (controls.textarea) {
+      controls.textarea.addEventListener('input', (e) => {
+        this.updateText(e.target.value);
+      });
     }
 
-    // Font size
-    const fontSizeRange = document.querySelector(this.options.fontSizeRange);
-    if (fontSizeRange) {
-      fontSizeRange.addEventListener('input', () => this.updateFontSize());
+    if (controls.previewText) {
+      controls.previewText.addEventListener('input', (e) => {
+        this.updateText(e.target.textContent);
+        if (controls.textarea) {
+          controls.textarea.value = e.target.textContent;
+        }
+      });
     }
 
-    // Font weight (for variable fonts)
-    const fontWeightRange = document.querySelector(this.options.fontWeightRange);
-    if (fontWeightRange) {
-      fontWeightRange.addEventListener('input', () => this.updateFontWeight());
+    // Preset selection
+    if (controls.presetSelect) {
+      controls.presetSelect.addEventListener('change', (e) => {
+        const index = parseInt(e.target.value);
+        if (!isNaN(index) && this.presetTexts[index]) {
+          this.updateText(this.presetTexts[index]);
+          if (controls.textarea) {
+            controls.textarea.value = this.presetTexts[index];
+          }
+        }
+      });
     }
 
-    // Letter spacing
-    const letterSpacingRange = document.querySelector(this.options.letterSpacingRange);
-    if (letterSpacingRange) {
-      letterSpacingRange.addEventListener('input', () => this.updateLetterSpacing());
+    // Font size controls
+    if (controls.fontSizeSlider) {
+      controls.fontSizeSlider.addEventListener('input', (e) => {
+        const value = parseInt(e.target.value);
+        this.updateFontSize(value);
+        if (controls.fontSizeNumber) {
+          controls.fontSizeNumber.value = value;
+        }
+      });
+    }
+
+    if (controls.fontSizeNumber) {
+      controls.fontSizeNumber.addEventListener('input', (e) => {
+        const value = parseInt(e.target.value);
+        this.updateFontSize(value);
+        if (controls.fontSizeSlider) {
+          controls.fontSizeSlider.value = value;
+        }
+      });
     }
 
     // Line height
-    const lineHeightRange = document.querySelector(this.options.lineHeightRange);
-    if (lineHeightRange) {
-      lineHeightRange.addEventListener('input', () => this.updateLineHeight());
+    if (controls.lineHeightSlider) {
+      controls.lineHeightSlider.addEventListener('input', (e) => {
+        const value = parseFloat(e.target.value);
+        this.updateLineHeight(value);
+        this.updateValueDisplay('lineHeight', value);
+      });
     }
 
-    // Font style select
-    const fontStyleSelect = document.querySelector(this.options.fontStyleSelect);
-    if (fontStyleSelect) {
-      fontStyleSelect.addEventListener('change', () => this.updateFontStyle());
+    // Letter spacing
+    if (controls.letterSpacingSlider) {
+      controls.letterSpacingSlider.addEventListener('input', (e) => {
+        const value = parseInt(e.target.value);
+        this.updateLetterSpacing(value);
+        this.updateValueDisplay('letterSpacing', value);
+      });
     }
+
+    // Alignment
+    controls.alignmentButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const align = e.target.dataset.align;
+        this.updateAlignment(align);
+        this.updateActiveAlignment(align);
+      });
+    });
+
+    // Reset button
+    if (controls.resetButton) {
+      controls.resetButton.addEventListener('click', () => {
+        this.resetSettings();
+      });
+    }
+
+    // Export button
+    if (controls.exportButton) {
+      controls.exportButton.addEventListener('click', () => {
+        this.exportSettings();
+      });
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.target.closest('.type-tester')) {
+        this.handleKeyboardShortcuts(e);
+      }
+    });
   }
 
   /**
-   * Load initial values from inputs
+   * Initialize text presets
    */
-  loadInitialValues() {
-    this.updateDisplayText();
-    this.updateFontSize();
-    this.updateFontWeight();
-    this.updateLetterSpacing();
-    this.updateLineHeight();
-    this.updateFontStyle();
+  initializeTextPresets() {
+    // Presets are already set up in createTypeTesterHTML
   }
 
   /**
-   * Update display text
+   * Initialize variable font controls
    */
-  updateDisplayText() {
-    const textInput = document.querySelector(this.options.textInput);
-    const displayElement = document.querySelector(this.options.displayElement);
+  initializeVariableControls() {
+    const container = document.querySelector('.type-tester__variable-controls');
+    if (!container) return;
+
+    // This will be populated when a font is loaded
+    this.variableContainer = container;
+  }
+
+  /**
+   * Load font and setup variable axes
+   */
+  async loadFont(fontData) {
+    this.currentFont = fontData;
     
-    if (textInput && displayElement) {
-      const text = textInput.value || this.options.defaultText;
-      displayElement.textContent = text;
+    // Apply font family
+    this.applyFontFamily(fontData.name || fontData.id);
+    
+    // Setup variable axes if available
+    if (fontData.variableAxes) {
+      this.setupVariableAxes(fontData.variableAxes);
+    } else {
+      this.hideVariableControls();
+    }
+
+    // Set default text if provided
+    if (fontData.defaultText) {
+      this.updateText(fontData.defaultText);
+    }
+
+    console.log('Font loaded:', fontData.name);
+  }
+
+  /**
+   * Apply font family to preview
+   */
+  applyFontFamily(fontName) {
+    const preview = this.controls.previewText;
+    if (preview) {
+      preview.style.fontFamily = `"${fontName}", var(--font-primary)`;
+    }
+  }
+
+  /**
+   * Setup variable font axes controls
+   */
+  setupVariableAxes(axes) {
+    if (!this.variableContainer || !axes) return;
+
+    this.variableAxes.clear();
+    this.variableContainer.innerHTML = '';
+
+    Object.entries(axes).forEach(([axis, config]) => {
+      const controlGroup = this.createVariableAxisControl(axis, config);
+      this.variableContainer.appendChild(controlGroup);
+      
+      // Store axis configuration
+      this.variableAxes.set(axis, {
+        min: config.min,
+        max: config.max,
+        default: config.default,
+        current: config.default
+      });
+    });
+
+    this.variableContainer.style.display = 'block';
+    this.updateVariableFontStyle();
+  }
+
+  /**
+   * Create variable axis control
+   */
+  createVariableAxisControl(axis, config) {
+    const group = document.createElement('div');
+    group.className = 'type-tester__control-group';
+    
+    const axisName = this.getAxisDisplayName(axis);
+    
+    group.innerHTML = `
+      <label class="type-tester__label">${axisName}</label>
+      <div class="type-tester__control-input">
+        <input 
+          type="range" 
+          class="type-tester__slider type-tester__variable-axis" 
+          data-axis="${axis}"
+          min="${config.min}" 
+          max="${config.max}" 
+          step="1"
+          value="${config.default}"
+        >
+        <span class="type-tester__value">${config.default}</span>
+      </div>
+    `;
+
+    // Bind axis control
+    const slider = group.querySelector('.type-tester__slider');
+    const valueDisplay = group.querySelector('.type-tester__value');
+    
+    slider.addEventListener('input', (e) => {
+      const value = parseInt(e.target.value);
+      this.updateVariableAxis(axis, value);
+      valueDisplay.textContent = value;
+    });
+
+    return group;
+  }
+
+  /**
+   * Get display name for variable font axis
+   */
+  getAxisDisplayName(axis) {
+    const axisNames = {
+      'wght': 'Weight',
+      'wdth': 'Width',
+      'slnt': 'Slant',
+      'ital': 'Italic',
+      'opsz': 'Optical Size',
+      'grad': 'Grade',
+      'CONT': 'Contrast',
+      'MONO': 'Monospace'
+    };
+    
+    return axisNames[axis] || axis.toUpperCase();
+  }
+
+  /**
+   * Update variable font axis
+   */
+  updateVariableAxis(axis, value) {
+    if (this.variableAxes.has(axis)) {
+      this.variableAxes.get(axis).current = value;
+      this.updateVariableFontStyle();
+    }
+  }
+
+  /**
+   * Update variable font style
+   */
+  updateVariableFontStyle() {
+    const preview = this.controls.previewText;
+    if (!preview) return;
+
+    const variations = Array.from(this.variableAxes.entries())
+      .map(([axis, config]) => `"${axis}" ${config.current}`)
+      .join(', ');
+
+    if (variations) {
+      preview.style.fontVariationSettings = variations;
+    }
+  }
+
+  /**
+   * Hide variable controls
+   */
+  hideVariableControls() {
+    if (this.variableContainer) {
+      this.variableContainer.style.display = 'none';
+    }
+  }
+
+  /**
+   * Update text
+   */
+  updateText(text) {
+    this.settings.customText = text;
+    if (this.controls.previewText) {
+      this.controls.previewText.textContent = text;
     }
   }
 
   /**
    * Update font size
    */
-  updateFontSize() {
-    const fontSizeRange = document.querySelector(this.options.fontSizeRange);
-    const displayElement = document.querySelector(this.options.displayElement);
-    const valueDisplay = document.querySelector('#fontSizeValue');
-    
-    if (fontSizeRange && displayElement) {
-      const size = fontSizeRange.value + 'px';
-      displayElement.style.fontSize = size;
-      
-      if (valueDisplay) {
-        valueDisplay.textContent = size;
-      }
-    }
-  }
-
-  /**
-   * Update font weight (for variable fonts)
-   */
-  updateFontWeight() {
-    const fontWeightRange = document.querySelector(this.options.fontWeightRange);
-    const displayElement = document.querySelector(this.options.displayElement);
-    const valueDisplay = document.querySelector('#fontWeightValue');
-    
-    if (fontWeightRange && displayElement) {
-      const weight = fontWeightRange.value;
-      
-      if (this.isVariable && this.variableAxes.wght) {
-        // Use CSS font-variation-settings for variable fonts
-        this.updateVariationSettings();
-      } else {
-        displayElement.style.fontWeight = weight;
-      }
-      
-      if (valueDisplay) {
-        valueDisplay.textContent = weight;
-      }
-    }
-  }
-
-  /**
-   * Update letter spacing
-   */
-  updateLetterSpacing() {
-    const letterSpacingRange = document.querySelector(this.options.letterSpacingRange);
-    const displayElement = document.querySelector(this.options.displayElement);
-    const valueDisplay = document.querySelector('#letterSpacingValue');
-    
-    if (letterSpacingRange && displayElement) {
-      const spacing = letterSpacingRange.value + 'em';
-      displayElement.style.letterSpacing = spacing;
-      
-      if (valueDisplay) {
-        valueDisplay.textContent = spacing;
-      }
+  updateFontSize(size) {
+    this.settings.fontSize = Math.max(12, Math.min(120, size));
+    if (this.controls.previewText) {
+      this.controls.previewText.style.fontSize = `${this.settings.fontSize}px`;
     }
   }
 
   /**
    * Update line height
    */
-  updateLineHeight() {
-    const lineHeightRange = document.querySelector(this.options.lineHeightRange);
-    const displayElement = document.querySelector(this.options.displayElement);
-    const valueDisplay = document.querySelector('#lineHeightValue');
-    
-    if (lineHeightRange && displayElement) {
-      const lineHeight = lineHeightRange.value;
-      displayElement.style.lineHeight = lineHeight;
-      
-      if (valueDisplay) {
-        valueDisplay.textContent = lineHeight;
-      }
+  updateLineHeight(height) {
+    this.settings.lineHeight = height;
+    if (this.controls.previewText) {
+      this.controls.previewText.style.lineHeight = height;
     }
   }
 
   /**
-   * Update font style
+   * Update letter spacing
    */
-  updateFontStyle() {
-    const fontStyleSelect = document.querySelector(this.options.fontStyleSelect);
-    const displayElement = document.querySelector(this.options.displayElement);
-    
-    if (fontStyleSelect && displayElement) {
-      const style = fontStyleSelect.value;
-      
-      // Map style names to CSS properties
-      const styleMap = {
-        'thin': { fontWeight: 100 },
-        'light': { fontWeight: 200 },
-        'regular': { fontWeight: 400 },
-        'medium': { fontWeight: 500 },
-        'semibold': { fontWeight: 600 },
-        'bold': { fontWeight: 700 },
-        'black': { fontWeight: 900 }
-      };
-      
-      if (styleMap[style]) {
-        Object.assign(displayElement.style, styleMap[style]);
-      }
+  updateLetterSpacing(spacing) {
+    this.settings.letterSpacing = spacing;
+    if (this.controls.previewText) {
+      this.controls.previewText.style.letterSpacing = `${spacing / 1000}em`;
     }
   }
 
   /**
-   * Update font family
+   * Update text alignment
    */
-  updateFontFamily() {
-    const displayElement = document.querySelector(this.options.displayElement);
-    
-    if (displayElement && this.currentFont) {
-      displayElement.style.fontFamily = `"${this.currentFont.name}", var(--font-secondary)`;
+  updateAlignment(align) {
+    this.settings.textAlign = align;
+    if (this.controls.previewText) {
+      this.controls.previewText.style.textAlign = align;
     }
   }
 
   /**
-   * Update variable font settings
+   * Update active alignment button
    */
-  updateVariationSettings() {
-    const displayElement = document.querySelector(this.options.displayElement);
-    
-    if (!displayElement || !this.isVariable) return;
-    
-    const settings = [];
-    
-    // Weight axis
-    if (this.variableAxes.wght) {
-      const fontWeightRange = document.querySelector(this.options.fontWeightRange);
-      if (fontWeightRange) {
-        settings.push(`"wght" ${fontWeightRange.value}`);
+  updateActiveAlignment(align) {
+    this.controls.alignmentButtons.forEach(btn => {
+      if (btn.dataset.align === align) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
       }
-    }
-    
-    // Width axis
-    if (this.variableAxes.wdth) {
-      const widthRange = document.querySelector('#fontWidth');
-      if (widthRange) {
-        settings.push(`"wdth" ${widthRange.value}`);
-      }
-    }
-    
-    // Apply variation settings
-    if (settings.length > 0) {
-      displayElement.style.fontVariationSettings = settings.join(', ');
-    }
-  }
-
-  /**
-   * Update variable controls based on current font
-   */
-  updateVariableControls() {
-    const container = document.querySelector(this.options.container);
-    if (!container) return;
-    
-    // Show/hide variable controls
-    const variableControls = container.querySelectorAll('.variable-control');
-    variableControls.forEach(control => {
-      control.style.display = this.isVariable ? 'flex' : 'none';
     });
-    
-    // Update range limits for variable axes
-    if (this.isVariable && this.variableAxes) {
-      this.updateRangeLimits();
-    }
   }
 
   /**
-   * Update range input limits based on variable axes
+   * Update value displays
    */
-  updateRangeLimits() {
-    // Weight axis
-    if (this.variableAxes.wght) {
-      const fontWeightRange = document.querySelector(this.options.fontWeightRange);
-      if (fontWeightRange) {
-        fontWeightRange.min = this.variableAxes.wght.min;
-        fontWeightRange.max = this.variableAxes.wght.max;
-        fontWeightRange.value = this.variableAxes.wght.default;
-      }
-    }
-    
-    // Width axis
-    if (this.variableAxes.wdth) {
-      const widthRange = document.querySelector('#fontWidth');
-      if (widthRange) {
-        widthRange.min = this.variableAxes.wdth.min;
-        widthRange.max = this.variableAxes.wdth.max;
-        widthRange.value = this.variableAxes.wdth.default;
+  updateValueDisplays() {
+    this.updateValueDisplay('lineHeight', this.settings.lineHeight);
+    this.updateValueDisplay('letterSpacing', this.settings.letterSpacing);
+  }
+
+  /**
+   * Update individual value display
+   */
+  updateValueDisplay(controlId, value) {
+    const slider = document.getElementById(controlId);
+    if (slider) {
+      const valueDisplay = slider.parentNode.querySelector('.type-tester__value');
+      if (valueDisplay) {
+        valueDisplay.textContent = value;
       }
     }
   }
 
   /**
-   * Reset all controls to default values
+   * Load initial font (fallback)
    */
-  reset() {
-    const textInput = document.querySelector(this.options.textInput);
-    const fontSizeRange = document.querySelector(this.options.fontSizeRange);
-    const fontWeightRange = document.querySelector(this.options.fontWeightRange);
-    const letterSpacingRange = document.querySelector(this.options.letterSpacingRange);
-    const lineHeightRange = document.querySelector(this.options.lineHeightRange);
-    
-    if (textInput) textInput.value = this.options.defaultText;
-    if (fontSizeRange) fontSizeRange.value = 48;
-    if (fontWeightRange) fontWeightRange.value = 400;
-    if (letterSpacingRange) letterSpacingRange.value = 0;
-    if (lineHeightRange) lineHeightRange.value = 1.2;
-    
-    this.loadInitialValues();
+  loadInitialFont() {
+    // Apply initial styles
+    this.applyAllStyles();
   }
 
   /**
-   * Update entire display
+   * Apply all current styles
    */
-  updateDisplay() {
-    this.updateDisplayText();
-    this.updateFontFamily();
-    this.updateFontSize();
-    this.updateFontWeight();
-    this.updateLetterSpacing();
-    this.updateLineHeight();
-    this.updateFontStyle();
+  applyAllStyles() {
+    const preview = this.controls.previewText;
+    if (!preview) return;
+
+    preview.style.fontSize = `${this.settings.fontSize}px`;
+    preview.style.lineHeight = this.settings.lineHeight;
+    preview.style.letterSpacing = `${this.settings.letterSpacing / 1000}em`;
+    preview.style.textAlign = this.settings.textAlign;
+    
+    // Apply variable font settings if any
+    this.updateVariableFontStyle();
   }
 
   /**
-   * Generate shareable URL with current settings
-   * @returns {string} URL with encoded settings
+   * Reset all settings
    */
-  getShareableURL() {
-    const params = new URLSearchParams();
-    
-    const textInput = document.querySelector(this.options.textInput);
-    const fontSizeRange = document.querySelector(this.options.fontSizeRange);
-    const fontWeightRange = document.querySelector(this.options.fontWeightRange);
-    const letterSpacingRange = document.querySelector(this.options.letterSpacingRange);
-    const lineHeightRange = document.querySelector(this.options.lineHeightRange);
-    
-    if (textInput) params.set('text', textInput.value);
-    if (fontSizeRange) params.set('size', fontSizeRange.value);
-    if (fontWeightRange) params.set('weight', fontWeightRange.value);
-    if (letterSpacingRange) params.set('spacing', letterSpacingRange.value);
-    if (lineHeightRange) params.set('height', lineHeightRange.value);
-    
-    if (this.currentFont) {
-      params.set('font', this.currentFont.id);
-    }
-    
-    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+  resetSettings() {
+    // Reset to defaults
+    this.settings = {
+      fontSize: 48,
+      lineHeight: 1.2,
+      letterSpacing: 0,
+      wordSpacing: 0,
+      textAlign: 'left',
+      fontStyle: 'normal',
+      fontWeight: 400,
+      fontWidth: 100,
+      customText: this.currentFont?.defaultText || 'Start Typing'
+    };
+
+    // Reset variable axes
+    this.variableAxes.forEach((config, axis) => {
+      config.current = config.default;
+    });
+
+    // Update UI
+    this.updateControlValues();
+    this.applyAllStyles();
+    this.updateText(this.settings.customText);
   }
 
   /**
-   * Load settings from URL parameters
+   * Update control values
    */
-  loadFromURL() {
-    const params = new URLSearchParams(window.location.search);
-    
-    const textInput = document.querySelector(this.options.textInput);
-    const fontSizeRange = document.querySelector(this.options.fontSizeRange);
-    const fontWeightRange = document.querySelector(this.options.fontWeightRange);
-    const letterSpacingRange = document.querySelector(this.options.letterSpacingRange);
-    const lineHeightRange = document.querySelector(this.options.lineHeightRange);
-    
-    if (params.has('text') && textInput) {
-      textInput.value = params.get('text');
+  updateControlValues() {
+    const { controls } = this;
+
+    if (controls.fontSizeSlider) {
+      controls.fontSizeSlider.value = this.settings.fontSize;
     }
-    if (params.has('size') && fontSizeRange) {
-      fontSizeRange.value = params.get('size');
+    if (controls.fontSizeNumber) {
+      controls.fontSizeNumber.value = this.settings.fontSize;
     }
-    if (params.has('weight') && fontWeightRange) {
-      fontWeightRange.value = params.get('weight');
+    if (controls.lineHeightSlider) {
+      controls.lineHeightSlider.value = this.settings.lineHeight;
     }
-    if (params.has('spacing') && letterSpacingRange) {
-      letterSpacingRange.value = params.get('spacing');
+    if (controls.letterSpacingSlider) {
+      controls.letterSpacingSlider.value = this.settings.letterSpacing;
     }
-    if (params.has('height') && lineHeightRange) {
-      lineHeightRange.value = params.get('height');
+    if (controls.textarea) {
+      controls.textarea.value = this.settings.customText;
     }
-    
-    this.updateDisplay();
+
+    // Update variable axes
+    document.querySelectorAll('.type-tester__variable-axis').forEach(slider => {
+      const axis = slider.dataset.axis;
+      if (this.variableAxes.has(axis)) {
+        slider.value = this.variableAxes.get(axis).current;
+      }
+    });
+
+    this.updateValueDisplays();
+    this.updateActiveAlignment(this.settings.textAlign);
+  }
+
+  /**
+   * Export current settings
+   */
+  exportSettings() {
+    const settings = {
+      ...this.settings,
+      font: this.currentFont?.name,
+      variableAxes: Object.fromEntries(
+        Array.from(this.variableAxes.entries()).map(([axis, config]) => [
+          axis, 
+          config.current
+        ])
+      )
+    };
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(JSON.stringify(settings, null, 2))
+      .then(() => {
+        console.log('Settings exported to clipboard');
+        this.showNotification('Settings copied to clipboard!');
+      })
+      .catch(err => {
+        console.error('Failed to copy settings:', err);
+        this.showNotification('Failed to copy settings');
+      });
+  }
+
+  /**
+   * Handle keyboard shortcuts
+   */
+  handleKeyboardShortcuts(e) {
+    if (e.ctrlKey || e.metaKey) {
+      switch (e.key.toLowerCase()) {
+        case 'r':
+          e.preventDefault();
+          this.resetSettings();
+          break;
+        case 'e':
+          e.preventDefault();
+          this.exportSettings();
+          break;
+        case '=':
+        case '+':
+          e.preventDefault();
+          this.updateFontSize(this.settings.fontSize + 2);
+          this.updateControlValues();
+          break;
+        case '-':
+          e.preventDefault();
+          this.updateFontSize(this.settings.fontSize - 2);
+          this.updateControlValues();
+          break;
+      }
+    }
+  }
+
+  /**
+   * Show notification
+   */
+  showNotification(message) {
+    // Simple notification implementation
+    const notification = document.createElement('div');
+    notification.className = 'type-tester__notification';
+    notification.textContent = message;
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--color-black);
+      color: var(--color-white);
+      padding: 12px 20px;
+      border-radius: 6px;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    `;
+
+    document.body.appendChild(notification);
+
+    // Animate in
+    requestAnimationFrame(() => {
+      notification.style.opacity = '1';
+    });
+
+    // Remove after delay
+    setTimeout(() => {
+      notification.style.opacity = '0';
+      setTimeout(() => {
+        document.body.removeChild(notification);
+      }, 300);
+    }, 3000);
+  }
+
+  /**
+   * Get current settings
+   */
+  getCurrentSettings() {
+    return {
+      ...this.settings,
+      variableAxes: Object.fromEntries(this.variableAxes)
+    };
+  }
+
+  /**
+   * Destroy type tester
+   */
+  destroy() {
+    // Remove event listeners and clean up
+    this.variableAxes.clear();
+    console.log('Type Tester destroyed');
   }
 }
 
-/**
- * Font Loader for Typetester
- * Handles loading of demo font files
- */
-class TypetesterFontLoader {
-  constructor() {
-    this.loadedFonts = new Set();
-    this.basePath = './fonts-protected/';
-  }
+// Create global instance
+window.typeTester = new TypeTester();
 
-  /**
-   * Load a font for the typetester
-   * @param {Object} fontData - Font data object
-   * @returns {Promise<boolean>} Success status
-   */
-  async loadFont(fontData) {
-    if (this.loadedFonts.has(fontData.id)) {
-      return true;
-    }
-
-    try {
-      if (fontData.fontFiles && fontData.fontFiles.demo) {
-        const fontFace = new FontFace(
-          fontData.name,
-          `url("${this.basePath}${fontData.fontFiles.demo}")`
-        );
-        
-        await fontFace.load();
-        document.fonts.add(fontFace);
-        
-        this.loadedFonts.add(fontData.id);
-        return true;
-      }
-      return false;
-    } catch (error) {
-      console.error(`Failed to load font ${fontData.name}:`, error);
-      return false;
-    }
-  }
-
-  /**
-   * Preload multiple fonts
-   * @param {Array} fontDataArray - Array of font data objects
-   * @returns {Promise<Array>} Array of success statuses
-   */
-  async preloadFonts(fontDataArray) {
-    const promises = fontDataArray.map(fontData => this.loadFont(fontData));
-    return await Promise.all(promises);
-  }
-
-  /**
-   * Check if font is loaded
-   * @param {string} fontId - Font ID
-   * @returns {boolean} Load status
-   */
-  isFontLoaded(fontId) {
-    return this.loadedFonts.has(fontId);
-  }
-}
-
-// Export for module usage
+// Export for module systems
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { Typetester, TypetesterFontLoader };
+  module.exports = TypeTester;
 }
-
-// Global namespace for browser usage
-window.Typetester = { Typetester, TypetesterFontLoader };

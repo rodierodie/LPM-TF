@@ -1,64 +1,105 @@
 {
   "site": {
     "title": "The Loveprinting Machine Type Foundry",
-    "titleShort": "TLMTF",
+    "shortTitle": "The Loveprinting Machine",
+    "tagline": "Type Foundry",
     "author": "The Loveprinting Machine",
-    "description": "Contemporary typeface design and custom lettering studio specializing in functional fonts and expressive lettering projects",
-    "url": "https://loveprinting.com",
     "email": "hello@loveprinting.com",
-    "logo": "🖨",
-    "mainVideo": "assets/video/intro.mp4",
+    "website": "https://loveprinting.com",
+    "description": "Contemporary typeface design and custom lettering. Functional fonts with character, designed with care and attention to detail for your everyday designs.",
+    "keywords": [
+      "type design",
+      "typography",
+      "fonts",
+      "typefaces",
+      "custom lettering",
+      "calligraphy",
+      "variable fonts",
+      "font foundry",
+      "design",
+      "lettering"
+    ],
+    "language": "en",
+    "locale": "en_US",
+    "mainVideo": "hero-video.mp4",
+    "logoImage": "logo.png",
     "animations": {
-      "hero": "assets/animations/hero-animation.gif",
-      "variability": "assets/animations/variable-fonts.gif", 
-      "lettering": "assets/animations/lettering-process.gif"
+      "hero": "hero-video.mp4",
+      "variable": "variable.gif",
+      "lettering": "custom-lettering.gif"
     },
-    "socialLinks": {
+    "socialMedia": {
       "telegram": "https://t.me/loveprinting",
-      "instagram": "https://instagram.com/loveprinting", 
+      "instagram": "https://instagram.com/loveprinting",
       "behance": "https://behance.net/loveprinting",
-      "dribbble": "https://dribbble.com/loveprinting"
+      "dribbble": "https://dribbble.com/loveprinting",
+      "github": "https://github.com/loveprinting"
     }
   },
   "about": {
-    "title": "About The Loveprinting Machine",
-    "text": "I've been creating lettering and calligraphy since 2017 — hoping that this is me chosen this field but also experimenting with animated lettering frame by frame. But I'm also experimenting with animated lettering printed of created by other.\n\nThe creation of the unity platform has previously focused another angle of myself and decided to pursue qualified online learning. Since his software expertise is designing to pursue qualified online learning.",
-    "image": "assets/images/about-photo.jpg",
+    "text": "I'VE BEEN CREATING LETTERING AND CALLIGRAPHY SINCE 2012 — DURING THIS TIME I'VE DONE DOZENS OF LOGOS AND HUNDREDS OF LETTERING IN DIFFERENT VARIATIONS. I PREFER ANIMATING LETTERS FRAME BY FRAME, BUT I'M ALSO EXPERIMENTING WITH ANIMATION OF VARIABLE FONTS.",
+    "fullText": "Since his software expertise is designing to pursue qualified online learning. I've been passionate about typography and lettering for over a decade, constantly exploring new ways to bring character and functionality to type design. My work spans from traditional calligraphy to cutting-edge variable fonts, always with attention to detail and craftsmanship.",
+    "image": "about.jpeg",
     "skills": [
       "Type Design",
-      "Custom Lettering", 
+      "Custom Lettering",
       "Calligraphy",
+      "Variable Fonts",
       "Animation",
-      "Brand Typography"
+      "Brand Typography",
+      "Digital Typography",
+      "Font Engineering"
+    ],
+    "experience": {
+      "years": "12+ years",
+      "projects": "200+ projects",
+      "clients": "50+ clients",
+      "fonts": "20+ typefaces"
+    },
+    "awards": [
+      "Type Directors Club Certificate of Excellence",
+      "Communication Arts Typography Award",
+      "Design Museum Font of the Year Nominee"
     ]
   },
   "usp": {
-    "title": "We produce strong functional fonts to use for designers & rich typefaces, every one of the glyphs is shaped with great care and attention to details for your favourite designs.",
+    "title": "WE PROVIDE (TREND-CONSCIOUS) FREE TO TRY FONTS FOR DESIGNERS → EACH TYPEFACE, EVERY GLYPH IS CRAFTED WITH GREAT CARE AND ATTENTION TO DETAILS FOR YOUR EVERYDAY DESIGNS.",
     "description": "Каждый шрифт — это инструмент для решения конкретных задач",
-    "linkText": "Смотреть все шрифты",
-    "linkUrl": "#fonts"
+    "linkText": "LEARN MORE",
+    "linkUrl": "#fonts",
+    "features": [
+      "Free trials available",
+      "High-quality craftsmanship",
+      "Attention to detail",
+      "Contemporary design",
+      "Professional licensing"
+    ]
   },
   "navigation": {
     "main": [
       {
         "name": "All fonts",
         "url": "index.html#fonts",
-        "section": "fonts"
+        "section": "fonts",
+        "description": "Browse our complete typeface collection"
       },
       {
-        "name": "Fonts in use", 
+        "name": "Fonts in use",
         "url": "pages/fonts-in-use.html",
-        "section": "projects"
+        "section": "projects",
+        "description": "See our fonts in real-world applications"
       },
       {
-        "name": "Custom lettering",
-        "url": "pages/lettering.html", 
-        "section": "lettering"
+        "name": "Custom letters",
+        "url": "pages/lettering.html",
+        "section": "lettering",
+        "description": "Hand-lettered logos and custom typography"
       },
       {
         "name": "About",
         "url": "pages/about.html",
-        "section": "about"
+        "section": "about",
+        "description": "Learn about our design philosophy"
       }
     ],
     "footer": [
@@ -71,12 +112,26 @@
         "url": "pages/fonts-in-use.html"
       },
       {
-        "name": "Custom lettering", 
+        "name": "Custom letters",
         "url": "pages/lettering.html"
       },
       {
         "name": "About",
         "url": "pages/about.html"
+      }
+    ],
+    "legal": [
+      {
+        "name": "License Agreement",
+        "url": "pages/license.html"
+      },
+      {
+        "name": "Privacy Policy",
+        "url": "pages/privacy.html"
+      },
+      {
+        "name": "Terms of Service",
+        "url": "pages/terms.html"
       }
     ]
   },
@@ -88,13 +143,73 @@
       "type design",
       "typography",
       "fonts",
-      "typefaces", 
+      "typefaces",
       "custom lettering",
       "calligraphy",
       "variable fonts",
       "font foundry"
     ],
-    "ogImage": "assets/images/og-image.jpg"
+    "ogImage": "assets/images/og-image.jpg",
+    "ogImageAlt": "The Loveprinting Machine Type Foundry",
+    "twitterCard": "summary_large_image",
+    "twitterSite": "@loveprinting",
+    "twitterCreator": "@loveprinting",
+    "googleAnalytics": null,
+    "googleSiteVerification": null,
+    "robots": "index, follow",
+    "canonicalUrl": "https://loveprinting.com"
+  },
+  "contact": {
+    "email": "hello@loveprinting.com",
+    "inquiries": "inquiries@loveprinting.com",
+    "licensing": "licensing@loveprinting.com",
+    "custom": "custom@loveprinting.com",
+    "phone": null,
+    "address": null,
+    "timezone": "UTC+3",
+    "responseTime": "24-48 hours"
+  },
+  "services": {
+    "typeDesign": {
+      "name": "Type Design",
+      "description": "Custom typeface design for brands and publications",
+      "features": [
+        "Complete font families",
+        "Variable font development",
+        "Multilingual support",
+        "Professional licensing"
+      ]
+    },
+    "customLettering": {
+      "name": "Custom Lettering",
+      "description": "Hand-lettered logos and typography for unique brand expression",
+      "features": [
+        "Logo lettering",
+        "Packaging design",
+        "Editorial lettering",
+        "Environmental graphics"
+      ]
+    },
+    "fontLicensing": {
+      "name": "Font Licensing",
+      "description": "Flexible licensing options for commercial and personal use",
+      "features": [
+        "Desktop licenses",
+        "Web font licenses",
+        "App embedding",
+        "Custom licensing"
+      ]
+    },
+    "typographyConsulting": {
+      "name": "Typography Consulting",
+      "description": "Expert guidance on typography for brands and publications",
+      "features": [
+        "Font selection",
+        "Typography guidelines",
+        "Brand typography systems",
+        "Technical implementation"
+      ]
+    }
   },
   "settings": {
     "fontsPerPage": 12,
@@ -106,6 +221,104 @@
     "typeTestMinSize": 12,
     "typeTestMaxSize": 120,
     "cookiesEnabled": false,
-    "analyticsEnabled": false
+    "analyticsEnabled": false,
+    "lazyLoadImages": true,
+    "enableDarkMode": false,
+    "enableSmoothScrolling": true,
+    "enableBackToTop": true,
+    "enableProgressBar": false
+  },
+  "pricing": {
+    "desktop": {
+      "single": "$45-85",
+      "family": "$120-250"
+    },
+    "web": {
+      "single": "$35-65",
+      "family": "$90-200"
+    },
+    "variable": {
+      "single": "$75-150",
+      "family": "$200-400"
+    },
+    "custom": {
+      "lettering": "$500-2000",
+      "typeface": "$5000-15000"
+    },
+    "currency": "USD",
+    "trialPeriod": "30 days",
+    "refundPolicy": "14 days"
+  },
+  "technical": {
+    "supportedFormats": ["OTF", "TTF", "WOFF2", "WOFF", "Variable TTF"],
+    "minBrowsers": {
+      "chrome": "88",
+      "firefox": "85",
+      "safari": "14",
+      "edge": "88"
+    },
+    "fontFeatures": [
+      "OpenType Features",
+      "Stylistic Sets",
+      "Contextual Alternates",
+      "Ligatures",
+      "Kerning",
+      "Multilingual Support"
+    ],
+    "variableFontSupport": true,
+    "webfontOptimization": true,
+    "subsetting": true
+  },
+  "content": {
+    "defaultTexts": {
+      "typeface": "Start Typing",
+      "display": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "paragraph": "The quick brown fox jumps over the lazy dog. Typography is the art and technique of arranging type to make written language legible, readable, and appealing when displayed."
+    },
+    "sampleTexts": [
+      "The quick brown fox jumps over the lazy dog",
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "abcdefghijklmnopqrstuvwxyz",
+      "1234567890 !@#$%^&*()",
+      "Typography is the art and technique of arranging type.",
+      "Design is not just what it looks like and feels like. Design is how it works.",
+      "Good typography is invisible. Bad typography is everywhere."
+    ],
+    "featuredQuote": {
+      "text": "Typography is the craft of endowing human language with a durable visual form.",
+      "author": "Robert Bringhurst",
+      "source": "The Elements of Typographic Style"
+    }
+  },
+  "footer": {
+    "copyright": "© 2024 The Loveprinting Machine Type Foundry. All rights reserved.",
+    "links": {
+      "fonts": "All fonts",
+      "projects": "Fonts in use",
+      "lettering": "Custom lettering",
+      "about": "About",
+      "license": "License",
+      "contact": "Contact"
+    },
+    "social": {
+      "telegram": "TELEGRAM",
+      "instagram": "INSTAGRAM", 
+      "behance": "BEHANCE",
+      "email": "E-MAIL"
+    }
+  },
+  "legal": {
+    "terms": "pages/terms.html",
+    "privacy": "pages/privacy.html",
+    "license": "pages/license.html",
+    "cookies": null,
+    "gdpr": false
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2024-08-11",
+    "buildDate": "2024-08-11",
+    "generator": "Static Site",
+    "configVersion": "1.0"
   }
 }

@@ -1,429 +1,849 @@
 /**
- * Универсальная система фильтров
- * Модуль для фильтрации, поиска и сортировки данных
+ * Filters Module
+ * Handles filtering and sorting of typefaces, projects, and lettering
  */
 
-class FilterSystem {
-    constructor(options = {}) {
-        this.container = options.container || null;
-        this.data = options.data || [];
-        this.activeFilters = {};
-        this.searchQuery = '';
-        this.sortBy = options.defaultSort || 'name';
-        this.sortOrder = options.defaultOrder || 'asc';
-        this.callbacks = {
-            onFilter: options.onFilter || null,
-            onSearch: options.onSearch || null,
-            onSort: options.onSort || null,
-            onRender: options.onRender || null
+class FiltersManager {
+  constructor() {
+    this.activeFilters = new Map();
+    this.sortCriteria = {
+      field: 'name',
+      direction: 'asc'
+    };
+    this.searchQuery = '';
+    this.filteredData = [];
+    this.originalData = [];
+    this.currentDataType = null;
+    
+    this.init();
+  }
+
+  /**
+   * Initialize filters system
+   */
+  init() {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => this.onDOMReady());
+    } else {
+      this.onDOMReady();
+    }
+  }
+
+  /**
+   * Handle DOM ready
+   */
+  onDOMReady() {
+    this.setupFilterInterface();
+    this.bindEvents();
+    this.loadInitialData();
+    
+    console.log('Filters initialized');
+  }
+
+  /**
+   * Setup filter interface
+   */
+  setupFilterInterface() {
+    this.createFilterControls();
+    this.createSortControls();
+    this.createSearchControls();
+  }
+
+  /**
+   * Create filter controls
+   */
+  createFilterControls() {
+    const filterContainers = document.querySelectorAll('.filters-container');
+    
+    filterContainers.forEach(container => {
+      const dataType = container.dataset.type;
+      this.createFiltersForType(container, dataType);
+    });
+  }
+
+  /**
+   * Create filters for specific data type
+   */
+  createFiltersForType(container, dataType) {
+    let filterConfig = {};
+
+    switch (dataType) {
+      case 'typefaces':
+        filterConfig = {
+          type: ['serif', 'sans-serif', 'display', 'script', 'mono'],
+          styles: ['1', '2-5', '6-10', '10+'],
+          variable: ['yes', 'no'],
+          category: ['text', 'display', 'branding', 'editorial']
         };
+        break;
+      case 'projects':
+        filterConfig = {
+          category: ['branding', 'editorial', 'web', 'packaging', 'signage'],
+          year: ['2024', '2023', '2022', '2021', 'older'],
+          featured: ['yes', 'no']
+        };
+        break;
+      case 'lettering':
+        filterConfig = {
+          type: ['logotype', 'poster', 'mural', 'packaging', 'editorial'],
+          style: ['script', 'sans', 'serif', 'decorative'],
+          year: ['2024', '2023', '2022', '2021', 'older']
+        };
+        break;
+    }
+
+    if (Object.keys(filterConfig).length > 0) {
+      const filtersHTML = this.generateFiltersHTML(filterConfig, dataType);
+      container.innerHTML = filtersHTML;
+    }
+  }
+
+  /**
+   * Generate filters HTML
+   */
+  generateFiltersHTML(filterConfig, dataType) {
+    return `
+      <div class="filters" data-type="${dataType}">
+        <div class="filters__header">
+          <h3 class="filters__title">Filter</h3>
+          <button class="filters__clear" data-type="${dataType}">Clear All</button>
+        </div>
         
-        this.init();
+        ${Object.entries(filterConfig).map(([filterKey, options]) => `
+          <div class="filter-group" data-filter="${filterKey}">
+            <h4 class="filter-group__title">${this.getFilterDisplayName(filterKey)}</h4>
+            <div class="filter-group__options">
+              ${options.map(option => `
+                <label class="filter-option">
+                  <input 
+                    type="checkbox" 
+                    class="filter-option__input"
+                    data-type="${dataType}"
+                    data-filter="${filterKey}" 
+                    data-value="${option}"
+                  >
+                  <span class="filter-option__label">${this.getOptionDisplayName(option)}</span>
+                  <span class="filter-option__count">0</span>
+                </label>
+              `).join('')}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  /**
+   * Get display name for filter
+   */
+  getFilterDisplayName(filterKey) {
+    const displayNames = {
+      type: 'Type',
+      styles: 'Number of Styles',
+      variable: 'Variable Font',
+      category: 'Category',
+      year: 'Year',
+      featured: 'Featured',
+      style: 'Style'
+    };
+    
+    return displayNames[filterKey] || filterKey.charAt(0).toUpperCase() + filterKey.slice(1);
+  }
+
+  /**
+   * Get display name for option
+   */
+  getOptionDisplayName(option) {
+    const displayNames = {
+      'sans-serif': 'Sans Serif',
+      'mono': 'Monospace',
+      '2-5': '2-5 styles',
+      '6-10': '6-10 styles',
+      '10+': '10+ styles',
+      'yes': 'Yes',
+      'no': 'No',
+      'older': 'Before 2021'
+    };
+    
+    return displayNames[option] || option.charAt(0).toUpperCase() + option.slice(1);
+  }
+
+  /**
+   * Create sort controls
+   */
+  createSortControls() {
+    const sortContainers = document.querySelectorAll('.sort-container');
+    
+    sortContainers.forEach(container => {
+      const dataType = container.dataset.type;
+      const sortHTML = this.generateSortHTML(dataType);
+      container.innerHTML = sortHTML;
+    });
+  }
+
+  /**
+   * Generate sort HTML
+   */
+  generateSortHTML(dataType) {
+    let sortOptions = {};
+
+    switch (dataType) {
+      case 'typefaces':
+        sortOptions = {
+          name: 'Name',
+          styles: 'Number of Styles',
+          recent: 'Most Recent'
+        };
+        break;
+      case 'projects':
+        sortOptions = {
+          name: 'Name',
+          year: 'Year',
+          category: 'Category'
+        };
+        break;
+      case 'lettering':
+        sortOptions = {
+          title: 'Title',
+          year: 'Year',
+          type: 'Type'
+        };
+        break;
     }
 
-    init() {
-        this.bindEvents();
-        this.render();
+    return `
+      <div class="sort-controls" data-type="${dataType}">
+        <label class="sort-controls__label">Sort by:</label>
+        <select class="sort-controls__select" data-type="${dataType}">
+          ${Object.entries(sortOptions).map(([value, label]) => `
+            <option value="${value}">${label}</option>
+          `).join('')}
+        </select>
+        <button class="sort-controls__direction" data-type="${dataType}" data-direction="asc">
+          <span class="sort-controls__arrow">↑</span>
+        </button>
+      </div>
+    `;
+  }
+
+  /**
+   * Create search controls
+   */
+  createSearchControls() {
+    const searchContainers = document.querySelectorAll('.search-container');
+    
+    searchContainers.forEach(container => {
+      const dataType = container.dataset.type;
+      const searchHTML = this.generateSearchHTML(dataType);
+      container.innerHTML = searchHTML;
+    });
+  }
+
+  /**
+   * Generate search HTML
+   */
+  generateSearchHTML(dataType) {
+    const placeholders = {
+      typefaces: 'Search fonts...',
+      projects: 'Search projects...',
+      lettering: 'Search lettering...'
+    };
+
+    return `
+      <div class="search-controls" data-type="${dataType}">
+        <input 
+          type="text" 
+          class="search-controls__input" 
+          placeholder="${placeholders[dataType] || 'Search...'}"
+          data-type="${dataType}"
+        >
+        <button class="search-controls__clear" data-type="${dataType}">
+          <span>×</span>
+        </button>
+      </div>
+    `;
+  }
+
+  /**
+   * Bind event listeners
+   */
+  bindEvents() {
+    // Filter checkboxes
+    document.addEventListener('change', (e) => {
+      if (e.target.classList.contains('filter-option__input')) {
+        this.handleFilterChange(e);
+      }
+    });
+
+    // Sort controls
+    document.addEventListener('change', (e) => {
+      if (e.target.classList.contains('sort-controls__select')) {
+        this.handleSortChange(e);
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.sort-controls__direction')) {
+        this.handleSortDirectionChange(e);
+      }
+    });
+
+    // Search controls
+    document.addEventListener('input', (e) => {
+      if (e.target.classList.contains('search-controls__input')) {
+        this.handleSearchInput(e);
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.search-controls__clear')) {
+        this.handleSearchClear(e);
+      }
+    });
+
+    // Clear filters
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('filters__clear')) {
+        this.handleClearFilters(e);
+      }
+    });
+  }
+
+  /**
+   * Handle filter change
+   */
+  handleFilterChange(e) {
+    const { type, filter, value } = e.target.dataset;
+    const isChecked = e.target.checked;
+
+    if (!this.activeFilters.has(type)) {
+      this.activeFilters.set(type, new Map());
     }
 
-    bindEvents() {
-        // Поиск
-        const searchInput = document.querySelector('[data-filter="search"]');
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => {
-                this.setSearch(e.target.value);
-            });
-        }
-
-        // Фильтры
-        const filterElements = document.querySelectorAll('[data-filter-type]');
-        filterElements.forEach(element => {
-            element.addEventListener('change', (e) => {
-                const filterType = e.target.dataset.filterType;
-                const value = e.target.value;
-                
-                if (e.target.type === 'checkbox') {
-                    this.toggleFilter(filterType, value, e.target.checked);
-                } else {
-                    this.setFilter(filterType, value);
-                }
-            });
-        });
-
-        // Сортировка
-        const sortSelect = document.querySelector('[data-sort]');
-        if (sortSelect) {
-            sortSelect.addEventListener('change', (e) => {
-                const [sortBy, sortOrder] = e.target.value.split(':');
-                this.setSort(sortBy, sortOrder || 'asc');
-            });
-        }
-
-        // Кнопки сортировки
-        const sortButtons = document.querySelectorAll('[data-sort-by]');
-        sortButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                const sortBy = e.target.dataset.sortBy;
-                const currentOrder = this.sortBy === sortBy ? this.sortOrder : 'asc';
-                const newOrder = currentOrder === 'asc' ? 'desc' : 'asc';
-                this.setSort(sortBy, newOrder);
-                
-                // Обновление визуального состояния кнопок
-                this.updateSortButtonsState();
-            });
-        });
-
-        // Сброс фильтров
-        const resetButton = document.querySelector('[data-filter-reset]');
-        if (resetButton) {
-            resetButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.resetFilters();
-            });
-        }
+    const typeFilters = this.activeFilters.get(type);
+    
+    if (!typeFilters.has(filter)) {
+      typeFilters.set(filter, new Set());
     }
 
-    setData(data) {
-        this.data = data;
-        this.render();
+    const filterValues = typeFilters.get(filter);
+
+    if (isChecked) {
+      filterValues.add(value);
+    } else {
+      filterValues.delete(value);
     }
 
-    setSearch(query) {
-        this.searchQuery = query.toLowerCase().trim();
-        this.render();
-        
-        if (this.callbacks.onSearch) {
-            this.callbacks.onSearch(this.searchQuery);
-        }
+    // Clean up empty filters
+    if (filterValues.size === 0) {
+      typeFilters.delete(filter);
+    }
+    if (typeFilters.size === 0) {
+      this.activeFilters.delete(type);
     }
 
-    setFilter(filterType, value) {
-        if (value === '' || value === 'all') {
-            delete this.activeFilters[filterType];
-        } else {
-            this.activeFilters[filterType] = value;
-        }
-        this.render();
-        
-        if (this.callbacks.onFilter) {
-            this.callbacks.onFilter(this.activeFilters);
-        }
+    this.applyFilters(type);
+  }
+
+  /**
+   * Handle sort change
+   */
+  handleSortChange(e) {
+    const dataType = e.target.dataset.type;
+    const field = e.target.value;
+    
+    this.sortCriteria.field = field;
+    this.applySorting(dataType);
+  }
+
+  /**
+   * Handle sort direction change
+   */
+  handleSortDirectionChange(e) {
+    const button = e.target.closest('.sort-controls__direction');
+    const dataType = button.dataset.type;
+    const currentDirection = button.dataset.direction;
+    const newDirection = currentDirection === 'asc' ? 'desc' : 'asc';
+    
+    button.dataset.direction = newDirection;
+    button.querySelector('.sort-controls__arrow').textContent = newDirection === 'asc' ? '↑' : '↓';
+    
+    this.sortCriteria.direction = newDirection;
+    this.applySorting(dataType);
+  }
+
+  /**
+   * Handle search input
+   */
+  handleSearchInput(e) {
+    const dataType = e.target.dataset.type;
+    const query = e.target.value.trim();
+    
+    this.searchQuery = query;
+    this.applySearch(dataType);
+    
+    // Show/hide clear button
+    const clearButton = e.target.parentNode.querySelector('.search-controls__clear');
+    if (clearButton) {
+      clearButton.style.display = query ? 'block' : 'none';
     }
+  }
 
-    toggleFilter(filterType, value, isActive) {
-        if (!this.activeFilters[filterType]) {
-            this.activeFilters[filterType] = [];
-        }
-
-        if (isActive) {
-            if (!this.activeFilters[filterType].includes(value)) {
-                this.activeFilters[filterType].push(value);
-            }
-        } else {
-            this.activeFilters[filterType] = this.activeFilters[filterType].filter(v => v !== value);
-            if (this.activeFilters[filterType].length === 0) {
-                delete this.activeFilters[filterType];
-            }
-        }
-
-        this.render();
-        
-        if (this.callbacks.onFilter) {
-            this.callbacks.onFilter(this.activeFilters);
-        }
+  /**
+   * Handle search clear
+   */
+  handleSearchClear(e) {
+    const dataType = e.target.closest('.search-controls__clear').dataset.type;
+    const input = document.querySelector(`.search-controls__input[data-type="${dataType}"]`);
+    
+    if (input) {
+      input.value = '';
+      this.searchQuery = '';
+      this.applySearch(dataType);
+      e.target.style.display = 'none';
     }
+  }
 
-    setSort(sortBy, sortOrder = 'asc') {
-        this.sortBy = sortBy;
-        this.sortOrder = sortOrder;
-        this.render();
-        
-        if (this.callbacks.onSort) {
-            this.callbacks.onSort(sortBy, sortOrder);
-        }
-    }
-
-    resetFilters() {
-        this.activeFilters = {};
-        this.searchQuery = '';
-        
-        // Сброс UI элементов
-        const searchInput = document.querySelector('[data-filter="search"]');
-        if (searchInput) searchInput.value = '';
-        
-        const filterInputs = document.querySelectorAll('[data-filter-type]');
-        filterInputs.forEach(input => {
-            if (input.type === 'checkbox') {
-                input.checked = false;
-            } else {
-                input.value = input.dataset.defaultValue || '';
-            }
-        });
-
-        this.render();
-    }
-
-    getFilteredData() {
-        let filteredData = [...this.data];
-
-        // Применение поиска
-        if (this.searchQuery) {
-            filteredData = filteredData.filter(item => {
-                const searchFields = ['name', 'nameDisplay', 'description', 'features'];
-                return searchFields.some(field => {
-                    const value = item[field];
-                    if (Array.isArray(value)) {
-                        return value.some(v => v.toLowerCase().includes(this.searchQuery));
-                    }
-                    return value && value.toLowerCase().includes(this.searchQuery);
-                });
-            });
-        }
-
-        // Применение фильтров
-        Object.entries(this.activeFilters).forEach(([filterType, filterValue]) => {
-            filteredData = filteredData.filter(item => {
-                if (Array.isArray(filterValue)) {
-                    // Множественный выбор (чекбоксы)
-                    return filterValue.some(value => this.matchesFilter(item, filterType, value));
-                } else {
-                    // Одиночный выбор
-                    return this.matchesFilter(item, filterType, filterValue);
-                }
-            });
-        });
-
-        // Применение сортировки
-        filteredData.sort((a, b) => {
-            let valueA = this.getSortValue(a, this.sortBy);
-            let valueB = this.getSortValue(b, this.sortBy);
-
-            // Преобразование для корректного сравнения
-            if (typeof valueA === 'string') valueA = valueA.toLowerCase();
-            if (typeof valueB === 'string') valueB = valueB.toLowerCase();
-
-            let comparison = 0;
-            if (valueA > valueB) comparison = 1;
-            if (valueA < valueB) comparison = -1;
-
-            return this.sortOrder === 'desc' ? -comparison : comparison;
-        });
-
-        return filteredData;
-    }
-
-    matchesFilter(item, filterType, filterValue) {
-        switch (filterType) {
-            case 'type':
-                return item.type === filterValue;
-            case 'styles':
-                const styleCount = parseInt(filterValue);
-                if (filterValue === '1-5') return item.styles <= 5;
-                if (filterValue === '6-10') return item.styles >= 6 && item.styles <= 10;
-                if (filterValue === '11+') return item.styles >= 11;
-                return item.styles === styleCount;
-            case 'status':
-                return item.status === filterValue;
-            case 'external':
-                return item.isExternal === (filterValue === 'true');
-            case 'price':
-                const price = parseInt(item.price.replace('$', ''));
-                if (filterValue === '0-50') return price <= 50;
-                if (filterValue === '51-100') return price >= 51 && price <= 100;
-                if (filterValue === '101+') return price >= 101;
-                return false;
-            case 'features':
-                return item.features && item.features.includes(filterValue);
-            case 'languages':
-                return item.languages && item.languages.includes(filterValue);
-            default:
-                return item[filterType] === filterValue;
-        }
-    }
-
-    getSortValue(item, sortBy) {
-        switch (sortBy) {
-            case 'name':
-                return item.nameDisplay || item.name;
-            case 'price':
-                return parseInt(item.price.replace('$', ''));
-            case 'styles':
-                return item.styles;
-            case 'date':
-                return item.releaseDate || item.lastUpdated || '2025-01-01';
-            default:
-                return item[sortBy] || '';
-        }
-    }
-
-    updateSortButtonsState() {
-        const sortButtons = document.querySelectorAll('[data-sort-by]');
-        sortButtons.forEach(button => {
-            const buttonSortBy = button.dataset.sortBy;
-            button.classList.remove('sort-asc', 'sort-desc', 'sort-active');
-            
-            if (buttonSortBy === this.sortBy) {
-                button.classList.add('sort-active', `sort-${this.sortOrder}`);
-            }
-        });
-    }
-
-    updateResultsCount() {
-        const filteredData = this.getFilteredData();
-        const countElement = document.querySelector('[data-results-count]');
-        if (countElement) {
-            countElement.textContent = `${filteredData.length} результат${filteredData.length === 1 ? '' : (filteredData.length < 5 ? 'а' : 'ов')}`;
-        }
-    }
-
-    render() {
-        const filteredData = this.getFilteredData();
-        this.updateResultsCount();
-        this.updateSortButtonsState();
-        
-        if (this.callbacks.onRender) {
-            this.callbacks.onRender(filteredData);
-        }
-        
-        return filteredData;
-    }
-
-    // Метод для экспорта состояния фильтров в URL
-    exportToURL() {
-        const params = new URLSearchParams();
-        
-        if (this.searchQuery) {
-            params.set('search', this.searchQuery);
-        }
-        
-        Object.entries(this.activeFilters).forEach(([key, value]) => {
-            if (Array.isArray(value)) {
-                params.set(key, value.join(','));
-            } else {
-                params.set(key, value);
-            }
-        });
-        
-        if (this.sortBy !== 'name') {
-            params.set('sort', `${this.sortBy}:${this.sortOrder}`);
-        }
-        
-        return params.toString();
-    }
-
-    // Метод для импорта состояния фильтров из URL
-    importFromURL(urlString = window.location.search) {
-        const params = new URLSearchParams(urlString);
-        
-        // Поиск
-        const search = params.get('search');
-        if (search) {
-            this.setSearch(search);
-            const searchInput = document.querySelector('[data-filter="search"]');
-            if (searchInput) searchInput.value = search;
-        }
-        
-        // Фильтры
-        params.forEach((value, key) => {
-            if (key === 'search' || key === 'sort') return;
-            
-            if (value.includes(',')) {
-                // Множественный выбор
-                const values = value.split(',');
-                values.forEach(v => {
-                    this.toggleFilter(key, v, true);
-                    const checkbox = document.querySelector(`[data-filter-type="${key}"][value="${v}"]`);
-                    if (checkbox) checkbox.checked = true;
-                });
-            } else {
-                // Одиночный выбор
-                this.setFilter(key, value);
-                const select = document.querySelector(`[data-filter-type="${key}"]`);
-                if (select) select.value = value;
-            }
-        });
-        
-        // Сортировка
-        const sort = params.get('sort');
-        if (sort) {
-            const [sortBy, sortOrder] = sort.split(':');
-            this.setSort(sortBy, sortOrder);
-        }
-        
-        this.render();
-    }
-}
-
-// Специализированные фильтры для разных типов данных
-class TypefaceFilter extends FilterSystem {
-    constructor(options = {}) {
-        super({
-            ...options,
-            defaultSort: 'name',
-            defaultOrder: 'asc'
-        });
-    }
-
-    matchesFilter(item, filterType, filterValue) {
-        // Дополнительная логика для шрифтов
-        if (filterType === 'variableAxes') {
-            return item.variableAxes && Object.keys(item.variableAxes).includes(filterValue);
-        }
-        
-        return super.matchesFilter(item, filterType, filterValue);
-    }
-}
-
-class ProjectFilter extends FilterSystem {
-    constructor(options = {}) {
-        super({
-            ...options,
-            defaultSort: 'date',
-            defaultOrder: 'desc'
-        });
-    }
-
-    matchesFilter(item, filterType, filterValue) {
-        // Дополнительная логика для проектов
-        if (filterType === 'fonts') {
-            return item.fonts && item.fonts.includes(filterValue);
-        }
-        
-        if (filterType === 'category') {
-            return item.category === filterValue;
-        }
-        
-        return super.matchesFilter(item, filterType, filterValue);
-    }
-}
-
-// Экспорт для использования в других модулях
-window.FilterSystem = FilterSystem;
-window.TypefaceFilter = TypefaceFilter;
-window.ProjectFilter = ProjectFilter;
-
-// Автоинициализация при наличии соответствующих элементов на странице
-document.addEventListener('DOMContentLoaded', () => {
-    // Инициализация для страницы шрифтов
-    if (document.querySelector('[data-page="typefaces"]')) {
-        window.typefaceFilter = new TypefaceFilter({
-            onRender: (filteredData) => {
-                if (window.renderTypefaces) {
-                    window.renderTypefaces(filteredData);
-                }
-            }
-        });
+  /**
+   * Handle clear all filters
+   */
+  handleClearFilters(e) {
+    const dataType = e.target.dataset.type;
+    
+    // Clear active filters for this type
+    this.activeFilters.delete(dataType);
+    
+    // Uncheck all checkboxes
+    document.querySelectorAll(`.filter-option__input[data-type="${dataType}"]`).forEach(checkbox => {
+      checkbox.checked = false;
+    });
+    
+    // Clear search
+    const searchInput = document.querySelector(`.search-controls__input[data-type="${dataType}"]`);
+    if (searchInput) {
+      searchInput.value = '';
+      this.searchQuery = '';
     }
     
-    // Инициализация для страницы проектов
-    if (document.querySelector('[data-page="fonts-in-use"]')) {
-        window.projectFilter = new ProjectFilter({
-            onRender: (filteredData) => {
-                if (window.renderProjects) {
-                    window.renderProjects(filteredData);
-                }
-            }
-        });
+    this.applyFilters(dataType);
+  }
+
+  /**
+   * Load initial data
+   */
+  async loadInitialData() {
+    try {
+      // Load data for each type that has filter containers
+      const filterContainers = document.querySelectorAll('.filters-container[data-type]');
+      
+      for (const container of filterContainers) {
+        const dataType = container.dataset.type;
+        await this.loadDataForType(dataType);
+      }
+    } catch (error) {
+      console.error('Error loading initial filter data:', error);
     }
-});
+  }
+
+  /**
+   * Load data for specific type
+   */
+  async loadDataForType(dataType) {
+    try {
+      let data = [];
+      
+      switch (dataType) {
+        case 'typefaces':
+          const typefacesData = await window.dataLoader.getTypefaces();
+          data = typefacesData.fonts || [];
+          break;
+        case 'projects':
+          const projectsData = await window.dataLoader.getProjects();
+          data = projectsData.projects || [];
+          break;
+        case 'lettering':
+          const letteringData = await window.dataLoader.getLettering();
+          data = letteringData.letterings || [];
+          break;
+      }
+      
+      this.originalData = data;
+      this.filteredData = [...data];
+      this.currentDataType = dataType;
+      
+      this.updateFilterCounts(dataType);
+      this.renderFilteredData(dataType);
+      
+    } catch (error) {
+      console.error(`Error loading ${dataType} data:`, error);
+    }
+  }
+
+  /**
+   * Apply filters
+   */
+  applyFilters(dataType) {
+    if (!this.originalData.length) return;
+
+    let filtered = [...this.originalData];
+    const typeFilters = this.activeFilters.get(dataType);
+
+    if (typeFilters && typeFilters.size > 0) {
+      typeFilters.forEach((values, filterKey) => {
+        if (values.size > 0) {
+          filtered = filtered.filter(item => {
+            return this.matchesFilter(item, filterKey, values);
+          });
+        }
+      });
+    }
+
+    this.filteredData = filtered;
+    this.applySearch(dataType);
+  }
+
+  /**
+   * Check if item matches filter
+   */
+  matchesFilter(item, filterKey, values) {
+    switch (filterKey) {
+      case 'type':
+        return values.has(item.type);
+      case 'styles':
+        return this.matchesStylesFilter(item.styles, values);
+      case 'variable':
+        const isVariable = item.type === 'variable' || item.variableAxes;
+        return values.has(isVariable ? 'yes' : 'no');
+      case 'category':
+        return values.has(item.category);
+      case 'year':
+        return this.matchesYearFilter(item.year, values);
+      case 'featured':
+        return values.has(item.featured ? 'yes' : 'no');
+      default:
+        return true;
+    }
+  }
+
+  /**
+   * Match styles filter
+   */
+  matchesStylesFilter(styles, values) {
+    const styleCount = parseInt(styles) || 1;
+    
+    return Array.from(values).some(value => {
+      switch (value) {
+        case '1':
+          return styleCount === 1;
+        case '2-5':
+          return styleCount >= 2 && styleCount <= 5;
+        case '6-10':
+          return styleCount >= 6 && styleCount <= 10;
+        case '10+':
+          return styleCount > 10;
+        default:
+          return false;
+      }
+    });
+  }
+
+  /**
+   * Match year filter
+   */
+  matchesYearFilter(year, values) {
+    const itemYear = parseInt(year) || new Date().getFullYear();
+    
+    return Array.from(values).some(value => {
+      switch (value) {
+        case '2024':
+        case '2023':
+        case '2022':
+        case '2021':
+          return itemYear === parseInt(value);
+        case 'older':
+          return itemYear < 2021;
+        default:
+          return false;
+      }
+    });
+  }
+
+  /**
+   * Apply search
+   */
+  applySearch(dataType) {
+    if (!this.searchQuery) {
+      this.applySorting(dataType);
+      return;
+    }
+
+    const query = this.searchQuery.toLowerCase();
+    const searchFiltered = this.filteredData.filter(item => {
+      return this.matchesSearch(item, query);
+    });
+
+    this.filteredData = searchFiltered;
+    this.applySorting(dataType);
+  }
+
+  /**
+   * Check if item matches search
+   */
+  matchesSearch(item, query) {
+    const searchFields = [
+      item.name,
+      item.title,
+      item.description?.short,
+      item.description?.full,
+      item.category,
+      item.type
+    ].filter(Boolean);
+
+    return searchFields.some(field => 
+      field.toLowerCase().includes(query)
+    );
+  }
+
+  /**
+   * Apply sorting
+   */
+  applySorting(dataType) {
+    const { field, direction } = this.sortCriteria;
+    
+    this.filteredData.sort((a, b) => {
+      let aValue = this.getSortValue(a, field);
+      let bValue = this.getSortValue(b, field);
+      
+      // Handle string comparison
+      if (typeof aValue === 'string' && typeof bValue === 'string') {
+        aValue = aValue.toLowerCase();
+        bValue = bValue.toLowerCase();
+      }
+      
+      let result = 0;
+      if (aValue < bValue) result = -1;
+      else if (aValue > bValue) result = 1;
+      
+      return direction === 'desc' ? -result : result;
+    });
+
+    this.renderFilteredData(dataType);
+  }
+
+  /**
+   * Get sort value from item
+   */
+  getSortValue(item, field) {
+    switch (field) {
+      case 'name':
+      case 'title':
+        return item.name || item.title || '';
+      case 'styles':
+        return parseInt(item.styles) || 0;
+      case 'year':
+        return parseInt(item.year) || 0;
+      case 'category':
+      case 'type':
+        return item.category || item.type || '';
+      case 'recent':
+        return item.dateCreated || item.year || 0;
+      default:
+        return item[field] || '';
+    }
+  }
+
+  /**
+   * Update filter counts
+   */
+  updateFilterCounts(dataType) {
+    const filters = document.querySelectorAll(`.filter-option__input[data-type="${dataType}"]`);
+    
+    filters.forEach(filter => {
+      const { filter: filterKey, value } = filter.dataset;
+      const count = this.getFilterCount(filterKey, value);
+      
+      const countSpan = filter.parentNode.querySelector('.filter-option__count');
+      if (countSpan) {
+        countSpan.textContent = count;
+        countSpan.style.display = count > 0 ? 'inline' : 'none';
+      }
+    });
+  }
+
+  /**
+   * Get count for filter option
+   */
+  getFilterCount(filterKey, value) {
+    return this.originalData.filter(item => {
+      const filterValues = new Set([value]);
+      return this.matchesFilter(item, filterKey, filterValues);
+    }).length;
+  }
+
+  /**
+   * Render filtered data
+   */
+  renderFilteredData(dataType) {
+    const container = document.querySelector(`[data-results="${dataType}"]`);
+    if (!container) return;
+
+    // Clear existing content
+    container.innerHTML = '';
+
+    // Show count
+    this.updateResultsCount(dataType);
+
+    // Render items
+    this.filteredData.forEach(item => {
+      const itemElement = this.createItemElement(item, dataType);
+      container.appendChild(itemElement);
+    });
+
+    // Show no results message if needed
+    if (this.filteredData.length === 0) {
+      this.showNoResults(container);
+    }
+  }
+
+  /**
+   * Create item element
+   */
+  createItemElement(item, dataType) {
+    const element = document.createElement('div');
+    element.className = `${dataType}-item`;
+    
+    switch (dataType) {
+      case 'typefaces':
+        element.innerHTML = this.createTypefaceHTML(item);
+        break;
+      case 'projects':
+        element.innerHTML = this.createProjectHTML(item);
+        break;
+      case 'lettering':
+        element.innerHTML = this.createLetteringHTML(item);
+        break;
+    }
+    
+    return element;
+  }
+
+  /**
+   * Create typeface HTML
+   */
+  createTypefaceHTML(item) {
+    return `
+      <a href="typeface/${item.id}.html" class="typeface-card">
+        <div class="typeface-card__preview">
+          <img src="assets/svg/${item.id}.svg" alt="${item.name} preview">
+        </div>
+        <div class="typeface-card__info">
+          <h3 class="typeface-card__name">${item.name}</h3>
+          <p class="typeface-card__styles">${item.styles} styles</p>
+        </div>
+      </a>
+    `;
+  }
+
+  /**
+   * Create project HTML
+   */
+  createProjectHTML(item) {
+    return `
+      <div class="project-card">
+        <div class="project-card__image">
+          <img src="assets/images/${item.images[0]}" alt="${item.name}">
+        </div>
+        <div class="project-card__info">
+          <h3 class="project-card__name">${item.name}</h3>
+          <p class="project-card__description">${item.description}</p>
+        </div>
+      </div>
+    `;
+  }
+
+  /**
+   * Create lettering HTML
+   */
+  createLetteringHTML(item) {
+    return `
+      <div class="lettering-card">
+        <div class="lettering-card__image">
+          <img src="assets/images/${item.image}" alt="${item.title}">
+        </div>
+        <div class="lettering-card__info">
+          <h3 class="lettering-card__title">${item.title}</h3>
+          <p class="lettering-card__type">${item.type}</p>
+        </div>
+      </div>
+    `;
+  }
+
+  /**
+   * Update results count
+   */
+  updateResultsCount(dataType) {
+    const countElement = document.querySelector(`[data-count="${dataType}"]`);
+    if (countElement) {
+      const total = this.originalData.length;
+      const filtered = this.filteredData.length;
+      countElement.textContent = `${filtered} of ${total}`;
+    }
+  }
+
+  /**
+   * Show no results message
+   */
+  showNoResults(container) {
+    const noResults = document.createElement('div');
+    noResults.className = 'no-results';
+    noResults.innerHTML = `
+      <p class="no-results__message">No results found</p>
+      <button class="no-results__clear" onclick="window.filtersManager.clearAllFilters()">
+        Clear all filters
+      </button>
+    `;
+    container.appendChild(noResults);
+  }
+
+  /**
+   * Clear all filters (public method)
+   */
+  clearAllFilters() {
+    this.activeFilters.clear();
+    this.searchQuery = '';
+    
+    // Reset all UI elements
+    document.querySelectorAll('.filter-option__input').forEach(checkbox => {
+      checkbox.checked = false;
+    });
+    
+    document.querySelectorAll('.search-controls__input').forEach(input => {
+      input.value = '';
+    });
+    
+    // Reapply with no filters
+    if (this.currentDataType) {
+      this.applyFilters(this.currentDataType);
+    }
+  }
+
+  /**
+   * Get current filter state
+   */
+  getCurrentState() {
+    return {
+      activeFilters: Object.fromEntries(this.activeFilters),
+      sortCriteria: this.sortCriteria,
+      searchQuery: this.searchQuery,
+      resultsCount: this.filteredData.length
+    };
+  }
+}
+
+// Create global instance
+window.filtersManager = new FiltersManager();
+
+// Export for module systems
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = FiltersManager;
+}

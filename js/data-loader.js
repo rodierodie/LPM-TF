@@ -1,410 +1,259 @@
 /**
- * Модуль загрузки данных
- * Централизованная система загрузки JSON данных с кэшированием и обработкой ошибок
+ * Data Loader Module
+ * Handles loading and caching of JSON data files
  */
 
 class DataLoader {
-    constructor() {
-        this.cache = new Map();
-        this.loadingPromises = new Map();
-        this.baseUrl = this.getBaseUrl();
-        this.retryAttempts = 3;
-        this.retryDelay = 1000; // 1 секунда
+  constructor() {
+    this.cache = new Map();
+    this.baseUrl = 'data/';
+  }
+
+  /**
+   * Load JSON data with caching
+   * @param {string} filename - Name of the JSON file (without extension)
+   * @returns {Promise<Object>} Parsed JSON data
+   */
+  async loadData(filename) {
+    // Check cache first
+    if (this.cache.has(filename)) {
+      return this.cache.get(filename);
     }
 
-    /**
-     * Определение базового URL в зависимости от текущей страницы
-     */
-    getBaseUrl() {
-        const path = window.location.pathname;
-        
-        // Если мы на главной странице
-        if (path === '/' || path.endsWith('index.html')) {
-            return '';
-        }
-        
-        // Если мы в папке pages или typeface
-        if (path.includes('/pages/') || path.includes('/typeface/')) {
-            return '../';
-        }
-        
-        // Для остальных случаев
-        return '';
+    try {
+      const response = await fetch(`${this.baseUrl}${filename}.json`);
+      
+      if (!response.ok) {
+        throw new Error(`Failed to load ${filename}: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      
+      // Cache the data
+      this.cache.set(filename, data);
+      
+      return data;
+    } catch (error) {
+      console.error(`Error loading ${filename}:`, error);
+      // Return empty structure based on filename
+      return this.getEmptyStructure(filename);
     }
+  }
 
-    /**
-     * Базовый метод загрузки JSON с обработкой ошибок и кэшированием
-     */
-    async loadJSON(url, useCache = true) {
-        const fullUrl = this.baseUrl + url;
-        
-        // Проверка кэша
-        if (useCache && this.cache.has(fullUrl)) {
-            return this.cache.get(fullUrl);
-        }
+  /**
+   * Load multiple data files
+   * @param {string[]} filenames - Array of filenames
+   * @returns {Promise<Object>} Object with loaded data
+   */
+  async loadMultiple(filenames) {
+    const promises = filenames.map(filename => 
+      this.loadData(filename).then(data => ({ [filename]: data }))
+    );
 
-        // Проверка на уже выполняющийся запрос
-        if (this.loadingPromises.has(fullUrl)) {
-            return this.loadingPromises.get(fullUrl);
-        }
+    const results = await Promise.all(promises);
+    return Object.assign({}, ...results);
+  }
 
-        // Создание промиса загрузки
-        const loadingPromise = this.fetchWithRetry(fullUrl);
-        this.loadingPromises.set(fullUrl, loadingPromise);
+  /**
+   * Get typefaces data
+   * @returns {Promise<Object>} Typefaces data
+   */
+  async getTypefaces() {
+    return this.loadData('typefaces');
+  }
 
-        try {
-            const data = await loadingPromise;
-            
-            // Кэширование результата
-            if (useCache) {
-                this.cache.set(fullUrl, data);
-            }
-            
-            return data;
-        } catch (error) {
-            console.error(`Error loading ${fullUrl}:`, error);
-            throw error;
-        } finally {
-            // Удаление из списка загружающихся
-            this.loadingPromises.delete(fullUrl);
-        }
+  /**
+   * Get projects data
+   * @returns {Promise<Object>} Projects data
+   */
+  async getProjects() {
+    return this.loadData('projects');
+  }
+
+  /**
+   * Get lettering data
+   * @returns {Promise<Object>} Lettering data
+   */
+  async getLettering() {
+    return this.loadData('lettering');
+  }
+
+  /**
+   * Get site configuration
+   * @returns {Promise<Object>} Site config data
+   */
+  async getSiteConfig() {
+    return this.loadData('site-config');
+  }
+
+  /**
+   * Get specific typeface by ID
+   * @param {string} id - Typeface ID
+   * @returns {Promise<Object|null>} Typeface data or null if not found
+   */
+  async getTypefaceById(id) {
+    const typefaces = await this.getTypefaces();
+    return typefaces.fonts?.find(font => font.id === id) || null;
+  }
+
+  /**
+   * Get projects that use a specific typeface
+   * @param {string} typefaceId - Typeface ID
+   * @returns {Promise<Array>} Array of projects
+   */
+  async getProjectsByTypeface(typefaceId) {
+    const projects = await this.getProjects();
+    return projects.projects?.filter(project => 
+      project.usedFonts?.includes(typefaceId)
+    ) || [];
+  }
+
+  /**
+   * Search typefaces by query
+   * @param {string} query - Search query
+   * @returns {Promise<Array>} Array of matching typefaces
+   */
+  async searchTypefaces(query) {
+    const typefaces = await this.getTypefaces();
+    const fonts = typefaces.fonts || [];
+    
+    if (!query) return fonts;
+    
+    const lowercaseQuery = query.toLowerCase();
+    
+    return fonts.filter(font => 
+      font.name?.toLowerCase().includes(lowercaseQuery) ||
+      font.description?.short?.toLowerCase().includes(lowercaseQuery) ||
+      font.description?.full?.toLowerCase().includes(lowercaseQuery)
+    );
+  }
+
+  /**
+   * Filter projects by category
+   * @param {string} category - Project category
+   * @returns {Promise<Array>} Array of projects in category
+   */
+  async getProjectsByCategory(category) {
+    const projects = await this.getProjects();
+    return projects.projects?.filter(project => 
+      project.category === category
+    ) || [];
+  }
+
+  /**
+   * Filter lettering by type
+   * @param {string} type - Lettering type
+   * @returns {Promise<Array>} Array of lettering projects
+   */
+  async getLetteringByType(type) {
+    const lettering = await this.getLettering();
+    return lettering.letterings?.filter(item => 
+      item.type === type
+    ) || [];
+  }
+
+  /**
+   * Get featured projects
+   * @returns {Promise<Array>} Array of featured projects
+   */
+  async getFeaturedProjects() {
+    const projects = await this.getProjects();
+    return projects.projects?.filter(project => project.featured) || [];
+  }
+
+  /**
+   * Clear cache
+   */
+  clearCache() {
+    this.cache.clear();
+  }
+
+  /**
+   * Preload all essential data
+   * @returns {Promise<Object>} All loaded data
+   */
+  async preloadEssentials() {
+    try {
+      const data = await this.loadMultiple([
+        'typefaces',
+        'projects', 
+        'site-config'
+      ]);
+      
+      console.log('Essential data preloaded successfully');
+      return data;
+    } catch (error) {
+      console.error('Error preloading essential data:', error);
+      return {};
     }
+  }
 
-    /**
-     * Загрузка с повторными попытками
-     */
-    async fetchWithRetry(url, attempt = 1) {
-        try {
-            const response = await fetch(url);
-            
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-            
-            const data = await response.json();
-            
-            // Валидация структуры данных
-            this.validateData(url, data);
-            
-            return data;
-        } catch (error) {
-            if (attempt < this.retryAttempts) {
-                console.warn(`Attempt ${attempt} failed for ${url}, retrying...`);
-                await this.delay(this.retryDelay * attempt);
-                return this.fetchWithRetry(url, attempt + 1);
-            }
-            throw error;
-        }
-    }
+  /**
+   * Get empty structure for fallback
+   * @param {string} filename - Filename to get structure for
+   * @returns {Object} Empty structure
+   */
+  getEmptyStructure(filename) {
+    const structures = {
+      'typefaces': { fonts: [] },
+      'projects': { projects: [] },
+      'lettering': { letterings: [], types: [] },
+      'site-config': {
+        site: { title: 'The Loveprinting Machine', author: '', description: '' },
+        about: { text: '', image: '' },
+        usp: { title: '', description: '', linkText: '', linkUrl: '' },
+        navigation: { main: [], footer: [] }
+      }
+    };
 
-    /**
-     * Задержка для повторных попыток
-     */
-    delay(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+    return structures[filename] || {};
+  }
 
-    /**
-     * Базовая валидация данных
-     */
-    validateData(url, data) {
-        if (!data || typeof data !== 'object') {
-            throw new Error(`Invalid data structure in ${url}`);
-        }
-        
-        // Специфическая валидация для разных типов файлов
-        if (url.includes('typefaces.json')) {
-            if (!data.fonts || !Array.isArray(data.fonts)) {
-                throw new Error('Invalid typefaces.json structure: missing fonts array');
-            }
-        } else if (url.includes('projects.json')) {
-            if (!data.projects || !Array.isArray(data.projects)) {
-                throw new Error('Invalid projects.json structure: missing projects array');
-            }
-        } else if (url.includes('lettering.json')) {
-            if (!data.lettering || !Array.isArray(data.lettering)) {
-                throw new Error('Invalid lettering.json structure: missing lettering array');
-            }
-        }
+  /**
+   * Validate data structure
+   * @param {Object} data - Data to validate
+   * @param {string} type - Type of data
+   * @returns {boolean} Is valid
+   */
+  validateData(data, type) {
+    switch (type) {
+      case 'typefaces':
+        return data && Array.isArray(data.fonts);
+      case 'projects':
+        return data && Array.isArray(data.projects);
+      case 'lettering':
+        return data && Array.isArray(data.letterings);
+      case 'site-config':
+        return data && data.site && data.navigation;
+      default:
+        return true;
     }
+  }
 
-    /**
-     * Загрузка данных о шрифтах
-     */
-    async loadTypefaces() {
-        try {
-            const data = await this.loadJSON('data/typefaces.json');
-            
-            // Дополнительная обработка данных о шрифтах
-            if (data.fonts) {
-                data.fonts = data.fonts.map(font => ({
-                    ...font,
-                    // Обеспечение корректных путей к файлам
-                    previewSVG: font.previewSVG?.startsWith('assets/') ? font.previewSVG : `assets/svg/${font.previewSVG}`,
-                    // Добавление вычисляемых свойств
-                    hasTypetester: !font.isExternal,
-                    displayPrice: font.price || 'Contact for pricing',
-                    // Нормализация массивов
-                    features: font.features || [],
-                    languages: font.languages || [],
-                    staticStyles: font.staticStyles || []
-                }));
-            }
-            
-            return data;
-        } catch (error) {
-            console.error('Failed to load typefaces data:', error);
-            // Возврат заглушки для предотвращения поломки сайта
-            return {
-                fonts: [],
-                meta: {
-                    totalFonts: 0,
-                    lastUpdated: new Date().toISOString().split('T')[0],
-                    version: '1.0'
-                }
-            };
-        }
+  /**
+   * Refresh data (clear cache and reload)
+   * @param {string} filename - Specific file to refresh, or null for all
+   */
+  async refreshData(filename = null) {
+    if (filename) {
+      this.cache.delete(filename);
+      return this.loadData(filename);
+    } else {
+      this.clearCache();
+      return this.preloadEssentials();
     }
-
-    /**
-     * Загрузка данных о проектах
-     */
-    async loadProjects() {
-        try {
-            const data = await this.loadJSON('data/projects.json');
-            
-            // Дополнительная обработка данных о проектах
-            if (data.projects) {
-                data.projects = data.projects.map(project => ({
-                    ...project,
-                    // Обеспечение корректных путей к изображениям
-                    image: project.image?.startsWith('assets/') ? project.image : `assets/images/projects/${project.image}`,
-                    // Форматирование даты
-                    formattedDate: this.formatDate(project.date),
-                    // Нормализация массивов
-                    fonts: project.fonts || [],
-                    tags: project.tags || [],
-                    // Добавление вычисляемых свойств
-                    hasUrl: Boolean(project.url),
-                    categoryLabel: this.getCategoryLabel(data.categories, project.category)
-                }));
-            }
-            
-            return data;
-        } catch (error) {
-            console.error('Failed to load projects data:', error);
-            return {
-                projects: [],
-                categories: [],
-                meta: {
-                    totalProjects: 0,
-                    lastUpdated: new Date().toISOString().split('T')[0],
-                    version: '1.0'
-                }
-            };
-        }
-    }
-
-    /**
-     * Загрузка данных о леттеринге
-     */
-    async loadLettering() {
-        try {
-            const data = await this.loadJSON('data/lettering.json');
-            
-            // Дополнительная обработка данных о леттеринге
-            if (data.lettering) {
-                data.lettering = data.lettering.map(project => ({
-                    ...project,
-                    // Обеспечение корректных путей к изображениям
-                    image: project.image?.startsWith('assets/') ? project.image : `assets/images/lettering/${project.image}`,
-                    // Форматирование даты
-                    formattedDate: this.formatDate(project.date),
-                    // Нормализация массивов
-                    tags: project.tags || [],
-                    // Добавление вычисляемых свойств
-                    categoryLabel: this.getCategoryLabel(data.categories, project.category),
-                    styleLabel: this.getStyleLabel(data.styles, project.style),
-                    techniqueLabel: this.getTechniqueLabel(data.techniques, project.technique)
-                }));
-            }
-            
-            return data;
-        } catch (error) {
-            console.error('Failed to load lettering data:', error);
-            return {
-                lettering: [],
-                categories: [],
-                styles: [],
-                techniques: [],
-                meta: {
-                    totalProjects: 0,
-                    lastUpdated: new Date().toISOString().split('T')[0],
-                    version: '1.0'
-                }
-            };
-        }
-    }
-
-    /**
-     * Загрузка конфигурации сайта
-     */
-    async loadSiteConfig() {
-        try {
-            return await this.loadJSON('data/site-config.json');
-        } catch (error) {
-            console.error('Failed to load site config:', error);
-            return {
-                siteName: 'The Loveprinting Machine Type Foundry',
-                siteDescription: 'Custom typefaces and lettering',
-                contactEmail: 'info@loveprinting.com',
-                socialLinks: {}
-            };
-        }
-    }
-
-    /**
-     * Загрузка данных для конкретного шрифта
-     */
-    async loadTypefaceData(fontId) {
-        try {
-            const typefacesData = await this.loadTypefaces();
-            const font = typefacesData.fonts.find(f => f.id === fontId);
-            
-            if (!font) {
-                throw new Error(`Font with id "${fontId}" not found`);
-            }
-            
-            return font;
-        } catch (error) {
-            console.error(`Failed to load data for font "${fontId}":`, error);
-            throw error;
-        }
-    }
-
-    /**
-     * Вспомогательные методы
-     */
-    formatDate(dateString) {
-        if (!dateString) return '';
-        
-        try {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-        } catch (error) {
-            return dateString;
-        }
-    }
-
-    getCategoryLabel(categories, categoryId) {
-        if (!categories || !Array.isArray(categories)) return categoryId;
-        const category = categories.find(cat => cat.id === categoryId);
-        return category ? category.name : categoryId;
-    }
-
-    getStyleLabel(styles, styleId) {
-        if (!styles || !Array.isArray(styles)) return styleId;
-        const style = styles.find(s => s.id === styleId);
-        return style ? style.name : styleId;
-    }
-
-    getTechniqueLabel(techniques, techniqueId) {
-        if (!techniques || !Array.isArray(techniques)) return techniqueId;
-        const technique = techniques.find(t => t.id === techniqueId);
-        return technique ? technique.name : techniqueId;
-    }
-
-    /**
-     * Предзагрузка данных
-     */
-    async preloadData() {
-        const promises = [
-            this.loadTypefaces(),
-            this.loadSiteConfig()
-        ];
-        
-        // Предзагрузка дополнительных данных только если мы на соответствующих страницах
-        const currentPage = window.location.pathname;
-        
-        if (currentPage.includes('fonts-in-use') || currentPage.includes('index')) {
-            promises.push(this.loadProjects());
-        }
-        
-        if (currentPage.includes('lettering') || currentPage.includes('index')) {
-            promises.push(this.loadLettering());
-        }
-        
-        try {
-            await Promise.all(promises);
-            console.log('Data preloading completed');
-        } catch (error) {
-            console.warn('Some data failed to preload:', error);
-        }
-    }
-
-    /**
-     * Очистка кэша
-     */
-    clearCache() {
-        this.cache.clear();
-        console.log('Data cache cleared');
-    }
-
-    /**
-     * Получение статистики кэша
-     */
-    getCacheStats() {
-        return {
-            cachedItems: this.cache.size,
-            loadingItems: this.loadingPromises.size,
-            cachedUrls: Array.from(this.cache.keys())
-        };
-    }
-
-    /**
-     * Комбинированная загрузка для главной страницы
-     */
-    async loadHomePageData() {
-        try {
-            const [typefaces, projects, lettering] = await Promise.all([
-                this.loadTypefaces(),
-                this.loadProjects(),
-                this.loadLettering()
-            ]);
-            
-            return {
-                typefaces: typefaces.fonts.slice(0, 6), // Первые 6 шрифтов для превью
-                projects: projects.projects.filter(p => p.featured).slice(0, 4), // Избранные проекты
-                lettering: lettering.lettering.filter(l => l.featured).slice(0, 3) // Избранные работы леттеринга
-            };
-        } catch (error) {
-            console.error('Failed to load home page data:', error);
-            return {
-                typefaces: [],
-                projects: [],
-                lettering: []
-            };
-        }
-    }
+  }
 }
 
-// Создание глобального экземпляра
-const dataLoader = new DataLoader();
+// Create global instance
+window.dataLoader = new DataLoader();
 
-// Экспорт для использования в других модулях
-window.DataLoader = dataLoader;
-
-// Автоматическая предзагрузка при загрузке страницы
+// Auto-preload essential data when module loads
 document.addEventListener('DOMContentLoaded', () => {
-    dataLoader.preloadData();
+  window.dataLoader.preloadEssentials();
 });
 
-// Экспорт отдельных методов для удобства
-window.loadTypefaces = () => dataLoader.loadTypefaces();
-window.loadProjects = () => dataLoader.loadProjects();
-window.loadLettering = () => dataLoader.loadLettering();
-window.loadTypefaceData = (fontId) => dataLoader.loadTypefaceData(fontId);
+// Export for module systems
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = DataLoader;
+}

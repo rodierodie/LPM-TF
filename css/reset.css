@@ -13,13 +13,23 @@
   padding: 0;
 }
 
-/* Remove list styles on ul, ol elements */
+/* Remove list styles on ul, ol elements with a list role */
 ul[role='list'],
 ol[role='list'] {
   list-style: none;
 }
 
+/* Remove default list styles */
+ul,
+ol {
+  list-style: none;
+}
+
 /* Set core root defaults */
+html {
+  scroll-behavior: smooth;
+}
+
 html:focus-within {
   scroll-behavior: smooth;
 }
@@ -28,11 +38,7 @@ html:focus-within {
 body {
   min-height: 100vh;
   text-rendering: optimizeSpeed;
-  line-height: var(--line-normal);
-  font-family: var(--font-secondary);
-  font-size: var(--size-base);
-  color: var(--color-text);
-  background-color: var(--color-bg);
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -42,12 +48,6 @@ a:not([class]) {
   text-decoration-skip-ink: auto;
 }
 
-/* Remove default link styles */
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
 /* Make images easier to work with */
 img,
 picture,
@@ -55,6 +55,7 @@ video,
 canvas,
 svg {
   max-width: 100%;
+  height: auto;
   display: block;
 }
 
@@ -69,16 +70,32 @@ select {
 
 /* Remove default button styles */
 button {
-  border: none;
   background: none;
+  border: none;
   cursor: pointer;
+}
+
+/* Remove default input styles */
+input,
+textarea {
+  border: none;
+  outline: none;
+  background: none;
+}
+
+/* Remove default select styles */
+select {
+  appearance: none;
+  border: none;
+  outline: none;
+  background: none;
 }
 
 /* Remove default fieldset styles */
 fieldset {
   border: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 /* Remove default legend styles */
@@ -92,126 +109,129 @@ table {
   border-spacing: 0;
 }
 
-/* Remove default form styles */
-input,
-textarea,
-select {
-  border: none;
-  outline: none;
-  background: none;
+/* Remove default address styles */
+address {
+  font-style: normal;
 }
 
-/* Remove spinners from number inputs */
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+/* Remove default blockquote styles */
+blockquote {
+  quotes: none;
 }
 
-input[type="number"] {
-  -moz-appearance: textfield;
+blockquote:before,
+blockquote:after {
+  content: '';
+  content: none;
 }
 
-/* Remove search input styles */
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration {
-  -webkit-appearance: none;
+/* Remove default details styles */
+details {
+  display: block;
 }
 
-/* Remove default range input styles */
-input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
-  background: transparent;
-  cursor: pointer;
+/* Remove default summary styles */
+summary {
+  display: list-item;
 }
 
-input[type="range"]::-webkit-slider-track {
-  background: var(--color-border);
-  height: 4px;
-  border-radius: 2px;
+/* Remove default mark styles */
+mark {
+  background-color: transparent;
+  color: inherit;
 }
 
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  background: var(--color-text);
-  cursor: pointer;
-  border: 2px solid var(--color-bg);
-  box-shadow: var(--shadow-sm);
-}
-
-input[type="range"]::-moz-range-track {
-  background: var(--color-border);
-  height: 4px;
-  border-radius: 2px;
-  border: none;
-}
-
-input[type="range"]::-moz-range-thumb {
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  background: var(--color-text);
-  cursor: pointer;
-  border: 2px solid var(--color-bg);
-  box-shadow: var(--shadow-sm);
-}
-
-/* Remove default scrollbar styles for webkit browsers */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-surface);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-secondary);
-}
-
-/* Remove text decoration from abbreviations */
+/* Remove default abbr styles */
 abbr[title] {
   text-decoration: none;
 }
 
-/* Reset heading styles */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: var(--weight-normal);
-  line-height: var(--line-tight);
+/* Remove default hr styles */
+hr {
+  border: none;
+  height: 1px;
+  background: currentColor;
+  color: inherit;
 }
 
-/* Reset paragraph styles */
-p {
-  max-width: 65ch;
+/* Remove default cite styles */
+cite {
+  font-style: normal;
 }
 
-/* Remove default focus styles and add custom ones */
-:focus {
-  outline: none;
+/* Remove default code styles */
+code,
+kbd,
+samp,
+pre {
+  font-family: inherit;
 }
 
-:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+/* Remove default sub and sup styles */
+sub,
+sup {
+  vertical-align: baseline;
+  font-size: inherit;
+  line-height: 0;
+  position: relative;
 }
 
-/* Reduce motion for users who prefer it */
+/* Remove default time styles */
+time {
+  font: inherit;
+}
+
+/* Remove default dfn styles */
+dfn {
+  font-style: normal;
+}
+
+/* Remove default em styles in specific contexts */
+em {
+  font-style: italic;
+}
+
+/* Remove default strong styles in specific contexts */
+strong {
+  font-weight: bold;
+}
+
+/* Remove default small styles */
+small {
+  font-size: inherit;
+}
+
+/* Remove default big styles (deprecated but still used) */
+big {
+  font-size: inherit;
+}
+
+/* Remove default progress styles */
+progress {
+  appearance: none;
+  border: none;
+}
+
+/* Remove default meter styles */
+meter {
+  appearance: none;
+  border: none;
+}
+
+/* Remove default output styles */
+output {
+  display: inline;
+}
+
+/* Fix hidden attribute for older browsers */
+[hidden] {
+  display: none !important;
+}
+
+/* Remove animations and transitions for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {
-   scroll-behavior: auto;
+    scroll-behavior: auto;
   }
   
   *,
@@ -221,6 +241,30 @@ p {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Better focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Remove focus styles for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Better tap targets for touch devices */
+@media (pointer: coarse) {
+  a,
+  button,
+  [role="button"],
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+    min-width: 44px;
   }
 }
 
@@ -234,31 +278,31 @@ p {
     box-shadow: none !important;
     text-shadow: none !important;
   }
-
+  
   a,
   a:visited {
     text-decoration: underline;
   }
-
-  a[href]::after {
+  
+  a[href^="http"]:after {
     content: " (" attr(href) ")";
   }
-
-  abbr[title]::after {
+  
+  abbr[title]:after {
     content: " (" attr(title) ")";
   }
-
+  
   img {
     page-break-inside: avoid;
   }
-
+  
   p,
   h2,
   h3 {
     orphans: 3;
     widows: 3;
   }
-
+  
   h2,
   h3 {
     page-break-after: avoid;

@@ -1,172 +1,225 @@
 {
   "projects": [
     {
-      "id": "modern-cafe-branding",
-      "title": "Modern Café Branding",
-      "client": "Urban Coffee Co.",
+      "id": "tech-startup-branding",
+      "name": "TechFlow Startup Identity",
+      "description": "Complete brand identity for a technology startup focusing on workflow automation. Clean, modern approach with emphasis on clarity and innovation.",
+      "images": [
+        "techflow-main.jpg",
+        "techflow-business-cards.jpg",
+        "techflow-website.jpg",
+        "techflow-presentation.jpg"
+      ],
+      "usedFonts": ["retiler", "retry-sans"],
       "category": "branding",
-      "type": "commercial",
-      "description": "Complete brand identity for a modern coffee shop chain featuring custom typography and signage.",
-      "fonts": ["retry-sans"],
-      "image": "assets/images/projects/modern-cafe-branding.jpg",
-      "url": "https://example.com/modern-cafe-project",
+      "year": "2024",
+      "client": "TechFlow Inc.",
+      "services": ["Brand Identity", "Logo Design", "Typography System", "Digital Assets"],
       "featured": true,
-      "date": "2024-12-15",
-      "tags": ["branding", "signage", "retail"]
+      "link": "https://behance.net/gallery/techflow-identity",
+      "tags": ["startup", "technology", "minimal", "corporate"],
+      "colorPalette": ["#000000", "#ffffff", "#0066cc", "#f5f5f5"],
+      "fontUsage": {
+        "retiler": "Logo and headlines",
+        "retry-sans": "Body text and UI elements"
+      },
+      "awards": ["CSS Design Awards - Site of the Day"],
+      "testimonial": {
+        "text": "The typography perfectly captures our innovative spirit while maintaining professional credibility.",
+        "author": "Sarah Chen",
+        "position": "CEO, TechFlow Inc."
+      }
     },
     {
-      "id": "tech-magazine-layout",
-      "title": "Tech Magazine Layout",
-      "client": "Digital Future Magazine",
+      "id": "minimal-poster-series",
+      "name": "Minimal Architecture Poster Series",
+      "description": "A series of architectural posters celebrating modernist buildings. Each poster uses typography as the primary design element to complement the architectural photography.",
+      "images": [
+        "arch-poster-1.jpg",
+        "arch-poster-2.jpg",
+        "arch-poster-3.jpg",
+        "arch-poster-series.jpg"
+      ],
+      "usedFonts": ["retiler", "lanze"],
       "category": "editorial",
-      "type": "commercial",
-      "description": "Editorial design for a monthly technology magazine with emphasis on readability and modern aesthetics.",
-      "fonts": ["lanze", "mono-display"],
-      "image": "assets/images/projects/tech-magazine-layout.jpg",
-      "url": "https://example.com/tech-magazine-project",
-      "featured": false,
-      "date": "2024-11-20",
-      "tags": ["editorial", "magazine", "technology"]
-    },
-    {
-      "id": "luxury-packaging-design",
-      "title": "Luxury Packaging Design",
-      "client": "Artisan Chocolates",
-      "category": "packaging",
-      "type": "commercial",
-      "description": "Premium packaging design for artisan chocolate brand emphasizing elegance and craftsmanship.",
-      "fonts": ["script-elegant", "lanze"],
-      "image": "assets/images/projects/luxury-packaging-design.jpg",
-      "url": "",
+      "year": "2024",
+      "client": "Architecture Museum",
+      "services": ["Poster Design", "Typography", "Art Direction"],
       "featured": true,
-      "date": "2024-10-05",
-      "tags": ["packaging", "luxury", "food"]
+      "link": "https://dribbble.com/shots/minimal-architecture",
+      "tags": ["architecture", "minimal", "poster", "modernist"],
+      "colorPalette": ["#000000", "#ffffff", "#cccccc"],
+      "fontUsage": {
+        "retiler": "Building names and main typography",
+        "lanze": "Supporting information and dates"
+      },
+      "printSpecs": {
+        "size": "50x70cm",
+        "paper": "Uncoated offset paper",
+        "colors": "2 color (Black + Pantone Cool Gray 5)"
+      }
     },
     {
-      "id": "startup-website",
-      "title": "Startup Website Design",
-      "client": "InnovateTech",
+      "id": "dev-portfolio",
+      "name": "Developer Portfolio Website",
+      "description": "Personal portfolio website for a full-stack developer. Emphasis on code readability and technical precision while maintaining visual appeal.",
+      "images": [
+        "dev-portfolio-home.jpg",
+        "dev-portfolio-code.jpg",
+        "dev-portfolio-projects.jpg"
+      ],
+      "usedFonts": ["nytra-mono", "retry-sans"],
       "category": "web",
-      "type": "commercial",
-      "description": "Clean and modern website design for a tech startup, focusing on user experience and accessibility.",
-      "fonts": ["retry-sans"],
-      "image": "assets/images/projects/startup-website.jpg",
-      "url": "https://innovatetech.example.com",
+      "year": "2023",
+      "client": "Alex Rodriguez",
+      "services": ["Web Design", "Frontend Development", "Typography"],
       "featured": false,
-      "date": "2024-09-12",
-      "tags": ["web design", "startup", "ui/ux"]
+      "link": "https://alexrodriguez.dev",
+      "tags": ["portfolio", "developer", "code", "personal"],
+      "colorPalette": ["#1a1a1a", "#ffffff", "#00ff88", "#ff6b6b"],
+      "fontUsage": {
+        "nytra-mono": "Code blocks and technical content",
+        "retry-sans": "Interface and body text"
+      },
+      "techStack": ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+      "features": ["Syntax highlighting", "Dark mode", "Responsive design"]
     },
     {
-      "id": "concert-poster-series",
-      "title": "Concert Poster Series",
-      "client": "Underground Music Venue",
-      "category": "poster",
-      "type": "commercial",
-      "description": "Series of promotional posters for underground music events, featuring bold typography and experimental layouts.",
-      "fonts": ["mono-display", "script-elegant"],
-      "image": "assets/images/projects/concert-poster-series.jpg",
-      "url": "",
-      "featured": false,
-      "date": "2024-08-30",
-      "tags": ["poster", "music", "events"]
-    },
-    {
-      "id": "personal-portfolio",
-      "title": "Personal Portfolio Website",
-      "client": "Jane Designer",
-      "category": "web",
-      "type": "personal",
-      "description": "Minimal portfolio website for a graphic designer showcasing clean typography and thoughtful whitespace.",
-      "fonts": ["lanze"],
-      "image": "assets/images/projects/personal-portfolio.jpg",
-      "url": "https://janedesigner.example.com",
-      "featured": false,
-      "date": "2024-07-18",
-      "tags": ["portfolio", "personal", "minimal"]
-    },
-    {
-      "id": "experimental-typography",
-      "title": "Experimental Typography Study",
-      "client": "Self-initiated",
-      "category": "poster",
-      "type": "experimental",
-      "description": "Experimental exploration of variable font technology and dynamic typography in digital environments.",
-      "fonts": ["retry-sans", "external-serif-pro"],
-      "image": "assets/images/projects/experimental-typography.jpg",
-      "url": "",
+      "id": "animated-logo",
+      "name": "Puff Animation Logo",
+      "description": "Dynamic logo animation using the Puff variable font. The logo inflates and deflates to create engaging motion graphics for digital applications.",
+      "images": [
+        "puff-logo-animation.gif",
+        "puff-logo-static.jpg",
+        "puff-logo-frames.jpg"
+      ],
+      "usedFonts": ["puff"],
+      "category": "animation",
+      "year": "2024",
+      "client": "Balloon Festival",
+      "services": ["Logo Animation", "Motion Graphics", "Variable Font Implementation"],
       "featured": true,
-      "date": "2024-06-25",
-      "tags": ["experimental", "variable fonts", "digital"]
+      "link": "https://codepen.io/loveprinting/puff-animation",
+      "tags": ["animation", "variable fonts", "motion", "festival"],
+      "colorPalette": ["#ff4757", "#ffffff", "#ffa502"],
+      "fontUsage": {
+        "puff": "Animated logo lettering with PUFF axis animation"
+      },
+      "animationSpecs": {
+        "duration": "2.5 seconds",
+        "easing": "ease-in-out",
+        "loop": "infinite",
+        "axes": ["wght: 100-900", "PUFF: 0-100"]
+      }
     },
     {
-      "id": "cookbook-design",
-      "title": "Modern Cookbook Design",
-      "client": "Chef Marcus",
-      "category": "book",
-      "type": "commercial",
-      "description": "Contemporary cookbook design with focus on hierarchy, recipe clarity, and beautiful food photography integration.",
-      "fonts": ["lanze", "retry-sans"],
-      "image": "assets/images/projects/cookbook-design.jpg",
-      "url": "",
-      "featured": false,
-      "date": "2024-05-14",
-      "tags": ["book design", "cookbook", "food"]
-    },
-    {
-      "id": "fashion-brand-identity",
-      "title": "Fashion Brand Identity",
-      "client": "Minimalist Fashion Co.",
+      "id": "sports-branding",
+      "name": "Thunder Basketball Team Identity",
+      "description": "Complete rebrand for a professional basketball team. Bold, energetic typography that captures the team's aggressive playing style and connects with fans.",
+      "images": [
+        "thunder-logo.jpg",
+        "thunder-jersey.jpg",
+        "thunder-arena.jpg",
+        "thunder-merchandise.jpg"
+      ],
+      "usedFonts": ["lanze"],
       "category": "branding",
-      "type": "commercial",
-      "description": "Complete brand identity for a sustainable fashion brand, emphasizing elegance and environmental consciousness.",
-      "fonts": ["external-sans-modern", "script-elegant"],
-      "image": "assets/images/projects/fashion-brand-identity.jpg",
-      "url": "https://example.com/fashion-brand",
-      "featured": false,
-      "date": "2024-04-08",
-      "tags": ["branding", "fashion", "sustainability"]
+      "year": "2023",
+      "client": "Thunder Basketball Team",
+      "services": ["Brand Identity", "Logo Design", "Merchandise Design", "Environmental Graphics"],
+      "featured": true,
+      "link": "https://behance.net/gallery/thunder-basketball",
+      "tags": ["sports", "basketball", "bold", "team"],
+      "colorPalette": ["#000000", "#ffd700", "#ffffff", "#1a1a1a"],
+      "fontUsage": {
+        "lanze": "Team name, jersey numbers, and all brand applications"
+      },
+      "applications": [
+        "Jerseys and uniforms",
+        "Arena signage",
+        "Merchandise",
+        "Digital assets",
+        "Marketing materials"
+      ]
     },
     {
-      "id": "app-interface-design",
-      "title": "Mobile App Interface",
-      "client": "FinTech Startup",
-      "category": "web",
-      "type": "commercial",
-      "description": "Clean and intuitive mobile app interface design for a financial technology application.",
-      "fonts": ["retry-sans", "mono-display"],
-      "image": "assets/images/projects/app-interface-design.jpg",
-      "url": "",
+      "id": "design-system",
+      "name": "Enterprise Design System",
+      "description": "Comprehensive design system for a Fortune 500 company. Includes typography scales, component library, and implementation guidelines for consistent brand expression.",
+      "images": [
+        "design-system-overview.jpg",
+        "design-system-typography.jpg",
+        "design-system-components.jpg"
+      ],
+      "usedFonts": ["retry-sans"],
+      "category": "system",
+      "year": "2022",
+      "client": "GlobalTech Corporation",
+      "services": ["Design System", "Typography Guidelines", "Component Design", "Documentation"],
       "featured": false,
-      "date": "2024-03-22",
-      "tags": ["mobile app", "fintech", "interface"]
+      "link": "https://design.globaltech.com",
+      "tags": ["design system", "enterprise", "guidelines", "corporate"],
+      "colorPalette": ["#0066cc", "#ffffff", "#f8f9fa", "#212529"],
+      "fontUsage": {
+        "retry-sans": "All interface elements, from headlines to body text"
+      },
+      "systemSpecs": {
+        "typeScale": "12px - 96px",
+        "weights": "9 weights (100-900)",
+        "components": "120+ UI components",
+        "platforms": ["Web", "Mobile", "Desktop"]
+      }
     },
     {
-      "id": "wine-label-design",
-      "title": "Artisan Wine Labels",
-      "client": "Heritage Vineyard",
-      "category": "packaging",
-      "type": "commercial",
-      "description": "Elegant wine label design series celebrating the heritage and craftsmanship of a family vineyard.",
-      "fonts": ["script-elegant", "lanze"],
-      "image": "assets/images/projects/wine-label-design.jpg",
-      "url": "",
+      "id": "surf-brand",
+      "name": "Pacific Waves Surf Shop",
+      "description": "Branding for a California surf shop that embodies the laid-back beach culture. Hand-lettered style logo and signage that feels authentic to the surfing community.",
+      "images": [
+        "pacific-waves-logo.jpg",
+        "pacific-waves-signage.jpg",
+        "pacific-waves-merchandise.jpg"
+      ],
+      "usedFonts": ["pacific"],
+      "category": "branding",
+      "year": "2023",
+      "client": "Pacific Waves Surf Shop",
+      "services": ["Brand Identity", "Signage Design", "Merchandise Design", "Packaging"],
       "featured": false,
-      "date": "2024-02-10",
-      "tags": ["packaging", "wine", "heritage"]
+      "link": "https://pacificwaves.surf",
+      "tags": ["surf", "california", "beach", "lifestyle"],
+      "colorPalette": ["#0077be", "#ffffff", "#ffd700", "#228b22"],
+      "fontUsage": {
+        "pacific": "Logo, signage, and brand communications"
+      },
+      "location": "Huntington Beach, California",
+      "brandValues": ["Authenticity", "Community", "Ocean Conservation", "Quality"]
     },
     {
-      "id": "zine-typography",
-      "title": "Underground Zine",
-      "client": "Self-published",
+      "id": "festival-poster",
+      "name": "Underground Music Festival",
+      "description": "Poster design for an underground electronic music festival. Bold typography treatment that reflects the energy and edge of the music scene.",
+      "images": [
+        "festival-poster-main.jpg",
+        "festival-poster-detail.jpg",
+        "festival-lineup.jpg"
+      ],
+      "usedFonts": ["lanze"],
       "category": "editorial",
-      "type": "personal",
-      "description": "Independent zine exploring contemporary design culture with experimental typography and layout approaches.",
-      "fonts": ["mono-display", "retry-sans"],
-      "image": "assets/images/projects/zine-typography.jpg",
-      "url": "",
+      "year": "2023",
+      "client": "Underground Festival",
+      "services": ["Poster Design", "Event Graphics", "Digital Assets"],
       "featured": false,
-      "date": "2024-01-15",
-      "tags": ["zine", "independent", "culture"]
+      "link": "https://dribbble.com/shots/underground-festival",
+      "tags": ["music", "festival", "electronic", "underground"],
+      "colorPalette": ["#000000", "#ff00ff", "#00ffff", "#ffff00"],
+      "fontUsage": {
+        "lanze": "Festival name, artist names, and event information"
+      },
+      "printSpecs": {
+        "size": "24x36 inches",
+        "paper": "Heavy poster stock",
+        "colors": "4 color process + 2 spot colors"
+      }
     }
   ],
   "categories": [
@@ -178,33 +231,68 @@
     {
       "id": "editorial",
       "name": "Editorial",
-      "description": "Magazine, book, and publication design"
+      "description": "Print design, posters, and publications"
     },
     {
       "id": "web",
-      "name": "Web Design",
+      "name": "Web",
       "description": "Website and digital interface design"
     },
     {
-      "id": "packaging",
-      "name": "Packaging",
-      "description": "Product packaging and label design"
+      "id": "animation",
+      "name": "Animation",
+      "description": "Motion graphics and animated typography"
     },
     {
-      "id": "poster",
-      "name": "Poster",
-      "description": "Poster and promotional material design"
-    },
-    {
-      "id": "book",
-      "name": "Book Design",
-      "description": "Book layout and publication design"
+      "id": "system",
+      "name": "Design System",
+      "description": "Comprehensive design systems and guidelines"
     }
   ],
-  "meta": {
-    "totalProjects": 12,
-    "featuredCount": 3,
-    "lastUpdated": "2025-08-11",
-    "version": "1.0"
+  "tags": [
+    "startup",
+    "technology",
+    "minimal",
+    "corporate",
+    "architecture",
+    "modernist",
+    "portfolio",
+    "developer",
+    "code",
+    "personal",
+    "animation",
+    "variable fonts",
+    "motion",
+    "festival",
+    "sports",
+    "basketball",
+    "bold",
+    "team",
+    "design system",
+    "enterprise",
+    "guidelines",
+    "surf",
+    "california",
+    "beach",
+    "lifestyle",
+    "music",
+    "electronic",
+    "underground"
+  ],
+  "clients": [
+    "TechFlow Inc.",
+    "Architecture Museum",
+    "Alex Rodriguez",
+    "Balloon Festival",
+    "Thunder Basketball Team",
+    "GlobalTech Corporation",
+    "Pacific Waves Surf Shop",
+    "Underground Festival"
+  ],
+  "metadata": {
+    "totalProjects": 8,
+    "featuredProjects": 4,
+    "lastUpdated": "2024-08-11",
+    "version": "1.0.0"
   }
 }

@@ -1,242 +1,349 @@
 {
   "fonts": [
     {
-      "id": "retry-sans",
-      "name": "Retry Sans",
-      "nameDisplay": "Retry Sans",
-      "styles": 12,
-      "type": "variable",
-      "status": "available",
-      "isExternal": false,
-      "variableAxes": {
-        "wght": { 
-          "min": 100, 
-          "max": 900, 
-          "default": 400,
-          "step": 1
-        },
-        "wdth": { 
-          "min": 75, 
-          "max": 125, 
-          "default": 100,
-          "step": 1
-        }
+      "id": "retiler",
+      "name": "Retiler",
+      "nameDisplay": "RETILER",
+      "styles": 1,
+      "type": "display",
+      "category": "display",
+      "variableAxes": null,
+      "themeColor": "#000000",
+      "previewSVG": "retiler.svg",
+      "promoImage": "retiler-promo.svg",
+      "description": {
+        "short": "Minimalist display typeface with geometric precision",
+        "full": "Retiler is a contemporary display typeface designed for maximum impact. With its geometric construction and minimalist approach, it delivers clear communication while maintaining a distinctive character. Perfect for headlines, logos, and branding applications where clarity and modernity are essential."
       },
-      "staticStyles": [
-        { "name": "Thin", "weight": 100, "width": 100 },
-        { "name": "ExtraLight", "weight": 200, "width": 100 },
-        { "name": "Light", "weight": 300, "width": 100 },
-        { "name": "Regular", "weight": 400, "width": 100 },
-        { "name": "Medium", "weight": 500, "width": 100 },
-        { "name": "SemiBold", "weight": 600, "width": 100 },
-        { "name": "Bold", "weight": 700, "width": 100 },
-        { "name": "ExtraBold", "weight": 800, "width": 100 },
-        { "name": "Black", "weight": 900, "width": 100 }
-      ],
-      "themeColor": "#FF5733",
-      "description": "A modern, versatile sans-serif typeface with clean lines and excellent readability.",
+      "aboutImage": "retiler-about.jpg",
+      "specs": {
+        "legibility": { "score": 9, "description": "Excellent readability at display sizes" },
+        "versatility": { "score": 7, "description": "Specialized for display use" },
+        "uniqueness": { "score": 8, "description": "Distinctive geometric character" }
+      },
+      "glyphsPreview": ["A", "B", "C", "R", "E", "T", "I", "L", "E", "R", "1", "2", "3"],
+      "glyphsFull": "data/glyphs/retiler-glyphs.json",
+      "defaultText": "RETILER",
       "features": [
-        "OpenType features",
-        "Extended Latin character set",
-        "Stylistic alternates",
-        "Tabular figures"
+        "Geometric construction",
+        "Display optimization",
+        "Multilingual support",
+        "Extended punctuation"
       ],
-      "previewSVG": "retry-sans-preview.svg",
-      "fontFiles": {
-        "demo": "retry-sans-subset.woff2",
-        "variable": "retry-sans-variable.woff2",
-        "protected": true
+      "languages": ["Latin Extended", "Western European"],
+      "fileFormats": ["OTF", "WOFF2", "WOFF"],
+      "links": [
+        {
+          "name": "MyFonts",
+          "url": "https://myfonts.com/retiler",
+          "description": "Purchase license",
+          "price": "$45"
+        },
+        {
+          "name": "Adobe Fonts",
+          "url": "https://fonts.adobe.com/retiler",
+          "description": "Available with subscription"
+        }
+      ],
+      "usedInProjects": ["tech-startup-branding", "minimal-poster-series"],
+      "yearReleased": "2024",
+      "designer": "The Loveprinting Machine",
+      "foundry": "The Loveprinting Machine Type Foundry"
+    },
+    {
+      "id": "nytra-mono",
+      "name": "Nytra Mono",
+      "nameDisplay": "Nytra Mono",
+      "styles": 4,
+      "type": "mono",
+      "category": "text",
+      "variableAxes": null,
+      "themeColor": "#404040",
+      "previewSVG": "nytra.svg",
+      "promoImage": "nytra-promo.svg",
+      "description": {
+        "short": "Contemporary monospace with coding optimizations",
+        "full": "Nytra Mono combines the precision of a programming font with the warmth of humanist letterforms. Designed specifically for coding environments, it features optimized character spacing, clear distinction between similar characters, and excellent readability at small sizes. Available in 4 weights for flexible hierarchy."
       },
-      "glyphCount": 420,
-      "languages": ["Latin Extended", "Central European"],
-      "price": "$89",
-      "purchaseUrl": "/purchase/retry-sans"
+      "aboutImage": "nytra-about.jpg",
+      "specs": {
+        "legibility": { "score": 10, "description": "Optimized for code readability" },
+        "versatility": { "score": 8, "description": "Code, data, and technical documentation" },
+        "uniqueness": { "score": 6, "description": "Refined take on monospace tradition" }
+      },
+      "glyphsPreview": ["A", "a", "0", "O", "1", "l", "I", "{", "}", "[", "]", "()"],
+      "glyphsFull": "data/glyphs/nytra-glyphs.json",
+      "defaultText": "function() {\n  return 'Hello World';\n}",
+      "features": [
+        "Coding ligatures",
+        "Clear character distinction",
+        "4 weights available",
+        "Powerline symbols",
+        "Extended Latin support"
+      ],
+      "languages": ["Latin Extended", "Cyrillic Basic"],
+      "fileFormats": ["OTF", "TTF", "WOFF2", "WOFF"],
+      "links": [
+        {
+          "name": "GitHub",
+          "url": "https://github.com/loveprinting/nytra-mono",
+          "description": "Open source download"
+        },
+        {
+          "name": "Google Fonts",
+          "url": "https://fonts.google.com/nytra-mono",
+          "description": "Free web use"
+        }
+      ],
+      "usedInProjects": ["dev-portfolio", "coding-tutorial-site"],
+      "yearReleased": "2023",
+      "designer": "The Loveprinting Machine",
+      "foundry": "The Loveprinting Machine Type Foundry"
+    },
+    {
+      "id": "puff",
+      "name": "Puff Variable",
+      "nameDisplay": "PUFFVARIABLE",
+      "styles": 1,
+      "type": "variable",
+      "category": "display",
+      "variableAxes": {
+        "wght": { "min": 100, "max": 900, "default": 400 },
+        "PUFF": { "min": 0, "max": 100, "default": 0 }
+      },
+      "themeColor": "#ff4757",
+      "previewSVG": "puff.svg",
+      "promoImage": "puff-promo.svg",
+      "description": {
+        "short": "Variable display font with inflatable character",
+        "full": "Puff Variable is an experimental display typeface that explores the boundaries of variable font technology. With its unique 'PUFF' axis, letters can be inflated from sharp geometric forms to soft, rounded balloons. This creates endless possibilities for animation and dynamic typography in digital applications."
+      },
+      "aboutImage": "puff-about.jpg",
+      "specs": {
+        "legibility": { "score": 6, "description": "Best at large display sizes" },
+        "versatility": { "score": 9, "description": "Endless animation possibilities" },
+        "uniqueness": { "score": 10, "description": "Pioneering variable font concept" }
+      },
+      "glyphsPreview": ["P", "U", "F", "F", "A", "B", "C", "1", "2", "3", "!", "?"],
+      "glyphsFull": "data/glyphs/puff-glyphs.json",
+      "defaultText": "PUFF",
+      "features": [
+        "Variable weight axis (100-900)",
+        "Custom PUFF inflation axis",
+        "Animation-ready",
+        "Web font optimized",
+        "Experimental design"
+      ],
+      "languages": ["Latin Basic"],
+      "fileFormats": ["WOFF2 Variable", "TTF Variable"],
+      "links": [
+        {
+          "name": "Variable Fonts",
+          "url": "https://variablefonts.io/puff",
+          "description": "Try interactive demo",
+          "price": "$75"
+        },
+        {
+          "name": "CodePen",
+          "url": "https://codepen.io/loveprinting/puff-demo",
+          "description": "Animation examples"
+        }
+      ],
+      "usedInProjects": ["animated-logo", "interactive-banner"],
+      "yearReleased": "2024",
+      "designer": "The Loveprinting Machine",
+      "foundry": "The Loveprinting Machine Type Foundry"
     },
     {
       "id": "lanze",
       "name": "Lanze",
-      "nameDisplay": "Lanze",
-      "styles": 8,
-      "type": "static",
-      "status": "available", 
-      "isExternal": false,
-      "staticStyles": [
-        { "name": "Thin", "weight": 100, "width": 100 },
-        { "name": "Light", "weight": 300, "width": 100 },
-        { "name": "Regular", "weight": 400, "width": 100 },
-        { "name": "Medium", "weight": 500, "width": 100 },
-        { "name": "SemiBold", "weight": 600, "width": 100 },
-        { "name": "Bold", "weight": 700, "width": 100 },
-        { "name": "ExtraBold", "weight": 800, "width": 100 },
-        { "name": "Black", "weight": 900, "width": 100 }
-      ],
-      "themeColor": "#2E8B57",
-      "description": "An elegant serif typeface inspired by classical typography with modern refinements.",
-      "features": [
-        "Classical proportions",
-        "Extended character set",
-        "Small caps",
-        "Multiple figure styles"
-      ],
-      "previewSVG": "lanze-preview.svg",
-      "fontFiles": {
-        "demo": "lanze-subset.woff2",
-        "protected": true
+      "nameDisplay": "LANZE",
+      "styles": 4,
+      "type": "sans-serif",
+      "category": "display",
+      "variableAxes": {
+        "wght": { "min": 200, "max": 800, "default": 400 },
+        "wdth": { "min": 75, "max": 125, "default": 100 }
       },
-      "glyphCount": 380,
-      "languages": ["Latin", "Central European"],
-      "price": "$79",
-      "purchaseUrl": "/purchase/lanze"
+      "themeColor": "#5352ed",
+      "previewSVG": "lanze.svg",
+      "promoImage": "lanze-promo.svg",
+      "description": {
+        "short": "Bold condensed display face with strong character",
+        "full": "Lanze is a powerful display typeface designed for maximum impact in minimal space. Its condensed proportions and bold character make it perfect for headlines, posters, and branding where space is at a premium but impact is essential. Available in both static styles and variable format."
+      },
+      "aboutImage": "lanze-about.jpg",
+      "specs": {
+        "legibility": { "score": 8, "description": "Strong readability in headlines" },
+        "versatility": { "score": 7, "description": "Display and short text use" },
+        "uniqueness": { "score": 9, "description": "Distinctive condensed character" }
+      },
+      "glyphsPreview": ["L", "A", "N", "Z", "E", "M", "H", "W", "1", "2", "3", "&"],
+      "glyphsFull": "data/glyphs/lanze-glyphs.json",
+      "defaultText": "LANZE",
+      "features": [
+        "4 static weights",
+        "Variable weight and width",
+        "Condensed proportions",
+        "Display optimization",
+        "Strong character"
+      ],
+      "languages": ["Latin Extended", "Western European"],
+      "fileFormats": ["OTF", "WOFF2 Variable", "WOFF"],
+      "links": [
+        {
+          "name": "MyFonts",
+          "url": "https://myfonts.com/lanze",
+          "description": "Purchase family",
+          "price": "$120"
+        },
+        {
+          "name": "Font Share",
+          "url": "https://fontshare.com/lanze",
+          "description": "Free for personal use"
+        }
+      ],
+      "usedInProjects": ["sports-branding", "festival-poster"],
+      "yearReleased": "2023",
+      "designer": "The Loveprinting Machine",
+      "foundry": "The Loveprinting Machine Type Foundry"
     },
     {
-      "id": "mono-display",
-      "name": "Mono Display",
-      "nameDisplay": "Mono Display",
-      "styles": 6,
-      "type": "static",
-      "status": "available",
-      "isExternal": false,
-      "staticStyles": [
-        { "name": "Light", "weight": 300, "width": 100 },
-        { "name": "Regular", "weight": 400, "width": 100 },
-        { "name": "Medium", "weight": 500, "width": 100 },
-        { "name": "SemiBold", "weight": 600, "width": 100 },
-        { "name": "Bold", "weight": 700, "width": 100 },
-        { "name": "Black", "weight": 900, "width": 100 }
-      ],
-      "themeColor": "#8A2BE2",
-      "description": "A distinctive monospace typeface designed for display and coding applications.",
-      "features": [
-        "Perfect monospace spacing",
-        "Coding ligatures",
-        "Extended symbol set",
-        "Zero with slash"
-      ],
-      "previewSVG": "mono-display-preview.svg",
-      "fontFiles": {
-        "demo": "mono-display-subset.woff2",
-        "protected": true
+      "id": "retry-sans",
+      "name": "Retry Sans + Mono",
+      "nameDisplay": "Retry Sans + Mono",
+      "styles": 9,
+      "type": "sans-serif",
+      "category": "text",
+      "variableAxes": {
+        "wght": { "min": 100, "max": 900, "default": 400 }
       },
-      "glyphCount": 450,
-      "languages": ["Latin Extended", "Symbols"],
-      "price": "$65",
-      "purchaseUrl": "/purchase/mono-display"
+      "themeColor": "#2ed573",
+      "previewSVG": "retry-sans.svg",
+      "promoImage": "retry-promo.svg",
+      "description": {
+        "short": "Versatile sans-serif family with matching monospace",
+        "full": "Retry Sans is a comprehensive type system designed for modern digital interfaces and print applications. The family includes both proportional and monospace variants, making it perfect for websites, applications, and technical documentation. With 9 weights and variable font support, it offers maximum flexibility for any design challenge."
+      },
+      "aboutImage": "retry-about.jpg",
+      "specs": {
+        "legibility": { "score": 10, "description": "Excellent in all contexts" },
+        "versatility": { "score": 10, "description": "Complete design system" },
+        "uniqueness": { "score": 7, "description": "Contemporary humanist character" }
+      },
+      "glyphsPreview": ["R", "e", "t", "r", "y", "S", "a", "n", "s", "1", "2", "3"],
+      "glyphsFull": "data/glyphs/retry-glyphs.json",
+      "defaultText": "Retry Sans + Mono",
+      "features": [
+        "9 weight family",
+        "Variable font support",
+        "Matching monospace",
+        "Extended language support",
+        "OpenType features"
+      ],
+      "languages": ["Latin Extended", "Cyrillic", "Greek"],
+      "fileFormats": ["OTF", "TTF", "WOFF2 Variable", "WOFF"],
+      "links": [
+        {
+          "name": "Google Fonts",
+          "url": "https://fonts.google.com/retry-sans",
+          "description": "Free download"
+        },
+        {
+          "name": "GitHub",
+          "url": "https://github.com/loveprinting/retry-sans",
+          "description": "Open source project"
+        }
+      ],
+      "usedInProjects": ["design-system", "web-app-ui", "brand-guidelines"],
+      "yearReleased": "2022",
+      "designer": "The Loveprinting Machine",
+      "foundry": "The Loveprinting Machine Type Foundry"
     },
     {
-      "id": "script-elegant",
-      "name": "Script Elegant",
-      "nameDisplay": "Script Elegant",
-      "styles": 3,
-      "type": "static",
-      "status": "available",
-      "isExternal": false,
-      "staticStyles": [
-        { "name": "Light", "weight": 300, "width": 100 },
-        { "name": "Regular", "weight": 400, "width": 100 },
-        { "name": "Bold", "weight": 700, "width": 100 }
-      ],
-      "themeColor": "#DC143C",
-      "description": "An expressive script typeface perfect for branding and decorative purposes.",
+      "id": "pacific",
+      "name": "Pacific",
+      "nameDisplay": "Pacific",
+      "styles": 1,
+      "type": "script",
+      "category": "display",
+      "variableAxes": null,
+      "themeColor": "#ff6348",
+      "previewSVG": "pacific.svg",
+      "promoImage": "pacific-promo.svg",
+      "description": {
+        "short": "Flowing script inspired by West Coast lettering",
+        "full": "Pacific captures the laid-back spirit of West Coast lettering traditions. This flowing script typeface brings warmth and personality to any design, perfect for branding, packaging, and editorial applications where a human touch is desired. Each letter is carefully crafted to connect naturally with its neighbors."
+      },
+      "aboutImage": "pacific-about.jpg",
+      "specs": {
+        "legibility": { "score": 7, "description": "Best at medium to large sizes" },
+        "versatility": { "score": 6, "description": "Specialized for decorative use" },
+        "uniqueness": { "score": 9, "description": "Distinctive script character" }
+      },
+      "glyphsPreview": ["P", "a", "c", "i", "f", "i", "c", "1", "2", "3", "&", "!"],
+      "glyphsFull": "data/glyphs/pacific-glyphs.json",
+      "defaultText": "Pacific",
       "features": [
+        "Connecting script letters",
         "Contextual alternates",
         "Swash characters",
-        "Stylistic sets",
-        "Ligatures"
+        "Multiple stylistic sets",
+        "Hand-lettered feel"
       ],
-      "previewSVG": "script-elegant-preview.svg",
-      "fontFiles": {
-        "demo": "script-elegant-subset.woff2",
-        "protected": true
-      },
-      "glyphCount": 320,
-      "languages": ["Latin", "Basic symbols"],
-      "price": "$95",
-      "purchaseUrl": "/purchase/script-elegant"
-    },
-    {
-      "id": "external-serif-pro",
-      "name": "External Serif Pro",
-      "nameDisplay": "External Serif Pro",
-      "styles": 14,
-      "type": "variable",
-      "status": "available",
-      "isExternal": true,
-      "externalPlatform": "Creative Market",
-      "externalUrl": "https://creativemarket.com/example-serif-pro",
-      "staticStyles": [
-        { "name": "Thin", "weight": 100, "width": 100 },
-        { "name": "ExtraLight", "weight": 200, "width": 100 },
-        { "name": "Light", "weight": 300, "width": 100 },
-        { "name": "Regular", "weight": 400, "width": 100 },
-        { "name": "Medium", "weight": 500, "width": 100 },
-        { "name": "SemiBold", "weight": 600, "width": 100 },
-        { "name": "Bold", "weight": 700, "width": 100 },
-        { "name": "ExtraBold", "weight": 800, "width": 100 },
-        { "name": "Black", "weight": 900, "width": 100 }
+      "languages": ["Latin Extended"],
+      "fileFormats": ["OTF", "WOFF2", "WOFF"],
+      "links": [
+        {
+          "name": "MyFonts",
+          "url": "https://myfonts.com/pacific",
+          "description": "Purchase license",
+          "price": "$65"
+        },
+        {
+          "name": "Creative Market",
+          "url": "https://creativemarket.com/pacific",
+          "description": "Available in bundles"
+        }
       ],
-      "themeColor": "#FF6347",
-      "description": "A sophisticated serif typeface available exclusively on Creative Market with extensive language support.",
-      "features": [
-        "Advanced OpenType features",
-        "Multi-language support",
-        "Historical forms",
-        "Fraction support"
-      ],
-      "previewSVG": "external-serif-pro-preview.svg",
-      "previewImages": [
-        "external-serif-pro-sample-1.jpg",
-        "external-serif-pro-sample-2.jpg",
-        "external-serif-pro-sample-3.jpg"
-      ],
-      "glyphCount": 650,
-      "languages": ["Latin Extended", "Cyrillic", "Greek"],
-      "price": "$120",
-      "purchaseUrl": "https://creativemarket.com/example-serif-pro",
-      "hasTypetester": false
-    },
-    {
-      "id": "external-sans-modern",
-      "name": "External Sans Modern",
-      "nameDisplay": "External Sans Modern",
-      "styles": 10,
-      "type": "static",
-      "status": "available",
-      "isExternal": true,
-      "externalPlatform": "MyFonts",
-      "externalUrl": "https://myfonts.com/example-sans-modern",
-      "staticStyles": [
-        { "name": "Thin", "weight": 100, "width": 100 },
-        { "name": "Light", "weight": 300, "width": 100 },
-        { "name": "Regular", "weight": 400, "width": 100 },
-        { "name": "Medium", "weight": 500, "width": 100 },
-        { "name": "SemiBold", "weight": 600, "width": 100 },
-        { "name": "Bold", "weight": 700, "width": 100 },
-        { "name": "ExtraBold", "weight": 800, "width": 100 },
-        { "name": "Black", "weight": 900, "width": 100 }
-      ],
-      "themeColor": "#4682B4",
-      "description": "A contemporary sans-serif available on MyFonts, designed for modern digital applications.",
-      "features": [
-        "Optimized for screens",
-        "Extensive character set",
-        "Multiple numeral styles",
-        "Arrows and symbols"
-      ],
-      "previewSVG": "external-sans-modern-preview.svg",
-      "previewImages": [
-        "external-sans-modern-sample-1.jpg",
-        "external-sans-modern-sample-2.jpg"
-      ],
-      "glyphCount": 520,
-      "languages": ["Latin Extended", "Central European"],
-      "price": "$89",
-      "purchaseUrl": "https://myfonts.com/example-sans-modern",
-      "hasTypetester": false
+      "usedInProjects": ["surf-brand", "cafe-signage", "wedding-invites"],
+      "yearReleased": "2023",
+      "designer": "The Loveprinting Machine",
+      "foundry": "The Loveprinting Machine Type Foundry"
     }
   ],
-  "meta": {
+  "categories": [
+    {
+      "id": "text",
+      "name": "Text",
+      "description": "Fonts optimized for reading at small sizes"
+    },
+    {
+      "id": "display",
+      "name": "Display",
+      "description": "Fonts designed for headlines and large sizes"
+    },
+    {
+      "id": "branding",
+      "name": "Branding",
+      "description": "Distinctive fonts perfect for brand identity"
+    }
+  ],
+  "tags": [
+    "sans-serif",
+    "serif",
+    "display",
+    "script",
+    "mono",
+    "variable",
+    "geometric",
+    "humanist",
+    "condensed",
+    "extended"
+  ],
+  "metadata": {
     "totalFonts": 6,
-    "lastUpdated": "2025-08-11",
-    "version": "1.0"
+    "lastUpdated": "2024-08-11",
+    "version": "1.0.0"
   }
 }
