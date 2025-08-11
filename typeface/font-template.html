@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Font Name - The Loveprinting Machine Type Foundry</title>
+    
+    <!-- Подключение модульных CSS файлов -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/typography.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    
+    <!-- Preload критичных ресурсов -->
+    <link rel="preload" href="../fonts/retry-sans-mono.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- Динамическая загрузка шрифта для типтестера -->
+    <style id="dynamic-font-styles">
+        /* Стили шрифта будут добавлены динамически */
+    </style>
+</head>
+<body data-page="typeface-detail">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="../index.html" class="logo">
+                    <img src="../assets/svg/logo.svg" alt="The Loveprinting Machine">
+                </a>
+                <ul class="nav__list">
+                    <li><a href="../pages/typefaces.html">Typefaces</a></li>
+                    <li><a href="../pages/fonts-in-use.html">Fonts in use</a></li>
+                    <li><a href="../pages/lettering.html">Lettering</a></li>
+                    <li><a href="../pages/about.html">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Font Hero Section -->
+    <section class="font-hero" id="font-hero">
+        <div class="container">
+            <div class="font-hero__content">
+                <div class="font-hero__text">
+                    <h1 class="font-hero__title" id="font-name">Loading...</h1>
+                    <p class="font-hero__description" id="font-description">Loading font description...</p>
+                    <div class="font-hero__meta" id="font-meta">
+                        <span class="meta-item"><strong>Styles:</strong> <span id="font-styles">-</span></span>
+                        <span class="meta-item"><strong>Type:</strong> <span id="font-type">-</span></span>
+                        <span class="meta-item"><strong>Price:</strong> <span id="font-price">-</span></span>
+                    </div>
+                </div>
+                <div class="font-hero__preview">
+                    <img id="font-preview-image" src="" alt="" class="font-preview">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Font Actions -->
+    <section class="font-actions">
+        <div class="container">
+            <div class="font-actions__content">
+                <div class="font-actions__primary" id="primary-actions">
+                    <!-- Кнопки будут добавлены динамически -->
+                </div>
+                <div class="font-actions__secondary">
+                    <button class="btn btn--secondary" onclick="window.history.back()">← Back to Typefaces</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Typetester Section (только для собственных шрифтов) -->
+    <section class="typetester" id="typetester-section" style="display: none;">
+        <div class="container">
+            <h2 class="section-title">Try the Font</h2>
+            
+            <div class="typetester-controls">
+                <div class="control-group">
+                    <label for="sample-text" class="control-label">Sample Text:</label>
+                    <textarea 
+                        id="sample-text" 
+                        class="control-textarea"
+                        placeholder="Type your text here..."
+                    >The quick brown fox jumps over the lazy dog</textarea>
+                </div>
+                
+                <div class="typetester-sliders">
+                    <div class="slider-group">
+                        <label for="font-size-slider" class="control-label">Font Size: <span id="font-size-value">48</span>px</label>
+                        <input type="range" id="font-size-slider" min="12" max="200" value="48" class="slider">
+                    </div>
+                    
+                    <div class="slider-group">
+                        <label for="line-height-slider" class="control-label">Line Height: <span id="line-height-value">1.2</span></label>
+                        <input type="range" id="line-height-slider" min="0.8" max="2.0" step="0.1" value="1.2" class="slider">
+                    </div>
+                    
+                    <div class="slider-group">
+                        <label for="letter-spacing-slider" class="control-label">Letter Spacing: <span id="letter-spacing-value">0</span>em</label>
+                        <input type="range" id="letter-spacing-slider" min="-0.1" max="0.3" step="0.01" value="0" class="slider">
+                    </div>
+                    
+                    <!-- Вариативные оси (будут добавлены динамически) -->
+                    <div id="variable-axes-controls"></div>
+                </div>
+                
+                <div class="style-selector" id="style-selector">
+                    <label class="control-label">Font Style:</label>
+                    <select id="font-style-select" class="control-select">
+                        <!-- Опции будут добавлены динамически -->
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Область предпросмотра -->
+            <div class="typetester-preview">
+                <div id="sample-output" class="sample-text">
+                    The quick brown fox jumps over the lazy dog
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- External Font Notice (только для внешних шрифтов) -->
+    <section class="external-font-notice" id="external-font-notice" style="display: none;">
+        <div class="container">
+            <div class="notice-content">
+                <h2>Available on External Platform</h2>
+                <p id="external-notice-text">This font is available for purchase on an external platform.</p>
+                <div class="notice-actions">
+                    <a id="external-platform-link" href="#" class="btn btn--primary" target="_blank" rel="noopener">
+                        View on Platform
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Font Samples Gallery -->
+    <section class="font-samples" id="font-samples">
+        <div class="container">
+            <h2 class="section-title">Font Samples</h2>
+            <div class="samples-grid" id="samples-grid">
+                <!-- Образцы будут добавлены динамически -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Font Details -->
+    <section class="font-details">
+        <div class="container">
+            <div class="font-details__grid">
+                <div class="font-details__info">
+                    <h2>Font Information</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <strong>Font Family:</strong>
+                            <span id="detail-name">-</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Number of Styles:</strong>
+                            <span id="detail-styles">-</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Font Type:</strong>
+                            <span id="detail-type">-</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Glyph Count:</strong>
+                            <span id="detail-glyphs">-</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Language Support:</strong>
+                            <span id="detail-languages">-</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Price:</strong>
+                            <span id="detail-price">-</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="font-details__features">
+                    <h2>Features</h2>
+                    <ul id="features-list" class="features-list">
+                        <!-- Функции будут добавлены динамически -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Character Set (только для собственных шрифтов) -->
+    <section class="character-set" id="character-set-section" style="display: none;">
+        <div class="container">
+            <h2 class="section-title">Character Set</h2>
+            <div class="character-grid" id="character-grid">
+                <!-- Символы будут добавлены динамически -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Fonts -->
+    <section class="related-fonts">
+        <div class="container">
+            <h2 class="section-title">Other Typefaces</h2>
+            <div class="related-fonts-grid" id="related-fonts-grid">
+                <!-- Связанные шрифты будут добавлены динамически -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__logo">
+                    <img src="../assets/svg/logo.svg" alt="The Loveprinting Machine">
+                </div>
+                <nav class="footer__nav">
+                    <ul>
+                        <li><a href="../pages/typefaces.html">Typefaces</a></li>
+                        <li><a href="../pages/fonts-in-use.html">Fonts in use</a></li>
+                        <li><a href="../pages/lettering.html">Lettering</a></li>
+                        <li><a href="../pages/about.html">About</a></li>
+                    </ul>
+                </nav>
+                <div class="footer__contacts">
+                    <p>info@loveprinting.com</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Behance</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2025 The Loveprinting Machine Type Foundry. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Подключение модульных JavaScript файлов -->
+    <script src="../js/data-loader.js"></script>
+    <script src="../js/typetester.js"></script>
+    <script src="../js/animations.js"></script>
+    <script src="../js/main.js"></script>
+    
+    <!-- Инициализация страницы шрифта -->
+    <script>
+        // Функция инициализации типтестера
+        window.initTypetester = (fontData) => {
+            if (!fontData || fontData.isExternal) return;
+            
+            // Показ секции типтестера
+            document.getElementById('typetester-section').style.display = 'block';
+            
+            // Инициализация элементов управления
+            if (window.TypeTester) {
+                window.typeTester = new window.TypeTester(fontData);
+            }
+        };
+
+        // Главная функция инициализации страницы
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Извлечение ID шрифта из URL
+                const fontId = extractFontIdFromUrl();
+                if (!fontId) {
+                    showError('Font ID not found in URL');
+                    return;
+                }
+
+                // Загрузка данных о шрифте
+                const fontData = await window.DataLoader.loadTypefaceData(fontId);
+                if (!fontData) {
+                    showError('Font data not found');
+                    return;
+                }
+
+                // Отображение информации о шрифте
+                displayFontInfo(fontData);
+                
+                // Настройка действий в зависимости от типа шрифта
+                setupFontActions(fontData);
+                
+                // Загрузка связанных шрифтов
+                await loadRelatedFonts(fontData.id);
+                
+                // Инициализация типтестера для собственных шрифтов
+                if (!fontData.isExternal) {
+                    window.initTypetester(fontData);
+                }
+
+            } catch (error) {
+                console.error('Error initializing font page:', error);
+                showError('Failed to load font information');
+            }
+        });
+
+        function extractFontIdFromUrl() {
+            const path = window.location.pathname;
+            const filename = path.split('/').pop();
+            return filename.replace('.html', '');
+        }
+
+        function displayFontInfo(font) {
+            // Обновление заголовка страницы
+            document.getElementById('page-title').textContent = `${font.nameDisplay} - The Loveprinting Machine Type Foundry`;
+            
+            // Основная информация
+            document.getElementById('font-name').textContent = font.nameDisplay;
+            document.getElementById('font-description').textContent = font.description;
+            document.getElementById('font-styles').textContent = font.styles;
+            document.getElementById('font-type').textContent = font.type === 'variable' ? 'Variable Font' : 'Static Font';
+            document.getElementById('font-price').textContent = font.displayPrice;
+            
+            // Предпросмотр
+            const previewImg = document.getElementById('font-preview-image');
+            previewImg.src = `../assets/svg/${font.previewSVG}`;
+            previewImg.alt = `${font.nameDisplay} Preview`;
+            
+            // Детальная информация
+            document.getElementById('detail-name').textContent = font.nameDisplay;
+            document.getElementById('detail-styles').textContent = font.styles;
+            document.getElementById('detail-type').textContent = font.type === 'variable' ? 'Variable Font' : 'Static Font';
+            document.getElementById('detail-glyphs').textContent = font.glyphCount || 'N/A';
+            document.getElementById('detail-languages').textContent = font.languages ? font.languages.join(', ') : 'N/A';
+            document.getElementById('detail-price').textContent = font.displayPrice;
+            
+            // Функции
+            const featuresList = document.getElementById('features-list');
+            featuresList.innerHTML = font.features.map(feature => `<li>${feature}</li>`).join('');
+            
+            // Цветовая тема
+            if (font.themeColor) {
+                document.getElementById('font-hero').style.background = `linear-gradient(135deg, ${font.themeColor}20, transparent)`;
+            }
+        }
+
+        function setupFontActions(font) {
+            const primaryActions = document.getElementById('primary-actions');
+            
+            if (font.isExternal) {
+                // Показ уведомления о внешнем шрифте
+                document.getElementById('external-font-notice').style.display = 'block';
+                document.getElementById('external-notice-text').textContent = 
+                    `This font is available for purchase on ${font.externalPlatform}.`;
+                document.getElementById('external-platform-link').href = font.purchaseUrl;
+                document.getElementById('external-platform-link').textContent = `View on ${font.externalPlatform}`;
+                
+                // Кнопки для внешнего шрифта
+                primaryActions.innerHTML = `
+                    <a href="${font.purchaseUrl}" class="btn btn--primary" target="_blank" rel="noopener">
+                        Buy on ${font.externalPlatform}
+                    </a>
+                `;
+            } else {
+                // Кнопки для собственного шрифта
+                primaryActions.innerHTML = `
+                    <a href="${font.purchaseUrl || '#'}" class="btn btn--primary">
+                        Buy Font - ${font.displayPrice}
+                    </a>
+                    <button class="btn btn--secondary" onclick="downloadSample()">
+                        Download Sample
+                    </button>
+                `;
+                
+                // Показ секций для собственных шрифтов
+                document.getElementById('character-set-section').style.display = 'block';
+            }
+        }
+
+        async function loadRelatedFonts(currentFontId) {
+            try {
+                const typefacesData = await window.DataLoader.loadTypefaces();
+                const relatedFonts = typefacesData.fonts
+                    .filter(font => font.id !== currentFontId)
+                    .slice(0, 3);
+                
+                const relatedGrid = document.getElementById('related-fonts-grid');
+                relatedGrid.innerHTML = relatedFonts.map(font => `
+                    <article class="related-font-card">
+                        <a href="${font.id}.html">
+                            <img src="../assets/svg/${font.previewSVG}" alt="${font.nameDisplay} Preview" loading="lazy">
+                            <h3>${font.nameDisplay}</h3>
+                            <p>${font.styles} style${font.styles !== 1 ? 's' : ''} • ${font.displayPrice}</p>
+                        </a>
+                    </article>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading related fonts:', error);
+            }
+        }
+
+        function downloadSample() {
+            // Логика скачивания образца
+            console.log('Download sample requested');
+            alert('Sample download functionality will be implemented.');
+        }
+
+        function showError(message) {
+            document.body.innerHTML = `
+                <div class="error-page">
+                    <div class="container">
+                        <h1>Error</h1>
+                        <p>${message}</p>
+                        <a href="../pages/typefaces.html" class="btn btn--primary">← Back to Typefaces</a>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

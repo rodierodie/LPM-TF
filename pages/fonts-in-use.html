@@ -3,685 +3,269 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fonts in Use | The Loveprinting Machine Type Foundry</title>
-    <meta name="description" content="Beautiful projects using our fonts. See how designers use The Loveprinting Machine typefaces in real projects.">
+    <title>Fonts in Use - The Loveprinting Machine Type Foundry</title>
     
-    <style>
-        :root {
-            --font-primary: 'Retry Sans Mono', monospace, system-ui;
-            --font-secondary: system-ui, -apple-system, sans-serif;
-            
-            --color-bg: #ffffff;
-            --color-text: #000000;
-            --color-text-secondary: #666666;
-            --color-accent: #FF5733;
-            --color-border: #e0e0e0;
-            
-            --size-base: 16px;
-            --size-small: 14px;
-            --size-large: 24px;
-            --size-xl: 32px;
-            --size-xxl: 48px;
-            
-            --container-desktop: 1440px;
-            --spacing-unit: 8px;
-            --spacing-s: calc(var(--spacing-unit) * 2);
-            --spacing-m: calc(var(--spacing-unit) * 3);
-            --spacing-l: calc(var(--spacing-unit) * 4);
-            --spacing-xl: calc(var(--spacing-unit) * 6);
-            --spacing-xxl: calc(var(--spacing-unit) * 8);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: var(--font-secondary);
-            font-size: var(--size-base);
-            line-height: 1.5;
-            color: var(--color-text);
-            background: var(--color-bg);
-        }
-        
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-        
-        .container {
-            max-width: var(--container-desktop);
-            margin: 0 auto;
-            padding: 0 var(--spacing-l);
-        }
-        
-        /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--color-border);
-            z-index: 1000;
-        }
-        
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 60px;
-        }
-        
-        .logo {
-            font-size: var(--size-large);
-            font-weight: bold;
-        }
-        
-        .nav {
-            display: flex;
-            gap: var(--spacing-l);
-        }
-        
-        .nav a {
-            font-size: var(--size-small);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: color 0.2s;
-        }
-        
-        .nav a:hover, .nav a.active {
-            color: var(--color-accent);
-        }
-        
-        /* Main */
-        .main {
-            margin-top: 60px;
-        }
-        
-        /* Hero Section */
-        .hero-section {
-            padding: var(--spacing-xxl) 0;
-            text-align: center;
-            background: #f8f8f8;
-        }
-        
-        .hero-title {
-            font-size: var(--size-xxl);
-            font-weight: 300;
-            margin-bottom: var(--spacing-l);
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .hero-cta {
-            margin-top: var(--spacing-xl);
-        }
-        
-        .cta-link {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--spacing-s);
-            font-size: var(--size-base);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-bottom: 1px solid var(--color-text);
-            padding-bottom: 2px;
-            transition: all 0.2s;
-        }
-        
-        .cta-link:hover {
-            border-bottom-color: var(--color-accent);
-            color: var(--color-accent);
-        }
-        
-        /* Filters Section */
-        .filters-section {
-            padding: var(--spacing-xl) 0;
-            border-bottom: 1px solid var(--color-border);
-        }
-        
-        .filters-title {
-            font-size: var(--size-large);
-            margin-bottom: var(--spacing-l);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .filters-grid {
-            display: flex;
-            gap: var(--spacing-s);
-            flex-wrap: wrap;
-        }
-        
-        .filter-button {
-            padding: var(--spacing-s) var(--spacing-m);
-            background: transparent;
-            border: 1px solid var(--color-border);
-            color: var(--color-text-secondary);
-            text-transform: uppercase;
-            font-size: var(--size-small);
-            letter-spacing: 0.05em;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: inherit;
-        }
-        
-        .filter-button:hover, .filter-button.active {
-            background: var(--color-text);
-            color: white;
-            border-color: var(--color-text);
-        }
-        
-        /* Projects Section */
-        .projects-section {
-            padding: var(--spacing-xxl) 0;
-        }
-        
-        .project-year {
-            font-size: var(--size-xl);
-            margin-bottom: var(--spacing-xl);
-            font-weight: 300;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .projects-grid {
-            display: grid;
-            gap: var(--spacing-xxl);
-            margin-bottom: var(--spacing-xxl);
-        }
-        
-        .project-card {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--spacing-xl);
-            align-items: center;
-        }
-        
-        .project-card:nth-child(even) {
-            direction: rtl;
-        }
-        
-        .project-card:nth-child(even) > * {
-            direction: ltr;
-        }
-        
-        .project-image {
-            width: 100%;
-            height: 400px;
-            background: #e0e0e0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-text-secondary);
-            font-size: var(--size-large);
-        }
-        
-        .project-info {
-            padding: var(--spacing-l);
-        }
-        
-        .project-title {
-            font-size: var(--size-xl);
-            margin-bottom: var(--spacing-s);
-            font-weight: 300;
-        }
-        
-        .project-author {
-            color: var(--color-text-secondary);
-            margin-bottom: var(--spacing-l);
-            font-size: var(--size-large);
-        }
-        
-        .project-font {
-            font-size: var(--size-small);
-            color: var(--color-text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: var(--spacing-s);
-        }
-        
-        .project-font-name {
-            color: var(--color-text);
-            font-weight: 500;
-        }
-        
-        .project-link {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--spacing-s);
-            font-size: var(--size-small);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--color-text-secondary);
-            border-bottom: 1px solid transparent;
-            transition: all 0.2s;
-            margin-top: var(--spacing-m);
-        }
-        
-        .project-link:hover {
-            color: var(--color-text);
-            border-bottom-color: var(--color-text);
-        }
-        
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: var(--spacing-xxl) 0;
-            color: var(--color-text-secondary);
-        }
-        
-        .empty-state h3 {
-            font-size: var(--size-large);
-            margin-bottom: var(--spacing-s);
-        }
-        
-        /* Footer */
-        .footer {
-            background: var(--color-text);
-            color: var(--color-bg);
-            padding: var(--spacing-xxl) 0 var(--spacing-xl);
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: var(--spacing-xxl);
-        }
-        
-        .footer-section h3 {
-            font-size: var(--size-large);
-            margin-bottom: var(--spacing-l);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: var(--spacing-s);
-        }
-        
-        .footer-links a {
-            color: #cccccc;
-            text-transform: uppercase;
-            font-size: var(--size-small);
-            letter-spacing: 0.05em;
-            transition: color 0.2s;
-        }
-        
-        .footer-links a:hover {
-            color: var(--color-bg);
-        }
-        
-        .back-to-top {
-            position: fixed;
-            bottom: var(--spacing-l);
-            right: var(--spacing-l);
-            width: 48px;
-            height: 48px;
-            background: var(--color-text);
-            color: var(--color-bg);
-            border: none;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: opacity 0.2s;
-            opacity: 0;
-            pointer-events: none;
-            font-size: var(--size-large);
-        }
-        
-        .back-to-top.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 var(--spacing-m);
-            }
-            
-            .header-content {
-                height: 50px;
-            }
-            
-            .main {
-                margin-top: 50px;
-            }
-            
-            .nav {
-                gap: var(--spacing-m);
-            }
-            
-            .hero-title {
-                font-size: var(--size-xl);
-            }
-            
-            .filters-grid {
-                gap: var(--spacing-s);
-            }
-            
-            .project-card {
-                grid-template-columns: 1fr;
-                gap: var(--spacing-l);
-            }
-            
-            .project-card:nth-child(even) {
-                direction: ltr;
-            }
-            
-            .project-image {
-                height: 250px;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: var(--spacing-l);
-            }
-        }
-    </style>
+    <!-- Подключение модульных CSS файлов -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/typography.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    
+    <!-- Preload критичных ресурсов -->
+    <link rel="preload" href="../fonts/retry-sans-mono.woff2" as="font" type="font/woff2" crossorigin>
 </head>
-<body>
+<body data-page="fonts-in-use">
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <a href="../index.html">🖨</a>
-                </div>
-                <nav class="nav">
-                    <a href="../index.html#fonts">All fonts</a>
-                    <a href="fonts-in-use.html" class="active">Fonts in use</a>
-                    <a href="lettering.html">Custom lettering</a>
-                    <a href="about.html">About</a>
-                </nav>
-            </div>
+            <nav class="nav">
+                <a href="../index.html" class="logo">
+                    <img src="../assets/svg/logo.svg" alt="The Loveprinting Machine">
+                </a>
+                <ul class="nav__list">
+                    <li><a href="typefaces.html">Typefaces</a></li>
+                    <li><a href="fonts-in-use.html" class="nav__link--active">Fonts in use</a></li>
+                    <li><a href="lettering.html">Lettering</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="main">
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <div class="container">
-                <h1 class="hero-title">Here are some beautiful projects using our fonts. You can go check out our font in use section and don't forget to send us your projects using our fonts to get featured.</h1>
-                <div class="hero-cta">
-                    <a href="#contact" class="cta-link">
-                        Send your in use →
-                    </a>
-                </div>
-            </div>
-        </section>
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="page-hero__title">Fonts in Use</h1>
+            <p class="page-hero__description">
+                Discover how our typefaces are being used in real projects by designers and brands around the world.
+            </p>
+        </div>
+    </section>
 
-        <!-- Filters Section -->
-        <section class="filters-section">
-            <div class="container">
-                <h2 class="filters-title">Filters</h2>
-                <div class="filters-grid" id="filtersGrid">
-                    <button class="filter-button active" data-filter="all">All</button>
-                    <button class="filter-button" data-filter="lanze">Lanze</button>
-                    <button class="filter-button" data-filter="puff">Puff</button>
-                    <button class="filter-button" data-filter="retry">Retry</button>
-                    <button class="filter-button" data-filter="nytra">Nytra</button>
-                    <button class="filter-button" data-filter="pacific">Pacific</button>
-                </div>
+    <!-- Scroll Animation -->
+    <section class="scroll-animation" data-animation="scroll-trigger">
+        <div class="container">
+            <div class="animation-container">
+                <img src="../assets/gif/projects-animation.gif" alt="Projects Animation" class="scroll-gif">
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Projects Section -->
-        <section class="projects-section">
-            <div class="container">
-                <div id="projectsContainer">
-                    <!-- Projects will be loaded here -->
-                </div>
-                <div id="emptyState" class="empty-state" style="display: none;">
-                    <h3>No projects found</h3>
-                    <p>Try selecting a different filter or view all projects.</p>
+    <!-- Filters Section -->
+    <section class="filters">
+        <div class="container">
+            <div class="filters__header">
+                <h2 class="filters__title">Filter Projects</h2>
+                <div class="filters__results">
+                    <span data-results-count>Loading...</span>
                 </div>
             </div>
-        </section>
-    </main>
+            
+            <div class="filters__controls">
+                <!-- Поиск -->
+                <div class="filter-group">
+                    <label for="search" class="filter-label">Search:</label>
+                    <input 
+                        type="text" 
+                        id="search" 
+                        data-filter="search" 
+                        placeholder="Search projects..." 
+                        class="filter-input"
+                    >
+                </div>
+
+                <!-- Фильтр по шрифтам -->
+                <div class="filter-group">
+                    <label for="font-filter" class="filter-label">Font:</label>
+                    <select id="font-filter" data-filter-type="fonts" class="filter-select">
+                        <option value="">All Fonts</option>
+                        <!-- Опции будут загружены динамически -->
+                    </select>
+                </div>
+
+                <!-- Фильтр по категориям -->
+                <div class="filter-group">
+                    <label for="category-filter" class="filter-label">Category:</label>
+                    <select id="category-filter" data-filter-type="category" class="filter-select">
+                        <option value="">All Categories</option>
+                        <option value="branding">Branding</option>
+                        <option value="editorial">Editorial</option>
+                        <option value="web">Web Design</option>
+                        <option value="packaging">Packaging</option>
+                        <option value="poster">Poster</option>
+                        <option value="book">Book Design</option>
+                    </select>
+                </div>
+
+                <!-- Фильтр по типу проекта -->
+                <div class="filter-group">
+                    <label for="type-filter" class="filter-label">Type:</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-filter-type="type" value="commercial">
+                            <span class="checkbox-text">Commercial</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-filter-type="type" value="personal">
+                            <span class="checkbox-text">Personal</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-filter-type="type" value="experimental">
+                            <span class="checkbox-text">Experimental</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Сортировка -->
+                <div class="filter-group">
+                    <label for="sort-select" class="filter-label">Sort by:</label>
+                    <select id="sort-select" data-sort class="filter-select">
+                        <option value="date:desc">Newest First</option>
+                        <option value="date:asc">Oldest First</option>
+                        <option value="name:asc">Name A-Z</option>
+                        <option value="name:desc">Name Z-A</option>
+                        <option value="client:asc">Client A-Z</option>
+                    </select>
+                </div>
+
+                <!-- Кнопка сброса -->
+                <div class="filter-group">
+                    <button data-filter-reset class="btn btn--secondary">Reset Filters</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="projects" data-animation="staggered">
+        <div class="container">
+            <div class="projects-grid" id="projects-grid">
+                <!-- Контент будет загружен динамически из projects.json -->
+                <div class="loading-placeholder">
+                    <p>Loading projects...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta__content">
+                <h2>Want to showcase your project?</h2>
+                <p>We'd love to feature your work using our typefaces. Get in touch and let us know about your project.</p>
+                <a href="mailto:info@loveprinting.com" class="btn btn--primary">Submit Your Project</a>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>The Loveprinting Machine<br>Type Foundry</h3>
+            <div class="footer__content">
+                <div class="footer__logo">
+                    <img src="../assets/svg/logo.svg" alt="The Loveprinting Machine">
                 </div>
-                <div class="footer-section">
-                    <h3>Fonts</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Retiler</a></li>
-                        <li><a href="#">Retry Sans</a></li>
-                        <li><a href="#">Lanze</a></li>
-                        <li><a href="#">Puff</a></li>
-                        <li><a href="#">Nytra Mono</a></li>
+                <nav class="footer__nav">
+                    <ul>
+                        <li><a href="typefaces.html">Typefaces</a></li>
+                        <li><a href="fonts-in-use.html">Fonts in use</a></li>
+                        <li><a href="lettering.html">Lettering</a></li>
+                        <li><a href="about.html">About</a></li>
                     </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Telegram</a></li>
-                        <li><a href="#">Instagram</a></li>
-                        <li><a href="#">Behance</a></li>
-                        <li><a href="#">E-mail</a></li>
-                    </ul>
+                </nav>
+                <div class="footer__contacts">
+                    <p>info@loveprinting.com</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Behance</a>
+                    </div>
                 </div>
             </div>
-            <button class="back-to-top" id="backToTop">↑</button>
+            <div class="footer__bottom">
+                <p>&copy; 2025 The Loveprinting Machine Type Foundry. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
+    <!-- Подключение модульных JavaScript файлов -->
+    <script src="../js/data-loader.js"></script>
+    <script src="../js/filters.js"></script>
+    <script src="../js/animations.js"></script>
+    <script src="../js/main.js"></script>
+    
+    <!-- Инициализация страницы проектов -->
     <script>
-        // Sample projects data (would be loaded from JSON)
-        const projectsData = [
-            {
-                id: "project-1",
-                name: "Series of posters for Pravda parties",
-                author: "by Sasha Rezaya",
-                year: "2025",
-                usedFonts: ["lanze"],
-                category: "poster",
-                link: "https://behance.net/pravda-posters"
-            },
-            {
-                id: "project-2",
-                name: "Series of posters for Pravda parties",
-                author: "by Sasha Rezaya", 
-                year: "2025",
-                usedFonts: ["lanze"],
-                category: "poster",
-                link: "https://behance.net/pravda-posters-2"
-            },
-            {
-                id: "project-3",
-                name: "Series of posters for Pravda parties",
-                author: "by Sasha Rezaya",
-                year: "2025", 
-                usedFonts: ["lanze"],
-                category: "poster",
-                link: "https://behance.net/pravda-posters-3"
-            },
-            {
-                id: "project-4",
-                name: "Tech Startup Branding",
-                author: "by Creative Studio X",
-                year: "2024",
-                usedFonts: ["retry"],
-                category: "branding",
-                link: "https://dribbble.com/tech-startup"
-            },
-            {
-                id: "project-5",
-                name: "Mobile App Interface",
-                author: "by UX Team",
-                year: "2024",
-                usedFonts: ["retry"],
-                category: "digital",
-                link: "#"
-            },
-            {
-                id: "project-6",
-                name: "Editorial Design Magazine",
-                author: "by Design Bureau",
-                year: "2024",
-                usedFonts: ["nytra"],
-                category: "editorial",
-                link: "#"
-            },
-            {
-                id: "project-7",
-                name: "Cafe Pacific Identity",
-                author: "by Local Design Co.",
-                year: "2023",
-                usedFonts: ["pacific"],
-                category: "branding",
-                link: "#"
-            },
-            {
-                id: "project-8",
-                name: "Festival Poster Design",
-                author: "by Creative Collective",
-                year: "2023",
-                usedFonts: ["puff"],
-                category: "poster",
-                link: "#"
+        // Минимальная инициализация - вся логика в модулях
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Загрузка данных о проектах
+                const projectsData = await window.DataLoader.loadProjects();
+                
+                // Настройка фильтра (уже инициализирован в filters.js)
+                if (window.projectFilter && projectsData) {
+                    window.projectFilter.setData(projectsData.projects);
+                }
+                
+                // Загрузка опций для фильтра по шрифтам
+                const typefacesData = await window.DataLoader.loadTypefaces();
+                if (typefacesData) {
+                    const fontSelect = document.getElementById('font-filter');
+                    typefacesData.fonts.forEach(font => {
+                        const option = document.createElement('option');
+                        option.value = font.id;
+                        option.textContent = font.nameDisplay;
+                        fontSelect.appendChild(option);
+                    });
+                }
+                
+                // Импорт фильтров из URL
+                if (window.projectFilter) {
+                    window.projectFilter.importFromURL();
+                }
+                
+            } catch (error) {
+                console.error('Error loading projects data:', error);
+                document.getElementById('projects-grid').innerHTML = 
+                    '<p class="error-message">Error loading projects. Please try again later.</p>';
             }
-        ];
-
-        let currentFilter = 'all';
-        let filteredProjects = projectsData;
-
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            initFilters();
-            loadProjects();
-            initBackToTop();
         });
-
-        function initFilters() {
-            const filterButtons = document.querySelectorAll('.filter-button');
+        
+        // Функция рендеринга проектов (вызывается из filters.js)
+        window.renderProjects = (projects) => {
+            const grid = document.getElementById('projects-grid');
             
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Remove active class from all buttons
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    // Add active class to clicked button
-                    this.classList.add('active');
-                    
-                    // Update current filter
-                    currentFilter = this.dataset.filter;
-                    
-                    // Filter and reload projects
-                    filterProjects();
-                    loadProjects();
-                });
-            });
-        }
-
-        function filterProjects() {
-            if (currentFilter === 'all') {
-                filteredProjects = projectsData;
-            } else {
-                filteredProjects = projectsData.filter(project => 
-                    project.usedFonts.some(font => 
-                        font.toLowerCase().includes(currentFilter.toLowerCase())
-                    )
-                );
-            }
-        }
-
-        function loadProjects() {
-            const projectsContainer = document.getElementById('projectsContainer');
-            const emptyState = document.getElementById('emptyState');
-            
-            projectsContainer.innerHTML = '';
-            
-            if (filteredProjects.length === 0) {
-                emptyState.style.display = 'block';
+            if (!projects || projects.length === 0) {
+                grid.innerHTML = '<p class="no-results">No projects found matching your criteria.</p>';
                 return;
-            } else {
-                emptyState.style.display = 'none';
             }
             
-            // Group projects by year
-            const projectsByYear = filteredProjects.reduce((acc, project) => {
-                if (!acc[project.year]) {
-                    acc[project.year] = [];
-                }
-                acc[project.year].push(project);
-                return acc;
-            }, {});
-            
-            // Sort years in descending order
-            const sortedYears = Object.keys(projectsByYear).sort((a, b) => b - a);
-            
-            sortedYears.forEach(year => {
-                // Create year section
-                const yearSection = document.createElement('div');
-                yearSection.innerHTML = `<h2 class="project-year">${year}</h2>`;
-                
-                const projectsGrid = document.createElement('div');
-                projectsGrid.className = 'projects-grid';
-                
-                projectsByYear[year].forEach(project => {
-                    const projectCard = document.createElement('div');
-                    projectCard.className = 'project-card';
-                    projectCard.innerHTML = `
-                        <div class="project-image">
-                            [Project Image]
+            grid.innerHTML = projects.map(project => `
+                <article class="project-card stagger-item">
+                    <div class="project-card__image">
+                        <img src="../${project.image}" alt="${project.title}" loading="lazy">
+                        ${project.featured ? '<span class="project-card__featured">Featured</span>' : ''}
+                    </div>
+                    <div class="project-card__content">
+                        <h3 class="project-card__title">${project.title}</h3>
+                        <p class="project-card__client">${project.client}</p>
+                        <p class="project-card__description">${project.description}</p>
+                        <div class="project-card__meta">
+                            <span class="project-card__category">${project.category}</span>
+                            <span class="project-card__fonts">
+                                ${project.fonts.map(fontId => {
+                                    const font = window.typefacesData?.fonts.find(f => f.id === fontId);
+                                    return font ? font.nameDisplay : fontId;
+                                }).join(', ')}
+                            </span>
                         </div>
-                        <div class="project-info">
-                            <h3 class="project-title">${project.name}</h3>
-                            <p class="project-author">${project.author}</p>
-                            <div class="project-font">
-                                Font in use:<br>
-                                <span class="project-font-name">${project.usedFonts.join(', ')}</span>
-                            </div>
-                            <a href="${project.link}" class="project-link" target="_blank">
-                                Link →
-                            </a>
-                        </div>
-                    `;
-                    
-                    projectsGrid.appendChild(projectCard);
-                });
-                
-                yearSection.appendChild(projectsGrid);
-                projectsContainer.appendChild(yearSection);
-            });
-        }
-
-        function initBackToTop() {
-            const backToTop = document.getElementById('backToTop');
-            
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    backToTop.classList.add('visible');
-                } else {
-                    backToTop.classList.remove('visible');
-                }
-            });
-            
-            backToTop.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        }
+                        ${project.url ? `<a href="${project.url}" class="project-card__link" target="_blank" rel="noopener">View Project</a>` : ''}
+                    </div>
+                </article>
+            `).join('');
+        };
     </script>
 </body>
 </html>

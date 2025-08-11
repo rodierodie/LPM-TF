@@ -1,113 +1,210 @@
 {
   "projects": [
     {
-      "id": "project-1",
-      "name": "Series of posters for Pravda parties",
-      "description": "by Sasha Rezaya",
-      "images": [
-        "projects/pravda-posters-1.jpg",
-        "projects/pravda-posters-2.jpg"
-      ],
-      "usedFonts": ["lanze"],
-      "category": "poster",
-      "year": "2025",
-      "link": "https://behance.net/pravda-posters",
-      "featured": true
-    },
-    {
-      "id": "project-2", 
-      "name": "Tech Startup Branding",
-      "description": "by Creative Studio X",
-      "images": [
-        "projects/tech-startup-1.jpg",
-        "projects/tech-startup-2.jpg"
-      ],
-      "usedFonts": ["retry-sans"],
+      "id": "modern-cafe-branding",
+      "title": "Modern Café Branding",
+      "client": "Urban Coffee Co.",
       "category": "branding",
-      "year": "2024",
-      "link": "https://dribbble.com/tech-startup",
-      "featured": true
+      "type": "commercial",
+      "description": "Complete brand identity for a modern coffee shop chain featuring custom typography and signage.",
+      "fonts": ["retry-sans"],
+      "image": "assets/images/projects/modern-cafe-branding.jpg",
+      "url": "https://example.com/modern-cafe-project",
+      "featured": true,
+      "date": "2024-12-15",
+      "tags": ["branding", "signage", "retail"]
     },
     {
-      "id": "project-3",
-      "name": "Editorial Design Magazine",
-      "description": "by Design Bureau",
-      "images": [
-        "projects/editorial-1.jpg",
-        "projects/editorial-2.jpg"
-      ],
-      "usedFonts": ["lanze", "nytra-mono"],
+      "id": "tech-magazine-layout",
+      "title": "Tech Magazine Layout",
+      "client": "Digital Future Magazine",
       "category": "editorial",
-      "year": "2024",
-      "link": "#",
-      "featured": false
+      "type": "commercial",
+      "description": "Editorial design for a monthly technology magazine with emphasis on readability and modern aesthetics.",
+      "fonts": ["lanze", "mono-display"],
+      "image": "assets/images/projects/tech-magazine-layout.jpg",
+      "url": "https://example.com/tech-magazine-project",
+      "featured": false,
+      "date": "2024-11-20",
+      "tags": ["editorial", "magazine", "technology"]
     },
     {
-      "id": "project-4",
-      "name": "Mobile App Interface",
-      "description": "by UX Team",
-      "images": [
-        "projects/mobile-app-1.jpg"
-      ],
-      "usedFonts": ["retry-sans"],
-      "category": "digital",
-      "year": "2024",
-      "link": "#",
-      "featured": false
+      "id": "luxury-packaging-design",
+      "title": "Luxury Packaging Design",
+      "client": "Artisan Chocolates",
+      "category": "packaging",
+      "type": "commercial",
+      "description": "Premium packaging design for artisan chocolate brand emphasizing elegance and craftsmanship.",
+      "fonts": ["script-elegant", "lanze"],
+      "image": "assets/images/projects/luxury-packaging-design.jpg",
+      "url": "",
+      "featured": true,
+      "date": "2024-10-05",
+      "tags": ["packaging", "luxury", "food"]
     },
     {
-      "id": "project-5",
-      "name": "Cafe Pacific Identity",
-      "description": "by Local Design Co.",
-      "images": [
-        "projects/cafe-pacific-1.jpg",
-        "projects/cafe-pacific-2.jpg"
-      ],
-      "usedFonts": ["pacific"],
+      "id": "startup-website",
+      "title": "Startup Website Design",
+      "client": "InnovateTech",
+      "category": "web",
+      "type": "commercial",
+      "description": "Clean and modern website design for a tech startup, focusing on user experience and accessibility.",
+      "fonts": ["retry-sans"],
+      "image": "assets/images/projects/startup-website.jpg",
+      "url": "https://innovatetech.example.com",
+      "featured": false,
+      "date": "2024-09-12",
+      "tags": ["web design", "startup", "ui/ux"]
+    },
+    {
+      "id": "concert-poster-series",
+      "title": "Concert Poster Series",
+      "client": "Underground Music Venue",
+      "category": "poster",
+      "type": "commercial",
+      "description": "Series of promotional posters for underground music events, featuring bold typography and experimental layouts.",
+      "fonts": ["mono-display", "script-elegant"],
+      "image": "assets/images/projects/concert-poster-series.jpg",
+      "url": "",
+      "featured": false,
+      "date": "2024-08-30",
+      "tags": ["poster", "music", "events"]
+    },
+    {
+      "id": "personal-portfolio",
+      "title": "Personal Portfolio Website",
+      "client": "Jane Designer",
+      "category": "web",
+      "type": "personal",
+      "description": "Minimal portfolio website for a graphic designer showcasing clean typography and thoughtful whitespace.",
+      "fonts": ["lanze"],
+      "image": "assets/images/projects/personal-portfolio.jpg",
+      "url": "https://janedesigner.example.com",
+      "featured": false,
+      "date": "2024-07-18",
+      "tags": ["portfolio", "personal", "minimal"]
+    },
+    {
+      "id": "experimental-typography",
+      "title": "Experimental Typography Study",
+      "client": "Self-initiated",
+      "category": "poster",
+      "type": "experimental",
+      "description": "Experimental exploration of variable font technology and dynamic typography in digital environments.",
+      "fonts": ["retry-sans", "external-serif-pro"],
+      "image": "assets/images/projects/experimental-typography.jpg",
+      "url": "",
+      "featured": true,
+      "date": "2024-06-25",
+      "tags": ["experimental", "variable fonts", "digital"]
+    },
+    {
+      "id": "cookbook-design",
+      "title": "Modern Cookbook Design",
+      "client": "Chef Marcus",
+      "category": "book",
+      "type": "commercial",
+      "description": "Contemporary cookbook design with focus on hierarchy, recipe clarity, and beautiful food photography integration.",
+      "fonts": ["lanze", "retry-sans"],
+      "image": "assets/images/projects/cookbook-design.jpg",
+      "url": "",
+      "featured": false,
+      "date": "2024-05-14",
+      "tags": ["book design", "cookbook", "food"]
+    },
+    {
+      "id": "fashion-brand-identity",
+      "title": "Fashion Brand Identity",
+      "client": "Minimalist Fashion Co.",
       "category": "branding",
-      "year": "2023",
-      "link": "#",
-      "featured": true
+      "type": "commercial",
+      "description": "Complete brand identity for a sustainable fashion brand, emphasizing elegance and environmental consciousness.",
+      "fonts": ["external-sans-modern", "script-elegant"],
+      "image": "assets/images/projects/fashion-brand-identity.jpg",
+      "url": "https://example.com/fashion-brand",
+      "featured": false,
+      "date": "2024-04-08",
+      "tags": ["branding", "fashion", "sustainability"]
     },
     {
-      "id": "project-6",
-      "name": "Code Documentation",
-      "description": "by Dev Team",
-      "images": [
-        "projects/documentation-1.jpg"
-      ],
-      "usedFonts": ["nytra-mono"],
-      "category": "digital",
-      "year": "2024",
-      "link": "#",
-      "featured": false
+      "id": "app-interface-design",
+      "title": "Mobile App Interface",
+      "client": "FinTech Startup",
+      "category": "web",
+      "type": "commercial",
+      "description": "Clean and intuitive mobile app interface design for a financial technology application.",
+      "fonts": ["retry-sans", "mono-display"],
+      "image": "assets/images/projects/app-interface-design.jpg",
+      "url": "",
+      "featured": false,
+      "date": "2024-03-22",
+      "tags": ["mobile app", "fintech", "interface"]
+    },
+    {
+      "id": "wine-label-design",
+      "title": "Artisan Wine Labels",
+      "client": "Heritage Vineyard",
+      "category": "packaging",
+      "type": "commercial",
+      "description": "Elegant wine label design series celebrating the heritage and craftsmanship of a family vineyard.",
+      "fonts": ["script-elegant", "lanze"],
+      "image": "assets/images/projects/wine-label-design.jpg",
+      "url": "",
+      "featured": false,
+      "date": "2024-02-10",
+      "tags": ["packaging", "wine", "heritage"]
+    },
+    {
+      "id": "zine-typography",
+      "title": "Underground Zine",
+      "client": "Self-published",
+      "category": "editorial",
+      "type": "personal",
+      "description": "Independent zine exploring contemporary design culture with experimental typography and layout approaches.",
+      "fonts": ["mono-display", "retry-sans"],
+      "image": "assets/images/projects/zine-typography.jpg",
+      "url": "",
+      "featured": false,
+      "date": "2024-01-15",
+      "tags": ["zine", "independent", "culture"]
     }
   ],
   "categories": [
     {
-      "id": "all",
-      "name": "All",
-      "count": 6
-    },
-    {
       "id": "branding",
       "name": "Branding",
-      "count": 2
-    },
-    {
-      "id": "poster",
-      "name": "Poster", 
-      "count": 1
+      "description": "Brand identity and visual identity projects"
     },
     {
       "id": "editorial",
       "name": "Editorial",
-      "count": 1
+      "description": "Magazine, book, and publication design"
     },
     {
-      "id": "digital",
-      "name": "Digital",
-      "count": 2
+      "id": "web",
+      "name": "Web Design",
+      "description": "Website and digital interface design"
+    },
+    {
+      "id": "packaging",
+      "name": "Packaging",
+      "description": "Product packaging and label design"
+    },
+    {
+      "id": "poster",
+      "name": "Poster",
+      "description": "Poster and promotional material design"
+    },
+    {
+      "id": "book",
+      "name": "Book Design",
+      "description": "Book layout and publication design"
     }
-  ]
+  ],
+  "meta": {
+    "totalProjects": 12,
+    "featuredCount": 3,
+    "lastUpdated": "2025-08-11",
+    "version": "1.0"
+  }
 }

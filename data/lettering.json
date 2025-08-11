@@ -1,107 +1,299 @@
 {
-  "letterings": [
+  "lettering": [
     {
-      "id": "lettering-1",
-      "title": "Coffee House Logo",
-      "type": "logotype",
-      "image": "lettering/coffee-house-logo.jpg",
-      "description": "Custom handwritten logotype for local coffee shop",
-      "link": "https://dribbble.com/coffee-house-logo",
-      "year": "2024",
-      "category": "logotype",
-      "featured": true
+      "id": "vintage-brewery-logo",
+      "title": "Vintage Brewery Logo",
+      "client": "Craft Beer Co.",
+      "category": "logo",
+      "type": "commercial",
+      "description": "Hand-lettered logo design for a craft brewery emphasizing traditional craftsmanship and vintage aesthetics.",
+      "style": "vintage",
+      "technique": "digital",
+      "image": "assets/images/lettering/vintage-brewery-logo.jpg",
+      "featured": true,
+      "date": "2024-11-30",
+      "tags": ["logo", "brewery", "vintage", "craft"]
     },
     {
-      "id": "lettering-2", 
-      "title": "Festival Poster Typography",
-      "type": "poster",
-      "image": "lettering/festival-poster.jpg",
-      "description": "Hand-lettered typography for music festival poster",
-      "link": "https://behance.net/festival-poster",
-      "year": "2024",
+      "id": "script-wedding-invitation",
+      "title": "Script Wedding Invitation",
+      "client": "Private Client",
+      "category": "invitation",
+      "type": "personal",
+      "description": "Elegant script lettering for wedding invitations with custom flourishes and romantic styling.",
+      "style": "script",
+      "technique": "hand-drawn",
+      "image": "assets/images/lettering/script-wedding-invitation.jpg",
+      "featured": true,
+      "date": "2024-10-22",
+      "tags": ["wedding", "script", "invitation", "elegant"]
+    },
+    {
+      "id": "bold-event-poster",
+      "title": "Bold Event Poster",
+      "client": "Music Festival",
       "category": "poster",
-      "featured": true
+      "type": "commercial",
+      "description": "High-impact lettering design for music festival poster with bold, dynamic letterforms.",
+      "style": "bold",
+      "technique": "digital",
+      "image": "assets/images/lettering/bold-event-poster.jpg",
+      "featured": false,
+      "date": "2024-09-15",
+      "tags": ["poster", "festival", "bold", "music"]
     },
     {
-      "id": "lettering-3",
-      "title": "Mural Lettering Project",
-      "type": "mural", 
-      "image": "lettering/mural-project.jpg",
-      "description": "Large scale lettering for street art project",
-      "link": "#",
-      "year": "2023",
+      "id": "minimalist-quote",
+      "title": "Minimalist Quote Design",
+      "client": "Self-initiated",
+      "category": "quote",
+      "type": "personal",
+      "description": "Clean, minimalist approach to inspirational quote lettering with focus on negative space and balance.",
+      "style": "minimalist",
+      "technique": "digital",
+      "image": "assets/images/lettering/minimalist-quote.jpg",
+      "featured": false,
+      "date": "2024-08-28",
+      "tags": ["quote", "minimalist", "inspiration", "clean"]
+    },
+    {
+      "id": "retro-neon-sign",
+      "title": "Retro Neon Sign Design",
+      "client": "Downtown Diner",
+      "category": "signage",
+      "type": "commercial",
+      "description": "Retro-inspired lettering design for neon signage with authentic 1950s aesthetic and custom letterforms.",
+      "style": "retro",
+      "technique": "digital",
+      "image": "assets/images/lettering/retro-neon-sign.jpg",
+      "featured": true,
+      "date": "2024-07-10",
+      "tags": ["signage", "retro", "neon", "1950s"]
+    },
+    {
+      "id": "serif-book-cover",
+      "title": "Serif Book Cover Title",
+      "client": "Independent Publisher",
+      "category": "book",
+      "type": "commercial",
+      "description": "Custom serif lettering for literary fiction book cover emphasizing elegance and readability.",
+      "style": "serif",
+      "technique": "digital",
+      "image": "assets/images/lettering/serif-book-cover.jpg",
+      "featured": false,
+      "date": "2024-06-18",
+      "tags": ["book cover", "serif", "literary", "elegant"]
+    },
+    {
+      "id": "graffiti-style-mural",
+      "title": "Graffiti Style Mural",
+      "client": "Community Art Project",
       "category": "mural",
-      "featured": false
+      "type": "personal",
+      "description": "Street art inspired lettering for community mural project with bold colors and urban aesthetic.",
+      "style": "graffiti",
+      "technique": "hand-painted",
+      "image": "assets/images/lettering/graffiti-style-mural.jpg",
+      "featured": false,
+      "date": "2024-05-25",
+      "tags": ["mural", "graffiti", "street art", "community"]
     },
     {
-      "id": "lettering-4",
-      "title": "Packaging Design Letters",
-      "type": "packaging",
-      "image": "lettering/packaging-letters.jpg", 
-      "description": "Custom lettering for premium product packaging",
-      "link": "#",
-      "year": "2024",
+      "id": "luxury-perfume-label",
+      "title": "Luxury Perfume Label",
+      "client": "Boutique Fragrance",
       "category": "packaging",
-      "featured": true
+      "type": "commercial",
+      "description": "Sophisticated lettering for luxury perfume packaging with gold foil and premium feel.",
+      "style": "luxury",
+      "technique": "digital",
+      "image": "assets/images/lettering/luxury-perfume-label.jpg",
+      "featured": false,
+      "date": "2024-04-12",
+      "tags": ["packaging", "luxury", "perfume", "premium"]
     },
     {
-      "id": "lettering-5",
-      "title": "Magazine Editorial Title",
-      "type": "editorial",
-      "image": "lettering/editorial-title.jpg",
-      "description": "Hand-crafted title lettering for magazine cover",
-      "link": "#",
-      "year": "2023",
-      "category": "editorial", 
-      "featured": false
+      "id": "gothic-metal-band",
+      "title": "Gothic Metal Band Logo",
+      "client": "Dark Shadows Band",
+      "category": "logo",
+      "type": "commercial",
+      "description": "Dark, gothic lettering for metal band logo with sharp edges and aggressive styling.",
+      "style": "gothic",
+      "technique": "digital",
+      "image": "assets/images/lettering/gothic-metal-band.jpg",
+      "featured": false,
+      "date": "2024-03-08",
+      "tags": ["logo", "gothic", "metal", "band"]
     },
     {
-      "id": "lettering-6",
-      "title": "Animation Lettering",
-      "type": "animation",
-      "image": "lettering/animation-lettering.gif",
-      "description": "Frame-by-frame animated lettering sequence",
-      "link": "https://vimeo.com/animation-lettering",
-      "year": "2024",
-      "category": "animation",
-      "featured": true
+      "id": "playful-kids-book",
+      "title": "Playful Kids Book Title",
+      "client": "Children's Publisher",
+      "category": "book",
+      "type": "commercial",
+      "description": "Fun, playful lettering for children's book title with colorful and whimsical character.",
+      "style": "playful",
+      "technique": "digital",
+      "image": "assets/images/lettering/playful-kids-book.jpg",
+      "featured": false,
+      "date": "2024-02-14",
+      "tags": ["kids book", "playful", "children", "whimsical"]
+    },
+    {
+      "id": "calligraphy-certificate",
+      "title": "Calligraphy Certificate",
+      "client": "Academic Institution",
+      "category": "certificate",
+      "type": "commercial",
+      "description": "Traditional calligraphy for academic certificate with formal styling and decorative elements.",
+      "style": "calligraphy",
+      "technique": "hand-drawn",
+      "image": "assets/images/lettering/calligraphy-certificate.jpg",
+      "featured": false,
+      "date": "2024-01-20",
+      "tags": ["certificate", "calligraphy", "academic", "formal"]
+    },
+    {
+      "id": "modern-sans-logo",
+      "title": "Modern Sans Logo",
+      "client": "Tech Startup",
+      "category": "logo",
+      "type": "commercial",
+      "description": "Clean, modern sans-serif lettering for technology startup logo with geometric precision.",
+      "style": "modern",
+      "technique": "digital",
+      "image": "assets/images/lettering/modern-sans-logo.jpg",
+      "featured": false,
+      "date": "2023-12-15",
+      "tags": ["logo", "modern", "sans-serif", "tech"]
     }
   ],
-  "types": [
+  "categories": [
     {
-      "id": "all",
-      "name": "All",
-      "count": 6
-    },
-    {
-      "id": "logotype",
-      "name": "Logotype", 
-      "count": 1
+      "id": "logo",
+      "name": "Logo Design",
+      "description": "Custom lettering for brand logos and identity"
     },
     {
       "id": "poster",
-      "name": "Poster",
-      "count": 1
+      "name": "Poster Design",
+      "description": "Event posters and promotional materials"
     },
     {
-      "id": "mural",
-      "name": "Mural",
-      "count": 1
+      "id": "book",
+      "name": "Book Design",
+      "description": "Book covers and title lettering"
+    },
+    {
+      "id": "signage",
+      "name": "Signage",
+      "description": "Environmental and architectural lettering"
     },
     {
       "id": "packaging",
       "name": "Packaging",
-      "count": 1
+      "description": "Product packaging and label lettering"
     },
     {
-      "id": "editorial", 
-      "name": "Editorial",
-      "count": 1
+      "id": "invitation",
+      "name": "Invitations",
+      "description": "Wedding and event invitation lettering"
     },
     {
-      "id": "animation",
-      "name": "Animation",
-      "count": 1
+      "id": "quote",
+      "name": "Quote Design",
+      "description": "Inspirational and decorative quotes"
+    },
+    {
+      "id": "mural",
+      "name": "Mural Art",
+      "description": "Large-scale lettering and mural work"
+    },
+    {
+      "id": "certificate",
+      "name": "Certificates",
+      "description": "Official documents and certificates"
     }
-  ]
+  ],
+  "styles": [
+    {
+      "id": "script",
+      "name": "Script",
+      "description": "Flowing, connected letterforms"
+    },
+    {
+      "id": "serif",
+      "name": "Serif",
+      "description": "Traditional serif lettering"
+    },
+    {
+      "id": "sans-serif",
+      "name": "Sans Serif",
+      "description": "Clean, modern sans serif styles"
+    },
+    {
+      "id": "vintage",
+      "name": "Vintage",
+      "description": "Retro and vintage-inspired lettering"
+    },
+    {
+      "id": "bold",
+      "name": "Bold",
+      "description": "High-impact, bold letterforms"
+    },
+    {
+      "id": "minimalist",
+      "name": "Minimalist",
+      "description": "Clean, simple, minimal styling"
+    },
+    {
+      "id": "decorative",
+      "name": "Decorative",
+      "description": "Ornate and decorative lettering"
+    },
+    {
+      "id": "graffiti",
+      "name": "Graffiti",
+      "description": "Street art and urban styles"
+    },
+    {
+      "id": "calligraphy",
+      "name": "Calligraphy",
+      "description": "Traditional calligraphic styles"
+    },
+    {
+      "id": "modern",
+      "name": "Modern",
+      "description": "Contemporary and cutting-edge styles"
+    }
+  ],
+  "techniques": [
+    {
+      "id": "hand-drawn",
+      "name": "Hand Drawn",
+      "description": "Traditional hand-drawn lettering"
+    },
+    {
+      "id": "digital",
+      "name": "Digital",
+      "description": "Created digitally using design software"
+    },
+    {
+      "id": "hand-painted",
+      "name": "Hand Painted",
+      "description": "Painted by hand on various surfaces"
+    },
+    {
+      "id": "calligraphy",
+      "name": "Calligraphy",
+      "description": "Traditional calligraphy techniques"
+    }
+  ],
+  "meta": {
+    "totalProjects": 12,
+    "featuredCount": 3,
+    "lastUpdated": "2025-08-11",
+    "version": "1.0"
+  }
 }

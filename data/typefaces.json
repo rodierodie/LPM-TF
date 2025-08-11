@@ -1,211 +1,242 @@
 {
   "fonts": [
     {
-      "id": "retiler",
-      "name": "Retiler",
-      "nameDisplay": "retiler",
-      "styles": 1,
-      "type": "static",
-      "variableAxes": null,
-      "themeColor": "#000000",
-      "previewSVG": "retiler-preview.svg",
-      "promoImage": "retiler-promo.svg",
-      "fontFiles": {
-        "demo": "retiler-subset.woff2",
-        "protected": true,
-        "allowedChars": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,!? "
-      },
-      "description": {
-        "short": "Modern geometric typeface",
-        "full": "Retiler is a contemporary geometric typeface designed for maximum legibility and modern appeal. Created by Trey platforms for beginners. Each typeface, each one of the glyphs is designed to pursue qualified online learning. Since his software expertise is designing to pursue qualified online learning and decided to pursue qualified online learning."
-      },
-      "aboutImage": "retiler-about.jpg",
-      "specs": {
-        "legibility": { "score": 8, "description": "Excellent readability" },
-        "versatility": { "score": 8, "description": "Suitable for various applications" },
-        "uniqueness": { "score": 7, "description": "Distinctive character" }
-      },
-      "glyphsPreview": ["A", "B", "C", "a", "b", "c", "1", "2", "3"],
-      "glyphsFull": "glyphs/retiler-glyphs.json",
-      "defaultText": "Start typing",
-      "links": [
-        { "name": "Learn More", "url": "#", "description": "More information" }
-      ],
-      "usedInProjects": []
-    },
-    {
-      "id": "nytra-mono",
-      "name": "Nytra Mono",
-      "nameDisplay": "Nytra Mono",
-      "styles": 1,
-      "type": "static",
-      "variableAxes": null,
-      "themeColor": "#000000",
-      "previewSVG": "nytra-mono-preview.svg",
-      "promoImage": "nytra-mono-promo.svg",
-      "fontFiles": {
-        "demo": "nytra-mono-subset.woff2",
-        "protected": true,
-        "allowedChars": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,!?()[]{}/*-+=<> "
-      },
-      "description": {
-        "short": "Monospace typeface for code and data",
-        "full": "Nytra Mono is a carefully crafted monospace typeface designed specifically for coding, data visualization, and technical documentation. Every character occupies the same width, ensuring perfect alignment in code editors and terminal applications."
-      },
-      "aboutImage": "nytra-mono-about.jpg",
-      "specs": {
-        "legibility": { "score": 9, "description": "Perfect for code readability" },
-        "versatility": { "score": 7, "description": "Specialized for technical use" },
-        "uniqueness": { "score": 8, "description": "Distinctive monospace design" }
-      },
-      "glyphsPreview": ["A", "B", "C", "a", "b", "c", "1", "2", "3"],
-      "glyphsFull": "glyphs/nytra-mono-glyphs.json",
-      "defaultText": "function()",
-      "links": [
-        { "name": "Learn More", "url": "#", "description": "More information" }
-      ],
-      "usedInProjects": []
-    },
-    {
-      "id": "puff-variable", 
-      "name": "PUFF Variable",
-      "nameDisplay": "PUFF VARIABLE",
-      "styles": 1,
+      "id": "retry-sans",
+      "name": "Retry Sans",
+      "nameDisplay": "Retry Sans",
+      "styles": 12,
       "type": "variable",
+      "status": "available",
+      "isExternal": false,
       "variableAxes": {
-        "wght": { "min": 100, "max": 900, "default": 400 }
+        "wght": { 
+          "min": 100, 
+          "max": 900, 
+          "default": 400,
+          "step": 1
+        },
+        "wdth": { 
+          "min": 75, 
+          "max": 125, 
+          "default": 100,
+          "step": 1
+        }
       },
-      "themeColor": "#000000",
-      "previewSVG": "puff-variable-preview.svg", 
-      "promoImage": "puff-variable-promo.svg",
-      "fontFiles": {
-        "demo": "puff-variable-subset.woff2",
-        "protected": true,
-        "allowedChars": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,!? "
-      },
-      "description": {
-        "short": "Variable weight display font",
-        "full": "PUFF Variable is a bold display typeface with variable weight capabilities. Perfect for headlines, branding, and any design that needs to make a strong visual impact. The variable nature allows for fine-tuning of weight for any context."
-      },
-      "aboutImage": "puff-variable-about.jpg",
-      "specs": {
-        "legibility": { "score": 7, "description": "Good for display sizes" },
-        "versatility": { "score": 8, "description": "Variable weight system" },
-        "uniqueness": { "score": 9, "description": "Bold distinctive character" }
-      },
-      "glyphsPreview": ["A", "B", "C", "a", "b", "c", "1", "2", "3"],
-      "glyphsFull": "glyphs/puff-variable-glyphs.json",
-      "defaultText": "STRONG",
-      "links": [
-        { "name": "Learn More", "url": "#", "description": "More information" }
+      "staticStyles": [
+        { "name": "Thin", "weight": 100, "width": 100 },
+        { "name": "ExtraLight", "weight": 200, "width": 100 },
+        { "name": "Light", "weight": 300, "width": 100 },
+        { "name": "Regular", "weight": 400, "width": 100 },
+        { "name": "Medium", "weight": 500, "width": 100 },
+        { "name": "SemiBold", "weight": 600, "width": 100 },
+        { "name": "Bold", "weight": 700, "width": 100 },
+        { "name": "ExtraBold", "weight": 800, "width": 100 },
+        { "name": "Black", "weight": 900, "width": 100 }
       ],
-      "usedInProjects": []
+      "themeColor": "#FF5733",
+      "description": "A modern, versatile sans-serif typeface with clean lines and excellent readability.",
+      "features": [
+        "OpenType features",
+        "Extended Latin character set",
+        "Stylistic alternates",
+        "Tabular figures"
+      ],
+      "previewSVG": "retry-sans-preview.svg",
+      "fontFiles": {
+        "demo": "retry-sans-subset.woff2",
+        "variable": "retry-sans-variable.woff2",
+        "protected": true
+      },
+      "glyphCount": 420,
+      "languages": ["Latin Extended", "Central European"],
+      "price": "$89",
+      "purchaseUrl": "/purchase/retry-sans"
     },
     {
       "id": "lanze",
-      "name": "LANZE",
-      "nameDisplay": "LANZE", 
-      "styles": 4,
-      "type": "variable",
-      "variableAxes": {
-        "wght": { "min": 200, "max": 800, "default": 400 },
-        "wdth": { "min": 80, "max": 120, "default": 100 }
-      },
-      "themeColor": "#6C5CE7",
+      "name": "Lanze",
+      "nameDisplay": "Lanze",
+      "styles": 8,
+      "type": "static",
+      "status": "available", 
+      "isExternal": false,
+      "staticStyles": [
+        { "name": "Thin", "weight": 100, "width": 100 },
+        { "name": "Light", "weight": 300, "width": 100 },
+        { "name": "Regular", "weight": 400, "width": 100 },
+        { "name": "Medium", "weight": 500, "width": 100 },
+        { "name": "SemiBold", "weight": 600, "width": 100 },
+        { "name": "Bold", "weight": 700, "width": 100 },
+        { "name": "ExtraBold", "weight": 800, "width": 100 },
+        { "name": "Black", "weight": 900, "width": 100 }
+      ],
+      "themeColor": "#2E8B57",
+      "description": "An elegant serif typeface inspired by classical typography with modern refinements.",
+      "features": [
+        "Classical proportions",
+        "Extended character set",
+        "Small caps",
+        "Multiple figure styles"
+      ],
       "previewSVG": "lanze-preview.svg",
-      "promoImage": "lanze-promo.svg", 
       "fontFiles": {
         "demo": "lanze-subset.woff2",
-        "protected": true,
-        "allowedChars": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,!? "
+        "protected": true
       },
-      "description": {
-        "short": "Contemporary sans serif with variable axes",
-        "full": "LANZE is a versatile contemporary sans serif typeface with variable weight and width axes. Designed for modern digital and print applications, it offers exceptional flexibility while maintaining excellent readability across all variations."
-      },
-      "aboutImage": "lanze-about.jpg",
-      "specs": {
-        "legibility": { "score": 9, "description": "Outstanding readability" },
-        "versatility": { "score": 9, "description": "Variable axes for any context" },
-        "uniqueness": { "score": 8, "description": "Contemporary design language" }
-      },
-      "glyphsPreview": ["A", "B", "C", "a", "b", "c", "1", "2", "3"],
-      "glyphsFull": "glyphs/lanze-glyphs.json",
-      "defaultText": "Start typing",
-      "links": [
-        { "name": "Learn More", "url": "#", "description": "More information" }
-      ],
-      "usedInProjects": ["project-1", "project-3"]
+      "glyphCount": 380,
+      "languages": ["Latin", "Central European"],
+      "price": "$79",
+      "purchaseUrl": "/purchase/lanze"
     },
     {
-      "id": "retry-sans",
-      "name": "Retry Sans + Mono",
-      "nameDisplay": "Retry Sans + Mono",
-      "styles": 9,
-      "type": "variable",
-      "variableAxes": {
-        "wght": { "min": 100, "max": 900, "default": 400 },
-        "wdth": { "min": 75, "max": 125, "default": 100 }
-      },
-      "themeColor": "#FF5733",
-      "previewSVG": "retry-sans-preview.svg",
-      "promoImage": "retry-sans-promo.svg",
-      "fontFiles": {
-        "demo": "retry-sans-subset.woff2", 
-        "protected": true,
-        "allowedChars": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,!? "
-      },
-      "description": {
-        "short": "Versatile sans serif family with mono variant",
-        "full": "Retry Sans is a comprehensive type family that includes both proportional and monospace variants. Designed for maximum versatility, it works equally well for body text, headlines, and code. The variable axes provide fine control over weight and width."
-      },
-      "aboutImage": "retry-sans-about.jpg",
-      "specs": {
-        "legibility": { "score": 9, "description": "Excellent across all sizes" },
-        "versatility": { "score": 10, "description": "Complete type system" },
-        "uniqueness": { "score": 7, "description": "Clean, functional design" }
-      },
-      "glyphsPreview": ["A", "B", "C", "a", "b", "c", "1", "2", "3"],
-      "glyphsFull": "glyphs/retry-sans-glyphs.json",
-      "defaultText": "The quick brown fox",
-      "links": [
-        { "name": "GitHub", "url": "https://github.com/", "description": "Open source version" },
-        { "name": "Learn More", "url": "#", "description": "More information" }
-      ],
-      "usedInProjects": ["project-2", "project-4"]
-    },
-    {
-      "id": "pacific",
-      "name": "Pacific",
-      "nameDisplay": "Pacific",
-      "styles": 1,
+      "id": "mono-display",
+      "name": "Mono Display",
+      "nameDisplay": "Mono Display",
+      "styles": 6,
       "type": "static",
-      "variableAxes": null,
-      "themeColor": "#00B7EB", 
-      "previewSVG": "pacific-preview.svg",
-      "promoImage": "pacific-promo.svg",
-      "fontFiles": {
-        "demo": "pacific-subset.woff2",
-        "protected": true,
-        "allowedChars": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,!? "
-      },
-      "description": {
-        "short": "Rounded display typeface with friendly character",
-        "full": "Pacific is a warm, rounded display typeface that brings a friendly and approachable feeling to any design. Perfect for brands that want to convey accessibility and human connection while maintaining professionalism."
-      },
-      "aboutImage": "pacific-about.jpg",
-      "specs": {
-        "legibility": { "score": 8, "description": "Clear and friendly" },
-        "versatility": { "score": 7, "description": "Great for branding" },
-        "uniqueness": { "score": 8, "description": "Distinctive rounded forms" }
-      },
-      "glyphsPreview": ["A", "B", "C", "a", "b", "c", "1", "2", "3"],
-      "glyphsFull": "glyphs/pacific-glyphs.json",
-      "defaultText": "Friendly Design",
-      "links": [
-        { "name": "Learn More", "url": "#", "description": "More information" }
+      "status": "available",
+      "isExternal": false,
+      "staticStyles": [
+        { "name": "Light", "weight": 300, "width": 100 },
+        { "name": "Regular", "weight": 400, "width": 100 },
+        { "name": "Medium", "weight": 500, "width": 100 },
+        { "name": "SemiBold", "weight": 600, "width": 100 },
+        { "name": "Bold", "weight": 700, "width": 100 },
+        { "name": "Black", "weight": 900, "width": 100 }
       ],
-      "usedInProjects": []
+      "themeColor": "#8A2BE2",
+      "description": "A distinctive monospace typeface designed for display and coding applications.",
+      "features": [
+        "Perfect monospace spacing",
+        "Coding ligatures",
+        "Extended symbol set",
+        "Zero with slash"
+      ],
+      "previewSVG": "mono-display-preview.svg",
+      "fontFiles": {
+        "demo": "mono-display-subset.woff2",
+        "protected": true
+      },
+      "glyphCount": 450,
+      "languages": ["Latin Extended", "Symbols"],
+      "price": "$65",
+      "purchaseUrl": "/purchase/mono-display"
+    },
+    {
+      "id": "script-elegant",
+      "name": "Script Elegant",
+      "nameDisplay": "Script Elegant",
+      "styles": 3,
+      "type": "static",
+      "status": "available",
+      "isExternal": false,
+      "staticStyles": [
+        { "name": "Light", "weight": 300, "width": 100 },
+        { "name": "Regular", "weight": 400, "width": 100 },
+        { "name": "Bold", "weight": 700, "width": 100 }
+      ],
+      "themeColor": "#DC143C",
+      "description": "An expressive script typeface perfect for branding and decorative purposes.",
+      "features": [
+        "Contextual alternates",
+        "Swash characters",
+        "Stylistic sets",
+        "Ligatures"
+      ],
+      "previewSVG": "script-elegant-preview.svg",
+      "fontFiles": {
+        "demo": "script-elegant-subset.woff2",
+        "protected": true
+      },
+      "glyphCount": 320,
+      "languages": ["Latin", "Basic symbols"],
+      "price": "$95",
+      "purchaseUrl": "/purchase/script-elegant"
+    },
+    {
+      "id": "external-serif-pro",
+      "name": "External Serif Pro",
+      "nameDisplay": "External Serif Pro",
+      "styles": 14,
+      "type": "variable",
+      "status": "available",
+      "isExternal": true,
+      "externalPlatform": "Creative Market",
+      "externalUrl": "https://creativemarket.com/example-serif-pro",
+      "staticStyles": [
+        { "name": "Thin", "weight": 100, "width": 100 },
+        { "name": "ExtraLight", "weight": 200, "width": 100 },
+        { "name": "Light", "weight": 300, "width": 100 },
+        { "name": "Regular", "weight": 400, "width": 100 },
+        { "name": "Medium", "weight": 500, "width": 100 },
+        { "name": "SemiBold", "weight": 600, "width": 100 },
+        { "name": "Bold", "weight": 700, "width": 100 },
+        { "name": "ExtraBold", "weight": 800, "width": 100 },
+        { "name": "Black", "weight": 900, "width": 100 }
+      ],
+      "themeColor": "#FF6347",
+      "description": "A sophisticated serif typeface available exclusively on Creative Market with extensive language support.",
+      "features": [
+        "Advanced OpenType features",
+        "Multi-language support",
+        "Historical forms",
+        "Fraction support"
+      ],
+      "previewSVG": "external-serif-pro-preview.svg",
+      "previewImages": [
+        "external-serif-pro-sample-1.jpg",
+        "external-serif-pro-sample-2.jpg",
+        "external-serif-pro-sample-3.jpg"
+      ],
+      "glyphCount": 650,
+      "languages": ["Latin Extended", "Cyrillic", "Greek"],
+      "price": "$120",
+      "purchaseUrl": "https://creativemarket.com/example-serif-pro",
+      "hasTypetester": false
+    },
+    {
+      "id": "external-sans-modern",
+      "name": "External Sans Modern",
+      "nameDisplay": "External Sans Modern",
+      "styles": 10,
+      "type": "static",
+      "status": "available",
+      "isExternal": true,
+      "externalPlatform": "MyFonts",
+      "externalUrl": "https://myfonts.com/example-sans-modern",
+      "staticStyles": [
+        { "name": "Thin", "weight": 100, "width": 100 },
+        { "name": "Light", "weight": 300, "width": 100 },
+        { "name": "Regular", "weight": 400, "width": 100 },
+        { "name": "Medium", "weight": 500, "width": 100 },
+        { "name": "SemiBold", "weight": 600, "width": 100 },
+        { "name": "Bold", "weight": 700, "width": 100 },
+        { "name": "ExtraBold", "weight": 800, "width": 100 },
+        { "name": "Black", "weight": 900, "width": 100 }
+      ],
+      "themeColor": "#4682B4",
+      "description": "A contemporary sans-serif available on MyFonts, designed for modern digital applications.",
+      "features": [
+        "Optimized for screens",
+        "Extensive character set",
+        "Multiple numeral styles",
+        "Arrows and symbols"
+      ],
+      "previewSVG": "external-sans-modern-preview.svg",
+      "previewImages": [
+        "external-sans-modern-sample-1.jpg",
+        "external-sans-modern-sample-2.jpg"
+      ],
+      "glyphCount": 520,
+      "languages": ["Latin Extended", "Central European"],
+      "price": "$89",
+      "purchaseUrl": "https://myfonts.com/example-sans-modern",
+      "hasTypetester": false
     }
-  ]
+  ],
+  "meta": {
+    "totalFonts": 6,
+    "lastUpdated": "2025-08-11",
+    "version": "1.0"
+  }
 }

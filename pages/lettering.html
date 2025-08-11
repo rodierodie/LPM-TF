@@ -3,636 +3,355 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Lettering | The Loveprinting Machine Type Foundry</title>
-    <meta name="description" content="Custom lettering and calligraphy projects. Hand-crafted typography for unique design solutions.">
+    <title>Lettering - The Loveprinting Machine Type Foundry</title>
     
-    <style>
-        :root {
-            --font-primary: 'Retry Sans Mono', monospace, system-ui;
-            --font-secondary: system-ui, -apple-system, sans-serif;
-            
-            --color-bg: #ffffff;
-            --color-text: #000000;
-            --color-text-secondary: #666666;
-            --color-accent: #FF5733;
-            --color-border: #e0e0e0;
-            --color-red: #FF5733;
-            
-            --size-base: 16px;
-            --size-small: 14px;
-            --size-large: 24px;
-            --size-xl: 32px;
-            --size-xxl: 48px;
-            
-            --container-desktop: 1440px;
-            --spacing-unit: 8px;
-            --spacing-s: calc(var(--spacing-unit) * 2);
-            --spacing-m: calc(var(--spacing-unit) * 3);
-            --spacing-l: calc(var(--spacing-unit) * 4);
-            --spacing-xl: calc(var(--spacing-unit) * 6);
-            --spacing-xxl: calc(var(--spacing-unit) * 8);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: var(--font-secondary);
-            font-size: var(--size-base);
-            line-height: 1.5;
-            color: var(--color-text);
-            background: var(--color-bg);
-        }
-        
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-        
-        .container {
-            max-width: var(--container-desktop);
-            margin: 0 auto;
-            padding: 0 var(--spacing-l);
-        }
-        
-        /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--color-border);
-            z-index: 1000;
-        }
-        
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 60px;
-        }
-        
-        .logo {
-            font-size: var(--size-large);
-            font-weight: bold;
-        }
-        
-        .nav {
-            display: flex;
-            gap: var(--spacing-l);
-        }
-        
-        .nav a {
-            font-size: var(--size-small);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: color 0.2s;
-        }
-        
-        .nav a:hover, .nav a.active {
-            color: var(--color-accent);
-        }
-        
-        /* Main */
-        .main {
-            margin-top: 60px;
-        }
-        
-        /* Hero Section */
-        .hero-section {
-            padding: var(--spacing-xxl) 0;
-            text-align: center;
-            background: white;
-        }
-        
-        .hero-lettering {
-            width: 100%;
-            max-width: 800px;
-            height: 300px;
-            margin: 0 auto var(--spacing-xl);
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300"><rect fill="white" width="800" height="300"/><path fill="none" stroke="%23FF5733" stroke-width="3" d="M50,150 Q150,50 250,150 T450,150 M500,50 L500,250 M550,150 L650,50 L650,250 M700,50 Q750,100 700,150 Q750,200 700,250"/></svg>') no-repeat center;
-            background-size: contain;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-text-secondary);
-            font-size: var(--size-large);
-            border: 1px solid var(--color-border);
-        }
-        
-        .hero-text {
-            max-width: 600px;
-            margin: 0 auto;
-            color: var(--color-text-secondary);
-            font-size: var(--size-large);
-            line-height: 1.6;
-        }
-        
-        .hero-cta {
-            margin-top: var(--spacing-xl);
-        }
-        
-        .cta-link {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--spacing-s);
-            font-size: var(--size-base);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-bottom: 1px solid var(--color-text);
-            padding-bottom: 2px;
-            transition: all 0.2s;
-        }
-        
-        .cta-link:hover {
-            border-bottom-color: var(--color-accent);
-            color: var(--color-accent);
-        }
-        
-        /* Filters Section */
-        .filters-section {
-            padding: var(--spacing-xl) 0;
-            border-bottom: 1px solid var(--color-border);
-            background: white;
-        }
-        
-        .filters-grid {
-            display: flex;
-            gap: var(--spacing-s);
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .filter-button {
-            padding: var(--spacing-s) var(--spacing-m);
-            background: transparent;
-            border: 1px solid var(--color-border);
-            color: var(--color-text-secondary);
-            text-transform: uppercase;
-            font-size: var(--size-small);
-            letter-spacing: 0.05em;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: inherit;
-        }
-        
-        .filter-button:hover, .filter-button.active {
-            background: var(--color-text);
-            color: white;
-            border-color: var(--color-text);
-        }
-        
-        /* Lettering Grid Section */
-        .lettering-section {
-            padding: var(--spacing-xxl) 0;
-        }
-        
-        .lettering-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: var(--spacing-xl);
-        }
-        
-        .lettering-card {
-            background: white;
-            transition: transform 0.2s;
-            cursor: pointer;
-        }
-        
-        .lettering-card:hover {
-            transform: translateY(-4px);
-        }
-        
-        .lettering-image {
-            width: 100%;
-            height: 300px;
-            background: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-text-secondary);
-            font-size: var(--size-large);
-            margin-bottom: var(--spacing-l);
-            border: 1px solid var(--color-border);
-        }
-        
-        .lettering-info {
-            padding: 0 var(--spacing-m) var(--spacing-l);
-        }
-        
-        .lettering-type {
-            font-size: var(--size-small);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--color-text-secondary);
-            margin-bottom: var(--spacing-s);
-        }
-        
-        .lettering-title {
-            font-size: var(--size-large);
-            margin-bottom: var(--spacing-s);
-            font-weight: 300;
-        }
-        
-        .lettering-link {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--spacing-s);
-            font-size: var(--size-small);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--color-text-secondary);
-            border-bottom: 1px solid transparent;
-            transition: all 0.2s;
-        }
-        
-        .lettering-link:hover {
-            color: var(--color-text);
-            border-bottom-color: var(--color-text);
-        }
-        
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: var(--spacing-xxl) 0;
-            color: var(--color-text-secondary);
-        }
-        
-        .empty-state h3 {
-            font-size: var(--size-large);
-            margin-bottom: var(--spacing-s);
-        }
-        
-        /* Footer */
-        .footer {
-            background: var(--color-text);
-            color: var(--color-bg);
-            padding: var(--spacing-xxl) 0 var(--spacing-xl);
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: var(--spacing-xxl);
-        }
-        
-        .footer-section h3 {
-            font-size: var(--size-large);
-            margin-bottom: var(--spacing-l);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: var(--spacing-s);
-        }
-        
-        .footer-links a {
-            color: #cccccc;
-            text-transform: uppercase;
-            font-size: var(--size-small);
-            letter-spacing: 0.05em;
-            transition: color 0.2s;
-        }
-        
-        .footer-links a:hover {
-            color: var(--color-bg);
-        }
-        
-        .back-to-top {
-            position: fixed;
-            bottom: var(--spacing-l);
-            right: var(--spacing-l);
-            width: 48px;
-            height: 48px;
-            background: var(--color-text);
-            color: var(--color-bg);
-            border: none;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: opacity 0.2s;
-            opacity: 0;
-            pointer-events: none;
-            font-size: var(--size-large);
-        }
-        
-        .back-to-top.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 var(--spacing-m);
-            }
-            
-            .header-content {
-                height: 50px;
-            }
-            
-            .main {
-                margin-top: 50px;
-            }
-            
-            .nav {
-                gap: var(--spacing-m);
-            }
-            
-            .hero-lettering {
-                height: 200px;
-                margin-bottom: var(--spacing-l);
-            }
-            
-            .hero-text {
-                font-size: var(--size-base);
-            }
-            
-            .lettering-grid {
-                grid-template-columns: 1fr;
-                gap: var(--spacing-l);
-            }
-            
-            .lettering-image {
-                height: 200px;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: var(--spacing-l);
-            }
-        }
-    </style>
+    <!-- Подключение модульных CSS файлов -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/typography.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    
+    <!-- Preload критичных ресурсов -->
+    <link rel="preload" href="../fonts/retry-sans-mono.woff2" as="font" type="font/woff2" crossorigin>
 </head>
-<body>
+<body data-page="lettering">
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <a href="../index.html">🖨</a>
-                </div>
-                <nav class="nav">
-                    <a href="../index.html#fonts">All fonts</a>
-                    <a href="fonts-in-use.html">Fonts in use</a>
-                    <a href="lettering.html" class="active">Custom lettering</a>
-                    <a href="about.html">About</a>
-                </nav>
-            </div>
+            <nav class="nav">
+                <a href="../index.html" class="logo">
+                    <img src="../assets/svg/logo.svg" alt="The Loveprinting Machine">
+                </a>
+                <ul class="nav__list">
+                    <li><a href="typefaces.html">Typefaces</a></li>
+                    <li><a href="fonts-in-use.html">Fonts in use</a></li>
+                    <li><a href="lettering.html" class="nav__link--active">Lettering</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="main">
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <div class="container">
-                <div class="hero-lettering">
-                    [Custom Lettering Animation]
-                </div>
-                <p class="hero-text">I've been creating lettering and calligraphy since 2017 — hoping that this is me chosen this field but also experimenting with animated lettering frame by frame. But I'm also experimenting with animated lettering printed of created by other.</p>
-                <div class="hero-cta">
-                    <a href="#contact" class="cta-link">
-                        See lettering collection →
-                    </a>
-                </div>
-            </div>
-        </section>
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="page-hero__title">Custom Lettering</h1>
+            <p class="page-hero__description">
+                Hand-crafted lettering projects combining traditional techniques with modern design sensibilities. Each piece tells a unique story through custom typography.
+            </p>
+        </div>
+    </section>
 
-        <!-- Filters Section -->
-        <section class="filters-section">
-            <div class="container">
-                <div class="filters-grid" id="filtersGrid">
-                    <button class="filter-button active" data-filter="all">All</button>
-                    <button class="filter-button" data-filter="lettering">Lettering</button>
-                    <button class="filter-button" data-filter="poster">Poster</button>
-                    <button class="filter-button" data-filter="logo">Logo</button>
-                    <button class="filter-button" data-filter="animation">Animation</button>
-                    <button class="filter-button" data-filter="playfaces">Playfaces</button>
-                </div>
+    <!-- Scroll Animation -->
+    <section class="scroll-animation" data-animation="scroll-trigger">
+        <div class="container">
+            <div class="animation-container">
+                <img src="../assets/gif/lettering-animation.gif" alt="Lettering Animation" class="scroll-gif">
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Lettering Grid Section -->
-        <section class="lettering-section">
-            <div class="container">
-                <div class="lettering-grid" id="letteringGrid">
-                    <!-- Lettering projects will be loaded here -->
-                </div>
-                <div id="emptyState" class="empty-state" style="display: none;">
-                    <h3>No lettering projects found</h3>
-                    <p>Try selecting a different filter or view all projects.</p>
+    <!-- Filters Section -->
+    <section class="filters">
+        <div class="container">
+            <div class="filters__header">
+                <h2 class="filters__title">Filter Lettering Projects</h2>
+                <div class="filters__results">
+                    <span data-results-count>Loading...</span>
                 </div>
             </div>
-        </section>
-    </main>
+            
+            <div class="filters__controls">
+                <!-- Поиск -->
+                <div class="filter-group">
+                    <label for="search" class="filter-label">Search:</label>
+                    <input 
+                        type="text" 
+                        id="search" 
+                        data-filter="search" 
+                        placeholder="Search lettering projects..." 
+                        class="filter-input"
+                    >
+                </div>
+
+                <!-- Фильтр по категориям -->
+                <div class="filter-group">
+                    <label for="category-filter" class="filter-label">Category:</label>
+                    <select id="category-filter" data-filter-type="category" class="filter-select">
+                        <option value="">All Categories</option>
+                        <!-- Опции будут загружены динамически -->
+                    </select>
+                </div>
+
+                <!-- Фильтр по стилям -->
+                <div class="filter-group">
+                    <label for="style-filter" class="filter-label">Style:</label>
+                    <select id="style-filter" data-filter-type="style" class="filter-select">
+                        <option value="">All Styles</option>
+                        <!-- Опции будут загружены динамически -->
+                    </select>
+                </div>
+
+                <!-- Фильтр по технике -->
+                <div class="filter-group">
+                    <label for="technique-filter" class="filter-label">Technique:</label>
+                    <select id="technique-filter" data-filter-type="technique" class="filter-select">
+                        <option value="">All Techniques</option>
+                        <!-- Опции будут загружены динамически -->
+                    </select>
+                </div>
+
+                <!-- Фильтр по типу проекта -->
+                <div class="filter-group">
+                    <label class="filter-label">Project Type:</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-filter-type="type" value="commercial">
+                            <span class="checkbox-text">Commercial</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" data-filter-type="type" value="personal">
+                            <span class="checkbox-text">Personal</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Показать только избранные -->
+                <div class="filter-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" data-filter-type="featured" value="true">
+                        <span class="checkbox-text">Featured Only</span>
+                    </label>
+                </div>
+
+                <!-- Сортировка -->
+                <div class="filter-group">
+                    <label for="sort-select" class="filter-label">Sort by:</label>
+                    <select id="sort-select" data-sort class="filter-select">
+                        <option value="date:desc">Newest First</option>
+                        <option value="date:asc">Oldest First</option>
+                        <option value="title:asc">Title A-Z</option>
+                        <option value="title:desc">Title Z-A</option>
+                        <option value="client:asc">Client A-Z</option>
+                    </select>
+                </div>
+
+                <!-- Кнопка сброса -->
+                <div class="filter-group">
+                    <button data-filter-reset class="btn btn--secondary">Reset Filters</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lettering Grid -->
+    <section class="lettering-projects" data-animation="staggered">
+        <div class="container">
+            <div class="lettering-grid" id="lettering-grid">
+                <!-- Контент будет загружен динамически из lettering.json -->
+                <div class="loading-placeholder">
+                    <p>Loading lettering projects...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services CTA -->
+    <section class="services-cta">
+        <div class="container">
+            <div class="services-cta__content">
+                <h2>Custom Lettering Services</h2>
+                <p>Need custom lettering for your project? I create bespoke lettering solutions for logos, branding, packaging, and more.</p>
+                <div class="services-cta__features">
+                    <div class="service-feature">
+                        <h3>Logo Design</h3>
+                        <p>Custom lettering for brand identities and logo marks</p>
+                    </div>
+                    <div class="service-feature">
+                        <h3>Packaging Design</h3>
+                        <p>Hand-lettered solutions for product packaging</p>
+                    </div>
+                    <div class="service-feature">
+                        <h3>Editorial Design</h3>
+                        <p>Custom headlines and display lettering for publications</p>
+                    </div>
+                    <div class="service-feature">
+                        <h3>Environmental Design</h3>
+                        <p>Signage and large-scale lettering installations</p>
+                    </div>
+                </div>
+                <div class="services-cta__actions">
+                    <a href="mailto:info@loveprinting.com?subject=Custom Lettering Inquiry" class="btn btn--primary">Get a Quote</a>
+                    <a href="about.html" class="btn btn--secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process">
+        <div class="container">
+            <h2 class="section-title">My Lettering Process</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="process-step__number">01</div>
+                    <h3 class="process-step__title">Discovery</h3>
+                    <p class="process-step__description">Understanding your project goals, brand personality, and target audience to inform the lettering direction.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-step__number">02</div>
+                    <h3 class="process-step__title">Exploration</h3>
+                    <p class="process-step__description">Sketching multiple concepts and exploring different lettering styles and approaches.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-step__number">03</div>
+                    <h3 class="process-step__title">Refinement</h3>
+                    <p class="process-step__description">Developing selected concepts with attention to details, spacing, and overall composition.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-step__number">04</div>
+                    <h3 class="process-step__title">Finalization</h3>
+                    <p class="process-step__description">Creating final artwork in various formats, ready for your specific application needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>The Loveprinting Machine<br>Type Foundry</h3>
+            <div class="footer__content">
+                <div class="footer__logo">
+                    <img src="../assets/svg/logo.svg" alt="The Loveprinting Machine">
                 </div>
-                <div class="footer-section">
-                    <h3>Fonts</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Retiler</a></li>
-                        <li><a href="#">Retry Sans</a></li>
-                        <li><a href="#">Lanze</a></li>
-                        <li><a href="#">Puff</a></li>
-                        <li><a href="#">Nytra Mono</a></li>
+                <nav class="footer__nav">
+                    <ul>
+                        <li><a href="typefaces.html">Typefaces</a></li>
+                        <li><a href="fonts-in-use.html">Fonts in use</a></li>
+                        <li><a href="lettering.html">Lettering</a></li>
+                        <li><a href="about.html">About</a></li>
                     </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Telegram</a></li>
-                        <li><a href="#">Instagram</a></li>
-                        <li><a href="#">Behance</a></li>
-                        <li><a href="#">E-mail</a></li>
-                    </ul>
+                </nav>
+                <div class="footer__contacts">
+                    <p>info@loveprinting.com</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Behance</a>
+                    </div>
                 </div>
             </div>
-            <button class="back-to-top" id="backToTop">↑</button>
+            <div class="footer__bottom">
+                <p>&copy; 2025 The Loveprinting Machine Type Foundry. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
+    <!-- Подключение модульных JavaScript файлов -->
+    <script src="../js/data-loader.js"></script>
+    <script src="../js/filters.js"></script>
+    <script src="../js/animations.js"></script>
+    <script src="../js/main.js"></script>
+    
+    <!-- Инициализация страницы леттеринга -->
     <script>
-        // Sample lettering data (would be loaded from JSON)
-        const letteringData = [
-            {
-                id: "lettering-1",
-                title: "Coffee House Logo",
-                type: "lettering",
-                category: "logo",
-                link: "https://dribbble.com/coffee-house-logo",
-                year: "2024"
-            },
-            {
-                id: "lettering-2",
-                title: "Festival Poster Typography",
-                type: "lettering",
-                category: "poster",
-                link: "https://behance.net/festival-poster",
-                year: "2024"
-            },
-            {
-                id: "lettering-3",
-                title: "Mural Lettering Project",
-                type: "lettering",
-                category: "lettering",
-                link: "#",
-                year: "2023"
-            },
-            {
-                id: "lettering-4",
-                title: "Packaging Design Letters",
-                type: "lettering",
-                category: "lettering",
-                link: "#",
-                year: "2024"
-            },
-            {
-                id: "lettering-5",
-                title: "Magazine Editorial Title",
-                type: "lettering",
-                category: "poster",
-                link: "#",
-                year: "2023"
-            },
-            {
-                id: "lettering-6",
-                title: "Animation Lettering",
-                type: "lettering",
-                category: "animation",
-                link: "https://vimeo.com/animation-lettering",
-                year: "2024"
-            },
-            {
-                id: "lettering-7",
-                title: "Brand Identity Lettering",
-                type: "lettering",
-                category: "logo",
-                link: "#",
-                year: "2024"
-            },
-            {
-                id: "lettering-8",
-                title: "Experimental Typography",
-                type: "lettering",
-                category: "playfaces",
-                link: "#",
-                year: "2023"
-            }
-        ];
-
-        let currentFilter = 'all';
-        let filteredLettering = letteringData;
-
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            initFilters();
-            loadLettering();
-            initBackToTop();
-        });
-
-        function initFilters() {
-            const filterButtons = document.querySelectorAll('.filter-button');
-            
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Remove active class from all buttons
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    // Add active class to clicked button
-                    this.classList.add('active');
-                    
-                    // Update current filter
-                    currentFilter = this.dataset.filter;
-                    
-                    // Filter and reload lettering
-                    filterLettering();
-                    loadLettering();
-                });
-            });
-        }
-
-        function filterLettering() {
-            if (currentFilter === 'all') {
-                filteredLettering = letteringData;
-            } else {
-                filteredLettering = letteringData.filter(lettering => 
-                    lettering.category === currentFilter
-                );
-            }
-        }
-
-        function loadLettering() {
-            const letteringGrid = document.getElementById('letteringGrid');
-            const emptyState = document.getElementById('emptyState');
-            
-            letteringGrid.innerHTML = '';
-            
-            if (filteredLettering.length === 0) {
-                emptyState.style.display = 'block';
-                return;
-            } else {
-                emptyState.style.display = 'none';
-            }
-            
-            filteredLettering.forEach(lettering => {
-                const letteringCard = document.createElement('div');
-                letteringCard.className = 'lettering-card';
-                letteringCard.innerHTML = `
-                    <div class="lettering-image">
-                        [Lettering Image]
-                    </div>
-                    <div class="lettering-info">
-                        <div class="lettering-type">
-                            Type:<br>
-                            ${lettering.category}
-                        </div>
-                        <h3 class="lettering-title">${lettering.title}</h3>
-                        <a href="${lettering.link}" class="lettering-link" target="_blank">
-                            Link →
-                        </a>
-                    </div>
-                `;
+        // Минимальная инициализация - вся логика в модулях
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Загрузка данных о леттеринге
+                const letteringData = await window.DataLoader.loadLettering();
                 
-                letteringGrid.appendChild(letteringCard);
-            });
-        }
-
-        function initBackToTop() {
-            const backToTop = document.getElementById('backToTop');
-            
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    backToTop.classList.add('visible');
-                } else {
-                    backToTop.classList.remove('visible');
-                }
-            });
-            
-            backToTop.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
+                // Настройка фильтра
+                window.letteringFilter = new window.FilterSystem({
+                    defaultSort: 'date',
+                    defaultOrder: 'desc',
+                    onRender: (filteredData) => {
+                        window.renderLettering(filteredData);
+                    }
                 });
-            });
-        }
+                
+                if (letteringData) {
+                    window.letteringFilter.setData(letteringData.lettering);
+                    
+                    // Заполнение опций фильтров
+                    const categorySelect = document.getElementById('category-filter');
+                    letteringData.categories.forEach(category => {
+                        const option = document.createElement('option');
+                        option.value = category.id;
+                        option.textContent = category.name;
+                        categorySelect.appendChild(option);
+                    });
+                    
+                    const styleSelect = document.getElementById('style-filter');
+                    letteringData.styles.forEach(style => {
+                        const option = document.createElement('option');
+                        option.value = style.id;
+                        option.textContent = style.name;
+                        styleSelect.appendChild(option);
+                    });
+                    
+                    const techniqueSelect = document.getElementById('technique-filter');
+                    letteringData.techniques.forEach(technique => {
+                        const option = document.createElement('option');
+                        option.value = technique.id;
+                        option.textContent = technique.name;
+                        techniqueSelect.appendChild(option);
+                    });
+                }
+                
+                // Импорт фильтров из URL
+                window.letteringFilter.importFromURL();
+                
+            } catch (error) {
+                console.error('Error loading lettering data:', error);
+                document.getElementById('lettering-grid').innerHTML = 
+                    '<p class="error-message">Error loading lettering projects. Please try again later.</p>';
+            }
+        });
+        
+        // Функция рендеринга проектов леттеринга
+        window.renderLettering = (projects) => {
+            const grid = document.getElementById('lettering-grid');
+            
+            if (!projects || projects.length === 0) {
+                grid.innerHTML = '<p class="no-results">No lettering projects found matching your criteria.</p>';
+                return;
+            }
+            
+            grid.innerHTML = projects.map(project => `
+                <article class="lettering-card stagger-item">
+                    <div class="lettering-card__image">
+                        <img src="../${project.image}" alt="${project.title}" loading="lazy">
+                        ${project.featured ? '<span class="lettering-card__featured">Featured</span>' : ''}
+                        <div class="lettering-card__overlay">
+                            <div class="lettering-card__meta">
+                                <span class="lettering-card__style">${project.style}</span>
+                                <span class="lettering-card__technique">${project.technique}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lettering-card__content">
+                        <h3 class="lettering-card__title">${project.title}</h3>
+                        <p class="lettering-card__client">${project.client}</p>
+                        <p class="lettering-card__description">${project.description}</p>
+                        <div class="lettering-card__details">
+                            <span class="detail-item">
+                                <strong>Category:</strong> ${project.category}
+                            </span>
+                            <span class="detail-item">
+                                <strong>Type:</strong> ${project.type}
+                            </span>
+                        </div>
+                        <div class="lettering-card__tags">
+                            ${project.tags.map(tag => 
+                                `<span class="tag">#${tag}</span>`
+                            ).join('')}
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        };
     </script>
 </body>
 </html>

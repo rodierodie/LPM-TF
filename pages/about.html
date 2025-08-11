@@ -3,643 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | The Loveprinting Machine Type Foundry</title>
-    <meta name="description" content="About The Loveprinting Machine Type Foundry. Type design studio specializing in functional fonts and custom lettering.">
+    <title>About - The Loveprinting Machine Type Foundry</title>
     
-    <style>
-        :root {
-            --font-primary: 'Retry Sans Mono', monospace, system-ui;
-            --font-secondary: system-ui, -apple-system, sans-serif;
-            
-            --color-bg: #ffffff;
-            --color-text: #000000;
-            --color-text-secondary: #666666;
-            --color-accent: #FF5733;
-            --color-border: #e0e0e0;
-            
-            --size-base: 16px;
-            --size-small: 14px;
-            --size-large: 24px;
-            --size-xl: 32px;
-            --size-xxl: 48px;
-            
-            --container-desktop: 1440px;
-            --spacing-unit: 8px;
-            --spacing-s: calc(var(--spacing-unit) * 2);
-            --spacing-m: calc(var(--spacing-unit) * 3);
-            --spacing-l: calc(var(--spacing-unit) * 4);
-            --spacing-xl: calc(var(--spacing-unit) * 6);
-            --spacing-xxl: calc(var(--spacing-unit) * 8);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: var(--font-secondary);
-            font-size: var(--size-base);
-            line-height: 1.5;
-            color: var(--color-text);
-            background: var(--color-bg);
-        }
-        
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-        
-        .container {
-            max-width: var(--container-desktop);
-            margin: 0 auto;
-            padding: 0 var(--spacing-l);
-        }
-        
-        /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--color-border);
-            z-index: 1000;
-        }
-        
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 60px;
-        }
-        
-        .logo {
-            font-size: var(--size-large);
-            font-weight: bold;
-        }
-        
-        .nav {
-            display: flex;
-            gap: var(--spacing-l);
-        }
-        
-        .nav a {
-            font-size: var(--size-small);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: color 0.2s;
-        }
-        
-        .nav a:hover, .nav a.active {
-            color: var(--color-accent);
-        }
-        
-        /* Main */
-        .main {
-            margin-top: 60px;
-        }
-        
-        /* About Section */
-        .about-section {
-            padding: var(--spacing-xxl) 0;
-        }
-        
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--spacing-xxl);
-            align-items: start;
-        }
-        
-        .about-text {
-            max-width: 600px;
-        }
-        
-        .about-title {
-            font-size: var(--size-xxl);
-            margin-bottom: var(--spacing-xl);
-            font-weight: 300;
-            line-height: 1.2;
-        }
-        
-        .about-paragraph {
-            font-size: var(--size-large);
-            line-height: 1.6;
-            color: var(--color-text-secondary);
-            margin-bottom: var(--spacing-l);
-        }
-        
-        .about-paragraph:last-child {
-            margin-bottom: 0;
-        }
-        
-        .about-skills {
-            margin-top: var(--spacing-xl);
-        }
-        
-        .skills-title {
-            font-size: var(--size-large);
-            margin-bottom: var(--spacing-l);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .skills-list {
-            list-style: none;
-        }
-        
-        .skills-list li {
-            font-size: var(--size-base);
-            color: var(--color-text-secondary);
-            margin-bottom: var(--spacing-s);
-            padding-left: var(--spacing-m);
-            position: relative;
-        }
-        
-        .skills-list li::before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: var(--color-text);
-        }
-        
-        .about-image {
-            height: 500px;
-            background: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-text-secondary);
-            font-size: var(--size-large);
-            border: 1px solid var(--color-border);
-        }
-        
-        /* Contact Section */
-        .contact-section {
-            padding: var(--spacing-xxl) 0;
-            background: #f8f8f8;
-            text-align: center;
-        }
-        
-        .contact-title {
-            font-size: var(--size-xl);
-            margin-bottom: var(--spacing-l);
-            font-weight: 300;
-        }
-        
-        .contact-text {
-            font-size: var(--size-large);
-            color: var(--color-text-secondary);
-            margin-bottom: var(--spacing-xl);
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .contact-links {
-            display: flex;
-            gap: var(--spacing-l);
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .contact-link {
-            padding: var(--spacing-m) var(--spacing-l);
-            background: white;
-            border: 1px solid var(--color-border);
-            color: var(--color-text);
-            text-transform: uppercase;
-            font-size: var(--size-small);
-            letter-spacing: 0.05em;
-            transition: all 0.2s;
-        }
-        
-        .contact-link:hover {
-            background: var(--color-text);
-            color: white;
-            border-color: var(--color-text);
-        }
-        
-        /* Process Section */
-        .process-section {
-            padding: var(--spacing-xxl) 0;
-        }
-        
-        .process-title {
-            font-size: var(--size-xl);
-            text-align: center;
-            margin-bottom: var(--spacing-xl);
-            font-weight: 300;
-        }
-        
-        .process-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--spacing-xl);
-        }
-        
-        .process-step {
-            text-align: center;
-            padding: var(--spacing-l);
-        }
-        
-        .process-number {
-            font-size: var(--size-xxl);
-            font-weight: bold;
-            color: var(--color-accent);
-            margin-bottom: var(--spacing-l);
-        }
-        
-        .process-step-title {
-            font-size: var(--size-large);
-            margin-bottom: var(--spacing-m);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .process-description {
-            color: var(--color-text-secondary);
-            line-height: 1.6;
-        }
-        
-        /* Stats Section */
-        .stats-section {
-            padding: var(--spacing-xxl) 0;
-            background: var(--color-text);
-            color: white;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: var(--spacing-xl);
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-size: var(--size-xxl);
-            font-weight: bold;
-            margin-bottom: var(--spacing-s);
-        }
-        
-        .stat-label {
-            font-size: var(--size-small);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            opacity: 0.8;
-        }
-        
-        /* Footer */
-        .footer {
-            background: var(--color-text);
-            color: var(--color-bg);
-            padding: var(--spacing-xxl) 0 var(--spacing-xl);
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: var(--spacing-xxl);
-        }
-        
-        .footer-section h3 {
-            font-size: var(--size-large);
-            margin-bottom: var(--spacing-l);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: var(--spacing-s);
-        }
-        
-        .footer-links a {
-            color: #cccccc;
-            text-transform: uppercase;
-            font-size: var(--size-small);
-            letter-spacing: 0.05em;
-            transition: color 0.2s;
-        }
-        
-        .footer-links a:hover {
-            color: var(--color-bg);
-        }
-        
-        .back-to-top {
-            position: fixed;
-            bottom: var(--spacing-l);
-            right: var(--spacing-l);
-            width: 48px;
-            height: 48px;
-            background: var(--color-text);
-            color: var(--color-bg);
-            border: none;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: opacity 0.2s;
-            opacity: 0;
-            pointer-events: none;
-            font-size: var(--size-large);
-        }
-        
-        .back-to-top.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 var(--spacing-m);
-            }
-            
-            .header-content {
-                height: 50px;
-            }
-            
-            .main {
-                margin-top: 50px;
-            }
-            
-            .nav {
-                gap: var(--spacing-m);
-            }
-            
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: var(--spacing-l);
-            }
-            
-            .about-title {
-                font-size: var(--size-xl);
-            }
-            
-            .about-paragraph {
-                font-size: var(--size-base);
-            }
-            
-            .about-image {
-                height: 300px;
-            }
-            
-            .contact-links {
-                gap: var(--spacing-m);
-            }
-            
-            .process-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: var(--spacing-l);
-            }
-        }
-    </style>
+    <!-- Подключение модульных CSS файлов -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/typography.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    
+    <!-- Preload критичных ресурсов -->
+    <link rel="preload" href="../fonts/retry-sans-mono.woff2" as="font" type="font/woff2" crossorigin>
 </head>
-<body>
+<body data-page="about">
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <a href="../index.html">🖨</a>
-                </div>
-                <nav class="nav">
-                    <a href="../index.html#fonts">All fonts</a>
-                    <a href="fonts-in-use.html">Fonts in use</a>
-                    <a href="lettering.html">Custom lettering</a>
-                    <a href="about.html" class="active">About</a>
-                </nav>
-            </div>
+            <nav class="nav">
+                <a href="../index.html" class="logo">
+                    <img src="../assets/svg/logo.svg" alt="The Loveprinting Machine">
+                </a>
+                <ul class="nav__list">
+                    <li><a href="typefaces.html">Typefaces</a></li>
+                    <li><a href="fonts-in-use.html">Fonts in use</a></li>
+                    <li><a href="lettering.html">Lettering</a></li>
+                    <li><a href="about.html" class="nav__link--active">About</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="main">
-        <!-- About Section -->
-        <section class="about-section">
-            <div class="container">
-                <div class="about-grid">
-                    <div class="about-text">
-                        <h1 class="about-title">About The Loveprinting Machine</h1>
-                        
-                        <p class="about-paragraph">I've been creating lettering and calligraphy since 2017 — hoping that this is me chosen this field but also experimenting with animated lettering frame by frame. But I'm also experimenting with animated lettering printed of created by other.</p>
-                        
-                        <p class="about-paragraph">The creation of the unity platform has previously focused another angle of myself and decided to pursue qualified online learning. Since his software expertise is designing to pursue qualified online learning.</p>
-                        
-                        <p class="about-paragraph">Hence, a blue smart font with elegantly edged icons about themselves and eventually settled another angle of myself and decided to pursue qualified online after were searching. A shared solution with script handwriting fonts, I support if it's design solution.</p>
-                        
-                        <div class="about-skills">
-                            <h2 class="skills-title">Specializations</h2>
-                            <ul class="skills-list">
-                                <li>Type Design & Font Development</li>
-                                <li>Custom Lettering & Calligraphy</li>
-                                <li>Variable Font Technology</li>
-                                <li>Brand Typography Systems</li>
-                                <li>Animated Typography</li>
-                                <li>Digital & Print Typography</li>
-                            </ul>
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="page-hero__title">About The Loveprinting Machine</h1>
+            <p class="page-hero__description">
+                A type foundry dedicated to creating distinctive typefaces and custom lettering for modern communication.
+            </p>
+        </div>
+    </section>
+
+    <!-- About Main Content -->
+    <section class="about-content">
+        <div class="container">
+            <div class="about-intro">
+                <div class="about-intro__image">
+                    <img src="../assets/images/about/designer-photo.jpg" alt="Designer at work" class="about-photo">
+                </div>
+                <div class="about-intro__text">
+                    <h2>Hello, I'm [Your Name]</h2>
+                    <p class="lead">A type designer passionate about creating unique typefaces that combine traditional craftsmanship with contemporary design sensibilities.</p>
+                    
+                    <p>Founded in 2020, The Loveprinting Machine Type Foundry emerged from a deep appreciation for the art of letterforms and their power to communicate meaning beyond words. Each typeface in our collection is meticulously crafted to serve both functional and aesthetic purposes.</p>
+                    
+                    <p>My approach to type design is rooted in understanding the cultural and historical context of typography while embracing modern technology and design trends. Whether it's a versatile sans-serif for corporate identity or an expressive script for luxury branding, every project begins with thorough research and exploration.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scroll Animation -->
+    <section class="scroll-animation" data-animation="scroll-trigger">
+        <div class="container">
+            <div class="animation-container">
+                <img src="../assets/gif/about-animation.gif" alt="Design Process Animation" class="scroll-gif">
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="philosophy">
+        <div class="container">
+            <h2 class="section-title">Design Philosophy</h2>
+            <div class="philosophy-grid">
+                <div class="philosophy-item">
+                    <h3>Functionality First</h3>
+                    <p>Every typeface must serve its intended purpose flawlessly, whether it's for long-form reading, display headlines, or user interfaces. Beauty without function is merely decoration.</p>
+                </div>
+                <div class="philosophy-item">
+                    <h3>Cultural Sensitivity</h3>
+                    <p>Typography carries cultural weight and historical significance. I strive to create typefaces that respect linguistic traditions while pushing creative boundaries.</p>
+                </div>
+                <div class="philosophy-item">
+                    <h3>Technical Excellence</h3>
+                    <p>Modern typography requires mastery of both traditional principles and contemporary technology. Each font is optimized for multiple platforms and use cases.</p>
+                </div>
+                <div class="philosophy-item">
+                    <h3>Sustainable Design</h3>
+                    <p>Creating typefaces that stand the test of time, avoiding fleeting trends in favor of timeless solutions that will remain relevant for years to come.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience">
+        <div class="container">
+            <div class="experience-content">
+                <div class="experience-text">
+                    <h2>Experience & Background</h2>
+                    <p>With over 8 years of experience in graphic design and typography, I've had the privilege of working with diverse clients ranging from independent startups to established international brands.</p>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">2020</div>
+                            <div class="timeline-content">
+                                <h4>Founded The Loveprinting Machine</h4>
+                                <p>Launched the type foundry with the first commercial typeface release</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2018</div>
+                            <div class="timeline-content">
+                                <h4>Freelance Type Designer</h4>
+                                <p>Began focusing exclusively on custom typography and lettering projects</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2016</div>
+                            <div class="timeline-content">
+                                <h4>Senior Graphic Designer</h4>
+                                <p>Led typography projects at a creative agency, developing brand identities</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2015</div>
+                            <div class="timeline-content">
+                                <h4>Typography Studies</h4>
+                                <p>Completed advanced studies in typography and type design</p>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="about-image">
-                        [About Photo]
-                    </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Process Section -->
-        <section class="process-section">
-            <div class="container">
-                <h2 class="process-title">Design Process</h2>
-                <div class="process-grid">
-                    <div class="process-step">
-                        <div class="process-number">01</div>
-                        <h3 class="process-step-title">Research & Concept</h3>
-                        <p class="process-description">Understanding the project goals, target audience, and technical requirements to develop a strong conceptual foundation.</p>
-                    </div>
-                    
-                    <div class="process-step">
-                        <div class="process-number">02</div>
-                        <h3 class="process-step-title">Sketching & Development</h3>
-                        <p class="process-description">Hand-drawn explorations and digital refinement to establish the character and personality of the typeface.</p>
-                    </div>
-                    
-                    <div class="process-step">
-                        <div class="process-number">03</div>
-                        <h3 class="process-step-title">Technical Production</h3>
-                        <p class="process-description">Professional font production including spacing, kerning, language support, and format optimization.</p>
-                    </div>
-                    
-                    <div class="process-step">
-                        <div class="process-number">04</div>
-                        <h3 class="process-step-title">Testing & Refinement</h3>
-                        <p class="process-description">Rigorous testing across different contexts and applications to ensure optimal performance and readability.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Stats Section -->
-        <section class="stats-section">
-            <div class="container">
-                <div class="stats-grid">
+                <div class="experience-stats">
                     <div class="stat-item">
-                        <div class="stat-number">6+</div>
+                        <div class="stat-number">6</div>
                         <div class="stat-label">Typefaces Released</div>
                     </div>
-                    
                     <div class="stat-item">
                         <div class="stat-number">50+</div>
-                        <div class="stat-label">Lettering Projects</div>
+                        <div class="stat-label">Custom Projects</div>
                     </div>
-                    
+                    <div class="stat-item">
+                        <div class="stat-number">25+</div>
+                        <div class="stat-label">Happy Clients</div>
+                    </div>
                     <div class="stat-item">
                         <div class="stat-number">8</div>
                         <div class="stat-label">Years Experience</div>
                     </div>
-                    
-                    <div class="stat-item">
-                        <div class="stat-number">15+</div>
-                        <div class="stat-label">Languages Supported</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <h2 class="section-title">Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-card__icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <path d="M8 12h24M8 20h24M8 28h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-card__title">Custom Typeface Design</h3>
+                    <p class="service-card__description">Bespoke typeface development for brands requiring unique typographic identity and competitive differentiation.</p>
+                    <ul class="service-card__features">
+                        <li>Complete font family development</li>
+                        <li>Multiple weights and styles</li>
+                        <li>OpenType features implementation</li>
+                        <li>Multi-platform optimization</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-card__icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <path d="M12 8l8 24M20 8l8 24M8 16h24M8 24h24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-card__title">Custom Lettering</h3>
+                    <p class="service-card__description">Hand-crafted lettering solutions for logos, packaging, editorial, and environmental applications.</p>
+                    <ul class="service-card__features">
+                        <li>Logo and wordmark design</li>
+                        <li>Packaging and label lettering</li>
+                        <li>Editorial and display typography</li>
+                        <li>Environmental and signage lettering</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-card__icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <path d="M20 8v24M12 16l8-8 8 8M12 24l8 8 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-card__title">Typography Consultation</h3>
+                    <p class="service-card__description">Expert guidance on typography selection, implementation, and brand consistency across all touchpoints.</p>
+                    <ul class="service-card__features">
+                        <li>Typeface selection and pairing</li>
+                        <li>Brand typography guidelines</li>
+                        <li>Multi-language support planning</li>
+                        <li>Technical implementation advice</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Awards & Recognition -->
+    <section class="awards">
+        <div class="container">
+            <h2 class="section-title">Awards & Recognition</h2>
+            <div class="awards-grid">
+                <div class="award-item">
+                    <div class="award-year">2024</div>
+                    <div class="award-content">
+                        <h4>Type Directors Club Excellence</h4>
+                        <p>Recognition for outstanding typeface design</p>
+                    </div>
+                </div>
+                <div class="award-item">
+                    <div class="award-year">2023</div>
+                    <div class="award-content">
+                        <h4>Communication Arts Typography Annual</h4>
+                        <p>Featured in the annual typography showcase</p>
+                    </div>
+                </div>
+                <div class="award-item">
+                    <div class="award-year">2022</div>
+                    <div class="award-content">
+                        <h4>European Design Awards</h4>
+                        <p>Gold medal for custom lettering project</p>
+                    </div>
+                </div>
+                <div class="award-item">
+                    <div class="award-year">2021</div>
+                    <div class="award-content">
+                        <h4>International Typography Competition</h4>
+                        <p>Winner in custom typeface category</p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Contact Section -->
-        <section class="contact-section">
-            <div class="container">
-                <h2 class="contact-title">Let's Work Together</h2>
-                <p class="contact-text">Interested in custom typeface design, lettering projects, or have questions about existing fonts? Get in touch to discuss your project.</p>
-                
-                <div class="contact-links">
-                    <a href="mailto:hello@loveprinting.com" class="contact-link">E-mail</a>
-                    <a href="https://t.me/loveprinting" class="contact-link" target="_blank">Telegram</a>
-                    <a href="https://instagram.com/loveprinting" class="contact-link" target="_blank">Instagram</a>
-                    <a href="https://behance.net/loveprinting" class="contact-link" target="_blank">Behance</a>
+    <!-- Contact CTA -->
+    <section class="contact-cta">
+        <div class="container">
+            <div class="contact-cta__content">
+                <h2>Let's Work Together</h2>
+                <p>Interested in custom typography for your project? I'd love to hear about your vision and explore how we can bring it to life through distinctive letterforms.</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h4>Email</h4>
+                        <p><a href="mailto:info@loveprinting.com">info@loveprinting.com</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Response Time</h4>
+                        <p>Within 24 hours</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Project Timeline</h4>
+                        <p>2-12 weeks depending on scope</p>
+                    </div>
+                </div>
+                <div class="contact-actions">
+                    <a href="mailto:info@loveprinting.com?subject=Project Inquiry" class="btn btn--primary">Start a Project</a>
+                    <a href="mailto:info@loveprinting.com?subject=General Inquiry" class="btn btn--secondary">General Inquiry</a>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>The Loveprinting Machine<br>Type Foundry</h3>
+            <div class="footer__content">
+                <div class="footer__logo">
+                    <img src="../assets/svg/logo.svg" alt="The Loveprinting Machine">
                 </div>
-                <div class="footer-section">
-                    <h3>Fonts</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Retiler</a></li>
-                        <li><a href="#">Retry Sans</a></li>
-                        <li><a href="#">Lanze</a></li>
-                        <li><a href="#">Puff</a></li>
-                        <li><a href="#">Nytra Mono</a></li>
+                <nav class="footer__nav">
+                    <ul>
+                        <li><a href="typefaces.html">Typefaces</a></li>
+                        <li><a href="fonts-in-use.html">Fonts in use</a></li>
+                        <li><a href="lettering.html">Lettering</a></li>
+                        <li><a href="about.html">About</a></li>
                     </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Telegram</a></li>
-                        <li><a href="#">Instagram</a></li>
-                        <li><a href="#">Behance</a></li>
-                        <li><a href="#">E-mail</a></li>
-                    </ul>
+                </nav>
+                <div class="footer__contacts">
+                    <p>info@loveprinting.com</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Behance</a>
+                    </div>
                 </div>
             </div>
-            <button class="back-to-top" id="backToTop">↑</button>
+            <div class="footer__bottom">
+                <p>&copy; 2025 The Loveprinting Machine Type Foundry. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
-    <script>
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            initBackToTop();
-            initAnimations();
-        });
-
-        function initBackToTop() {
-            const backToTop = document.getElementById('backToTop');
-            
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    backToTop.classList.add('visible');
-                } else {
-                    backToTop.classList.remove('visible');
-                }
-            });
-            
-            backToTop.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        }
-
-        function initAnimations() {
-            // Animate stats when they come into view
-            const observerOptions = {
-                threshold: 0.5,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        animateStats(entry.target);
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            const statsSection = document.querySelector('.stats-section');
-            if (statsSection) {
-                observer.observe(statsSection);
-            }
-        }
-
-        function animateStats(section) {
-            const statNumbers = section.querySelectorAll('.stat-number');
-            
-            statNumbers.forEach(stat => {
-                const finalValue = stat.textContent;
-                const numericValue = parseInt(finalValue.replace(/\D/g, ''));
-                const suffix = finalValue.replace(/\d/g, '');
-                
-                let current = 0;
-                const increment = numericValue / 60; // Animate over ~1 second at 60fps
-                
-                const animation = setInterval(() => {
-                    current += increment;
-                    if (current >= numericValue) {
-                        stat.textContent = finalValue;
-                        clearInterval(animation);
-                    } else {
-                        stat.textContent = Math.floor(current) + suffix;
-                    }
-                }, 16);
-            });
-        }
-    </script>
+    <!-- Подключение модульных JavaScript файлов -->
+    <script src="../js/animations.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 </html>
