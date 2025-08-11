@@ -16,6 +16,163 @@
     <link rel="stylesheet" href="../css/layout.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/responsive.css">
+    
+    <style>
+        /* Simple button filters (адаптировано под fonts in use) */
+        .simple-filters {
+            padding: var(--spacing-3xl) 0;
+            background: var(--color-white);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .simple-filters__buttons {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+
+        .simple-filter-btn {
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background: transparent;
+            border: 1px solid var(--color-gray-300);
+            color: var(--color-gray-600);
+            text-transform: uppercase;
+            font-size: var(--size-sm);
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-family: inherit;
+            border-radius: 0;
+            white-space: nowrap;
+        }
+
+        .simple-filter-btn:hover,
+        .simple-filter-btn.active {
+            background: var(--color-black);
+            color: var(--color-white);
+            border-color: var(--color-black);
+        }
+
+        /* Projects grid styling */
+        .projects-grid-section {
+            padding: var(--spacing-4xl) 0;
+            background: var(--color-white);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-2xl);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .project-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-200);
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card--featured {
+            grid-column: span 2;
+        }
+
+        .project-card__image {
+            aspect-ratio: 16/10;
+            overflow: hidden;
+            background: var(--color-gray-100);
+        }
+
+        .project-card__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-gray-200);
+            color: var(--color-gray-500);
+            font-size: var(--size-sm);
+            text-align: center;
+            padding: var(--spacing-lg);
+        }
+
+        .project-card__content {
+            padding: var(--spacing-lg);
+        }
+
+        .project-card__category {
+            font-size: var(--size-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-gray-500);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .project-card__title {
+            font-size: var(--size-lg);
+            font-weight: 400;
+            margin-bottom: var(--spacing-sm);
+            line-height: var(--leading-tight);
+        }
+
+        .project-card__description {
+            font-size: var(--size-sm);
+            line-height: var(--leading-relaxed);
+            color: var(--color-gray-600);
+        }
+
+        .project-card__meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--spacing-lg);
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--color-gray-100);
+        }
+
+        .project-card__fonts {
+            font-size: var(--size-xs);
+            color: var(--color-gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .project-card__year {
+            font-size: var(--size-xs);
+            color: var(--color-gray-400);
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-card--featured {
+                grid-column: span 1;
+            }
+
+            .simple-filters__buttons {
+                gap: var(--spacing-sm);
+            }
+
+            .simple-filter-btn {
+                padding: var(--spacing-xs) var(--spacing-md);
+                font-size: var(--size-xs);
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -60,242 +217,25 @@
             </div>
         </section>
 
-        <!-- Filter and Search Controls -->
-        <section class="section bg-gray-100">
+        <!-- Simple Filters Section -->
+        <section class="simple-filters">
             <div class="container">
-                <div class="filters-wrapper">
-                    <!-- Search -->
-                    <div class="search-container" data-type="projects">
-                        <!-- Will be populated by JavaScript -->
-                    </div>
-                    
-                    <!-- Filters -->
-                    <div class="filters-and-sort flex justify-between items-start gap-2xl">
-                        <div class="filters-container" data-type="projects">
-                            <!-- Will be populated by JavaScript -->
-                        </div>
-                        
-                        <!-- Sort Controls -->
-                        <div class="sort-container" data-type="projects">
-                            <!-- Will be populated by JavaScript -->
-                        </div>
-                    </div>
-                    
-                    <!-- Results Count -->
-                    <div class="results-info">
-                        <span class="results-count" data-count="projects">0 projects</span>
-                    </div>
+                <div class="simple-filters__buttons" id="projectFilters">
+                    <button class="simple-filter-btn active" data-filter="all">All</button>
+                    <button class="simple-filter-btn" data-filter="branding">Branding</button>
+                    <button class="simple-filter-btn" data-filter="editorial">Editorial</button>
+                    <button class="simple-filter-btn" data-filter="web">Web</button>
+                    <button class="simple-filter-btn" data-filter="animation">Animation</button>
+                    <button class="simple-filter-btn" data-filter="system">Design System</button>
                 </div>
             </div>
         </section>
 
-        <!-- Projects Grid -->
-        <section class="section bg-white">
+        <!-- Projects Grid Section -->
+        <section class="projects-grid-section">
             <div class="container">
-                <div class="projects-grid" data-results="projects">
-                    <!-- Featured Projects (Static for now) -->
-                    <article class="project-card project-card--featured">
-                        <div class="project-card__image">
-                            <div class="project-placeholder bg-gray-200 aspect-video flex items-center justify-center">
-                                <span class="text-gray-500">TechFlow Startup Identity</span>
-                            </div>
-                        </div>
-                        <div class="project-card__content">
-                            <div class="project-card__category">Branding</div>
-                            <h2 class="project-card__title">TechFlow Startup Identity</h2>
-                            <p class="project-card__description">
-                                Complete brand identity for a technology startup focusing on workflow automation. 
-                                Clean, modern approach with emphasis on clarity and innovation.
-                            </p>
-                            <div class="project-card__fonts">
-                                <span class="font-tag">Retiler</span>
-                                <span class="font-tag">Retry Sans</span>
-                            </div>
-                            <div class="project-card__meta">
-                                <span class="project-year">2024</span>
-                                <span class="project-client">TechFlow Inc.</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="project-card">
-                        <div class="project-card__image">
-                            <div class="project-placeholder bg-gray-200 aspect-video flex items-center justify-center">
-                                <span class="text-gray-500">Architecture Posters</span>
-                            </div>
-                        </div>
-                        <div class="project-card__content">
-                            <div class="project-card__category">Editorial</div>
-                            <h2 class="project-card__title">Minimal Architecture Poster Series</h2>
-                            <p class="project-card__description">
-                                A series of architectural posters celebrating modernist buildings. 
-                                Typography as the primary design element.
-                            </p>
-                            <div class="project-card__fonts">
-                                <span class="font-tag">Retiler</span>
-                                <span class="font-tag">Lanze</span>
-                            </div>
-                            <div class="project-card__meta">
-                                <span class="project-year">2024</span>
-                                <span class="project-client">Architecture Museum</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="project-card">
-                        <div class="project-card__image">
-                            <div class="project-placeholder bg-gray-200 aspect-video flex items-center justify-center">
-                                <span class="text-gray-500">Developer Portfolio</span>
-                            </div>
-                        </div>
-                        <div class="project-card__content">
-                            <div class="project-card__category">Web</div>
-                            <h2 class="project-card__title">Developer Portfolio Website</h2>
-                            <p class="project-card__description">
-                                Personal portfolio website emphasizing code readability and 
-                                technical precision while maintaining visual appeal.
-                            </p>
-                            <div class="project-card__fonts">
-                                <span class="font-tag">Nytra Mono</span>
-                                <span class="font-tag">Retry Sans</span>
-                            </div>
-                            <div class="project-card__meta">
-                                <span class="project-year">2023</span>
-                                <span class="project-client">Alex Rodriguez</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="project-card">
-                        <div class="project-card__image">
-                            <div class="project-placeholder bg-gray-200 aspect-video flex items-center justify-center">
-                                <span class="text-gray-500">Puff Animation</span>
-                            </div>
-                        </div>
-                        <div class="project-card__content">
-                            <div class="project-card__category">Animation</div>
-                            <h2 class="project-card__title">Puff Animation Logo</h2>
-                            <p class="project-card__description">
-                                Dynamic logo animation using the Puff variable font. 
-                                Inflates and deflates for engaging motion graphics.
-                            </p>
-                            <div class="project-card__fonts">
-                                <span class="font-tag">Puff Variable</span>
-                            </div>
-                            <div class="project-card__meta">
-                                <span class="project-year">2024</span>
-                                <span class="project-client">Balloon Festival</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="project-card">
-                        <div class="project-card__image">
-                            <div class="project-placeholder bg-gray-200 aspect-video flex items-center justify-center">
-                                <span class="text-gray-500">Thunder Basketball</span>
-                            </div>
-                        </div>
-                        <div class="project-card__content">
-                            <div class="project-card__category">Branding</div>
-                            <h2 class="project-card__title">Thunder Basketball Team Identity</h2>
-                            <p class="project-card__description">
-                                Complete rebrand for a professional basketball team. 
-                                Bold, energetic typography that captures aggressive playing style.
-                            </p>
-                            <div class="project-card__fonts">
-                                <span class="font-tag">Lanze</span>
-                            </div>
-                            <div class="project-card__meta">
-                                <span class="project-year">2023</span>
-                                <span class="project-client">Thunder Basketball</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="project-card">
-                        <div class="project-card__image">
-                            <div class="project-placeholder bg-gray-200 aspect-video flex items-center justify-center">
-                                <span class="text-gray-500">Design System</span>
-                            </div>
-                        </div>
-                        <div class="project-card__content">
-                            <div class="project-card__category">System</div>
-                            <h2 class="project-card__title">Enterprise Design System</h2>
-                            <p class="project-card__description">
-                                Comprehensive design system for Fortune 500 company. 
-                                Typography scales, components, and implementation guidelines.
-                            </p>
-                            <div class="project-card__fonts">
-                                <span class="font-tag">Retry Sans</span>
-                            </div>
-                            <div class="project-card__meta">
-                                <span class="project-year">2022</span>
-                                <span class="project-client">GlobalTech Corp</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="project-card">
-                        <div class="project-card__image">
-                            <div class="project-placeholder bg-gray-200 aspect-video flex items-center justify-center">
-                                <span class="text-gray-500">Pacific Waves</span>
-                            </div>
-                        </div>
-                        <div class="project-card__content">
-                            <div class="project-card__category">Branding</div>
-                            <h2 class="project-card__title">Pacific Waves Surf Shop</h2>
-                            <p class="project-card__description">
-                                Branding for California surf shop embodying laid-back beach culture. 
-                                Hand-lettered style authentic to surfing community.
-                            </p>
-                            <div class="project-card__fonts">
-                                <span class="font-tag">Pacific</span>
-                            </div>
-                            <div class="project-card__meta">
-                                <span class="project-year">2023</span>
-                                <span class="project-client">Pacific Waves</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="project-card">
-                        <div class="project-card__image">
-                            <div class="project-placeholder bg-gray-200 aspect-video flex items-center justify-center">
-                                <span class="text-gray-500">Underground Festival</span>
-                            </div>
-                        </div>
-                        <div class="project-card__content">
-                            <div class="project-card__category">Editorial</div>
-                            <h2 class="project-card__title">Underground Music Festival</h2>
-                            <p class="project-card__description">
-                                Poster design for underground electronic music festival. 
-                                Bold typography reflecting energy and edge of music scene.
-                            </p>
-                            <div class="project-card__fonts">
-                                <span class="font-tag">Lanze</span>
-                            </div>
-                            <div class="project-card__meta">
-                                <span class="project-year">2023</span>
-                                <span class="project-client">Underground Festival</span>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- Call to Action -->
-        <section class="section bg-gray-100">
-            <div class="container">
-                <div class="cta-content text-center">
-                    <h2 class="text-3xl mb-lg">Share Your Project</h2>
-                    <p class="text-lg text-gray-600 mb-xl max-w-2xl mx-auto">
-                        Using our fonts in your project? We'd love to feature it! 
-                        Send us your work to get showcased in our fonts in use gallery.
-                    </p>
-                    <a href="mailto:hello@loveprinting.com?subject=Project Submission" class="button button--accent">
-                        Submit Your Project
-                    </a>
+                <div class="projects-grid" id="projectsGrid">
+                    <!-- Projects will be loaded here by JavaScript -->
                 </div>
             </div>
         </section>
@@ -306,193 +246,258 @@
         <div class="container">
             <div class="footer__content">
                 <div class="footer__brand">
-                    <h3 class="footer__title">THE LOVEPRINTING MACHINE</h3>
-                    <p class="footer__subtitle">TYPE FOUNDRY</p>
+                    <h2 class="footer__title">The Loveprinting Machine</h2>
+                    <p class="footer__subtitle">Type Foundry</p>
                 </div>
-                
                 <div class="footer__nav">
-                    <div class="footer__column">
-                        <h4 class="footer__heading">FONTS</h4>
-                        <ul class="footer__list">
-                            <li><a href="../typeface/retiler.html">RETILER</a></li>
-                            <li><a href="../typeface/retry-sans.html">RETRY SANS</a></li>
-                            <li><a href="../typeface/lanze.html">LANZE</a></li>
-                            <li><a href="../typeface/puff.html">PUFF</a></li>
-                            <li><a href="../typeface/nytra-mono.html">NYTRA MONO</a></li>
+                    <div class="footer__section">
+                        <h3 class="footer__heading">Fonts</h3>
+                        <ul class="footer__links">
+                            <li><a href="../index.html#fonts" class="footer__link">All fonts</a></li>
+                            <li><a href="../typeface/retiler.html" class="footer__link">Retiler</a></li>
+                            <li><a href="../typeface/retry-sans.html" class="footer__link">Retry Sans</a></li>
+                            <li><a href="../typeface/nytra-mono.html" class="footer__link">Nytra Mono</a></li>
                         </ul>
                     </div>
-                    
-                    <div class="footer__column">
-                        <h4 class="footer__heading">LINKS</h4>
-                        <ul class="footer__list">
-                            <li><a href="https://t.me/">TELEGRAM</a></li>
-                            <li><a href="https://instagram.com/">INSTAGRAM</a></li>
-                            <li><a href="https://behance.net/">BEHANCE</a></li>
-                            <li><a href="mailto:hello@example.com">E-MAIL</a></li>
+                    <div class="footer__section">
+                        <h3 class="footer__heading">Work</h3>
+                        <ul class="footer__links">
+                            <li><a href="fonts-in-use.html" class="footer__link">Fonts in use</a></li>
+                            <li><a href="lettering.html" class="footer__link">Custom letters</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer__section">
+                        <h3 class="footer__heading">Info</h3>
+                        <ul class="footer__links">
+                            <li><a href="about.html" class="footer__link">About</a></li>
+                            <li><a href="#" class="footer__link">Contact</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-            
-            <!-- Back to Top Button -->
-            <button class="back-to-top" id="backToTop" aria-label="Back to top">
-                ↑
-            </button>
+            <div class="footer__bottom">
+                <div class="footer__copyright">
+                    <p>&copy; 2024 The Loveprinting Machine. All rights reserved.</p>
+                </div>
+                <button class="footer__scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    ↑ Back to top
+                </button>
+            </div>
         </div>
     </footer>
 
-    <!-- Additional Styles for Projects -->
-    <style>
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: var(--spacing-2xl);
-            margin-top: var(--spacing-2xl);
-        }
-
-        .project-card {
-            background: var(--color-white);
-            border-radius: var(--border-radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: all var(--transition-normal);
-        }
-
-        .project-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .project-card--featured {
-            grid-column: span 2;
-        }
-
-        .project-card__image {
-            aspect-ratio: 16 / 9;
-            overflow: hidden;
-        }
-
-        .project-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: var(--size-sm);
-        }
-
-        .project-card__content {
-            padding: var(--spacing-lg);
-        }
-
-        .project-card__category {
-            font-size: var(--size-xs);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--color-accent);
-            margin-bottom: var(--spacing-sm);
-        }
-
-        .project-card__title {
-            font-size: var(--size-lg);
-            font-weight: 500;
-            margin-bottom: var(--spacing-sm);
-            line-height: var(--leading-tight);
-        }
-
-        .project-card__description {
-            font-size: var(--size-sm);
-            color: var(--color-gray-600);
-            line-height: var(--leading-normal);
-            margin-bottom: var(--spacing-md);
-        }
-
-        .project-card__fonts {
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--spacing-xs);
-            margin-bottom: var(--spacing-md);
-        }
-
-        .font-tag {
-            background: var(--color-gray-100);
-            color: var(--color-gray-700);
-            padding: var(--spacing-xs) var(--spacing-sm);
-            border-radius: var(--border-radius-sm);
-            font-size: var(--size-xs);
-        }
-
-        .project-card__meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: var(--size-xs);
-            color: var(--color-gray-500);
-        }
-
-        .filters-wrapper {
-            background: var(--color-gray-400);
-            padding: var(--spacing-xl);
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .results-info {
-            margin-top: var(--spacing-lg);
-            padding-top: var(--spacing-lg);
-            border-top: 1px solid var(--color-gray-200);
-        }
-
-        .results-count {
-            font-size: var(--size-sm);
-            color: var(--color-gray-600);
-        }
-
-        /* Mobile adjustments */
-        @media (max-width: 768px) {
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .project-card--featured {
-                grid-column: span 1;
-            }
-
-            .filters-and-sort {
-                flex-direction: column;
-                gap: var(--spacing-lg);
-            }
-        }
-    </style>
-
-    <!-- JavaScript Modules -->
+    <!-- JavaScript for simple filtering (аналогично lettering.html) -->
     <script src="../js/data-loader.js"></script>
-    <script src="../js/main.js"></script>
-    <script src="../js/filters.js"></script>
-    
     <script>
-        // Initialize fonts in use page
-        document.addEventListener('DOMContentLoaded', async function() {
-            try {
-                // Load projects data
-                const projectsData = await window.dataLoader.getProjects();
-                console.log('Projects data loaded:', projectsData);
-                
-                // Initialize filters for projects
-                if (window.filtersManager) {
-                    await window.filtersManager.loadDataForType('projects');
-                }
-                
-                // Update results count
-                const totalProjects = projectsData.projects?.length || 8;
-                const countElement = document.querySelector('[data-count="projects"]');
-                if (countElement) {
-                    countElement.textContent = `${totalProjects} projects`;
-                }
-                
-            } catch (error) {
-                console.error('Error initializing fonts in use page:', error);
+        class SimpleProjectsFilter {
+            constructor() {
+                this.data = [];
+                this.currentFilter = 'all';
+                this.init();
             }
+
+            async init() {
+                await this.loadData();
+                this.bindEvents();
+                this.render();
+            }
+
+            async loadData() {
+                try {
+                    // Load projects data
+                    if (window.dataLoader && window.dataLoader.getProjects) {
+                        const projectsData = await window.dataLoader.getProjects();
+                        this.data = projectsData.projects || [];
+                    } else {
+                        // Fallback static data
+                        this.data = [
+                            {
+                                id: "tech-startup-branding",
+                                name: "TechFlow Startup Identity",
+                                description: "Complete brand identity for a technology startup focusing on workflow automation. Clean, modern approach with emphasis on clarity and innovation.",
+                                category: "branding",
+                                year: "2024",
+                                usedFonts: ["retiler", "retry-sans"],
+                                featured: true,
+                                link: "https://behance.net/gallery/techflow-identity"
+                            },
+                            {
+                                id: "minimal-poster-series",
+                                name: "Minimal Architecture Poster Series",
+                                description: "A series of architectural posters celebrating modernist buildings. Each poster uses typography as the primary design element.",
+                                category: "editorial",
+                                year: "2024",
+                                usedFonts: ["retiler", "lanze"],
+                                featured: true,
+                                link: "https://dribbble.com/shots/minimal-architecture"
+                            },
+                            {
+                                id: "dev-portfolio",
+                                name: "Developer Portfolio Website",
+                                description: "Personal portfolio website for a full-stack developer. Emphasis on code readability and technical precision.",
+                                category: "web",
+                                year: "2023",
+                                usedFonts: ["nytra-mono", "retry-sans"],
+                                featured: false,
+                                link: "https://alexrodriguez.dev"
+                            },
+                            {
+                                id: "animated-logo",
+                                name: "Puff Animation Logo",
+                                description: "Dynamic logo animation using the Puff variable font. The logo inflates and deflates to create engaging motion graphics.",
+                                category: "animation",
+                                year: "2024",
+                                usedFonts: ["puff"],
+                                featured: true,
+                                link: "https://codepen.io/loveprinting/puff-animation"
+                            },
+                            {
+                                id: "sports-branding",
+                                name: "Thunder Basketball Team Identity",
+                                description: "Complete rebrand for a professional basketball team. Bold, energetic typography that captures the team's aggressive playing style.",
+                                category: "branding",
+                                year: "2023",
+                                usedFonts: ["lanze"],
+                                featured: true,
+                                link: "https://behance.net/gallery/thunder-basketball"
+                            },
+                            {
+                                id: "design-system",
+                                name: "Enterprise Design System",
+                                description: "Comprehensive design system for a Fortune 500 company. Includes typography scales, component library, and implementation guidelines.",
+                                category: "system",
+                                year: "2022",
+                                usedFonts: ["retry-sans"],
+                                featured: false,
+                                link: "https://design.globaltech.com"
+                            },
+                            {
+                                id: "surf-brand",
+                                name: "Pacific Waves Surf Shop",
+                                description: "Branding for a California surf shop that embodies the laid-back beach culture. Hand-lettered style logo and signage.",
+                                category: "branding",
+                                year: "2023",
+                                usedFonts: ["pacific"],
+                                featured: false,
+                                link: "https://behance.net/gallery/pacific-waves"
+                            },
+                            {
+                                id: "festival-poster",
+                                name: "Underground Festival Poster",
+                                description: "Bold typography treatment that reflects the energy and edge of the music scene.",
+                                category: "editorial",
+                                year: "2023",
+                                usedFonts: ["lanze"],
+                                featured: false,
+                                link: "https://dribbble.com/shots/underground-festival"
+                            }
+                        ];
+                    }
+                } catch (error) {
+                    console.error('Error loading projects data:', error);
+                }
+            }
+
+            bindEvents() {
+                const filtersContainer = document.getElementById('projectFilters');
+                if (filtersContainer) {
+                    filtersContainer.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('simple-filter-btn')) {
+                            this.handleFilterClick(e.target);
+                        }
+                    });
+                }
+            }
+
+            handleFilterClick(button) {
+                // Remove active class from all buttons
+                document.querySelectorAll('.simple-filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Update current filter
+                this.currentFilter = button.dataset.filter;
+                
+                // Re-render
+                this.render();
+            }
+
+            getFilteredData() {
+                if (this.currentFilter === 'all') {
+                    return this.data;
+                }
+                
+                return this.data.filter(item => item.category === this.currentFilter);
+            }
+
+            render() {
+                console.log('Rendering projects, current filter:', this.currentFilter);
+                console.log('Available data:', this.data);
+                
+                const container = document.getElementById('projectsGrid');
+                if (!container) {
+                    console.error('Projects grid container not found');
+                    return;
+                }
+                
+                const filteredData = this.getFilteredData();
+                console.log('Filtered data:', filteredData);
+                
+                container.innerHTML = '';
+                
+                if (filteredData.length === 0) {
+                    container.innerHTML = '<div class="no-results">No projects found for this category.</div>';
+                    return;
+                }
+                
+                filteredData.forEach(project => {
+                    const projectCard = this.createProjectCard(project);
+                    container.appendChild(projectCard);
+                });
+            }
+
+            createProjectCard(project) {
+                const card = document.createElement('article');
+                card.className = `project-card ${project.featured ? 'project-card--featured' : ''}`;
+                
+                // Format fonts list
+                const fontsText = project.usedFonts ? project.usedFonts.join(', ') : '';
+                
+                card.innerHTML = `
+                    <div class="project-card__image">
+                        <div class="project-placeholder">
+                            ${project.name}
+                        </div>
+                    </div>
+                    <div class="project-card__content">
+                        <div class="project-card__category">${project.category}</div>
+                        <h2 class="project-card__title">${project.name}</h2>
+                        <p class="project-card__description">${project.description}</p>
+                        <div class="project-card__meta">
+                            <span class="project-card__fonts">Fonts: ${fontsText}</span>
+                            <span class="project-card__year">${project.year}</span>
+                        </div>
+                    </div>
+                `;
+                
+                // Add click handler if link exists
+                if (project.link) {
+                    card.style.cursor = 'pointer';
+                    card.addEventListener('click', () => {
+                        window.open(project.link, '_blank');
+                    });
+                }
+                
+                return card;
+            }
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            new SimpleProjectsFilter();
         });
     </script>
 </body>
